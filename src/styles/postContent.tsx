@@ -94,7 +94,7 @@ const postContentStyle = css`
         top: 0;
         width: 20px;
         height: 20px;
-        border-radius: 50%;
+        border-radius: 25%;
         background: #5c9ee7;
         color: #fff;
         font-weight: 700;

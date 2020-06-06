@@ -189,13 +189,15 @@ Gatsby Plugin - 2 : [gatsby-remark-embed-video](https://www.gatsbyjs.org/package
 
 위의 개츠비 플러그인을 사용하면 유튜브 또는 일반 영상도 마크다운에서 영상 업로드가 가능하니 참고하세요 !
 
-
 ```
 아래와 같은 형식으로 작성하면 됩니다 ! (링크 주소 그대로 넣으면 거부됩니다)
 `youtube:https://www.youtube.com/embed/영상코드`
 
 `youtube:https://www.youtube.com/embed/7-x3uD5z1bQ`
 ```
+
+제가 최근 가장 즐겨 듣는 음악인 `Harry Styles - Watermelon Sugar` 올리면서 이번 포스팅을 마무리하겠습니다.  
+봐주셔서 감사합니다 🙇🏻‍♂️
 
 `youtube:https://www.youtube.com/embed/7-x3uD5z1bQ`
 
