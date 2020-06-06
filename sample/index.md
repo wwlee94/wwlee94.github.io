@@ -29,16 +29,6 @@ git add .
 git commit -m "Init project"
 ```
 
-```bash
-git remote add origin git@github.com:suites/my-blog.git
-git push -u origin master
-
-npm run start
-
-http://localhost:8000/
-http://localhost:8000/___graphql
-```
-
 ### 자바스크립트 코드 블럭
 
 gatby-config.js

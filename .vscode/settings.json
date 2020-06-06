@@ -8,5 +8,6 @@
     "source.organizeImports": true
   },
   "javascript.format.enable": true,
-  "typescript.format.enable": true
+  "typescript.format.enable": true,
+  "svg.preview.background": "transparent"
 }

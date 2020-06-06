@@ -1,27 +1,22 @@
-import { graphql, Link } from 'gatsby';
+import { Link } from 'gatsby';
 import React from 'react';
 import styled from 'styled-components';
-
-import cactusBlue from '../../static/images/svg/categories/cactus-blue.svg';
-import cactusGreen from '../../static/images/svg/categories/cactus-green.svg';
-import cactusRed from '../../static/images/svg/categories/cactus-red.svg';
-import cactusYellow from '../../static/images/svg/categories/cactus-yellow.svg';
 import svgNew from '../../static/images/svg/categories/new.svg';
-
 import { Category } from '../models';
+import * as CategoryIcon from '../models/Icon';
 
 const Nav = styled.nav`
   display: block;
   margin: 0;
   padding: 0 0 2em;
-  @media screen and (max-width: ${(props) => props.theme.responsive.small}) {
+  @media screen and (max-width: ${props => props.theme.responsive.small}) {
     padding: 1em 0;
   }
 `;
 
 const CategoryItemList = styled.ul`
   display: flex;
-  @media screen and (max-width: ${(props) => props.theme.responsive.small}) {
+  @media screen and (max-width: ${props => props.theme.responsive.small}) {
     margin: 0 -20px;
     flex-wrap: nowrap;
     overflow-x: auto;
@@ -30,7 +25,7 @@ const CategoryItemList = styled.ul`
       display: none;
     }
     &:after {
-      content: "";
+      content: '';
       width: 40px;
       flex: 0 0 auto;
     }
@@ -41,7 +36,7 @@ const CategoryItem = styled.li`
   width: 70px;
   margin: 0 20px 0 0;
   text-align: center;
-  @media screen and (max-width: ${(props) => props.theme.responsive.small}) {
+  @media screen and (max-width: ${props => props.theme.responsive.small}) {
     width: 60px;
     flex: 0 0 auto;
     margin: 0 0 0 15px;
@@ -52,21 +47,21 @@ const CategoryItem = styled.li`
 
   .category-item__image {
     padding: 2px;
-    background: ${(props) => props.theme.colors.blackLight};
+    background: ${props => props.theme.colors.blackLight};
     border-radius: 50%;
     position: relative;
     img {
       position: relative;
-      background: ${(props) => props.theme.colors.blackLight};
+      background: ${props => props.theme.colors.blackLight};
       border-radius: 50%;
       display: block;
       z-index: 2;
       .cactus {
-        fill: #FFF000;
+        fill: #fff000;
       }
     }
     .cactus {
-      fill: #FFF000;
+      fill: #fff000;
     }
   }
   .category-item__name {
@@ -74,14 +69,14 @@ const CategoryItem = styled.li`
     font-size: 13px;
     font-weight: 700;
     letter-spacing: 0.5px;
-    color: ${(props) => props.theme.colors.gray};
-    @media screen and (max-width: ${(props) => props.theme.responsive.small}) {
+    color: ${props => props.theme.colors.gray};
+    @media screen and (max-width: ${props => props.theme.responsive.small}) {
       font-size: 12px;
     }
   }
   &.active {
     .category-item__image:after {
-      content: "";
+      content: '';
       position: absolute;
       display: block;
       left: 0;
@@ -89,11 +84,11 @@ const CategoryItem = styled.li`
       width: 100%;
       height: 100%;
       border-radius: 50%;
-      background: ${(props) => props.theme.colors.gradient};
+      background: ${props => props.theme.colors.gradient};
       animation: rotating 2s linear infinite;
     }
     img {
-      border: solid 2px ${(props) => props.theme.colors.background};
+      border: solid 2px ${props => props.theme.colors.background};
     }
     .cactus {
       fill: #fff;
@@ -112,13 +107,15 @@ const CategoryItem = styled.li`
 function selectCategoryIcon(name: string) {
   switch (name) {
     case 'cactusYellow':
-      return cactusYellow;
+      return CategoryIcon.cactusYellow;
     case 'cactusRed':
-      return cactusRed;
+      return CategoryIcon.cactusRed;
     case 'cactusGreen':
-      return cactusGreen;
+      return CategoryIcon.cactusGreen;
     case 'cactusBlue':
-      return cactusBlue;
+      return CategoryIcon.cactusBlue;
+    case 'algorithmIcon':
+      return CategoryIcon.algorithmIcon;
   }
 }
 
@@ -132,11 +129,11 @@ interface CategoryLinkProps {
 const CategoryLink = ({ categoryName, categoryIcon, categoryLink, path }: CategoryLinkProps) => {
   return (
     <CategoryItem className={categoryLink === path ? 'active' : undefined}>
-      <Link to={categoryLink} className='category-item__link'>
-        <div className='category-item__image'>
+      <Link to={categoryLink} className="category-item__link">
+        <div className="category-item__image">
           <img src={categoryIcon} alt={categoryName} />
         </div>
-        <div className='category-item__name'>{categoryName}</div>
+        <div className="category-item__name">{categoryName}</div>
       </Link>
     </CategoryItem>
   );
@@ -152,20 +149,18 @@ const CategoryMenu = ({ location, categories }: CategoryMenuProps) => {
   return (
     <Nav>
       <CategoryItemList>
-        <CategoryLink key='최신 글' categoryName='최신 글' categoryIcon={svgNew} categoryLink='/' path={path} />
-        {
-          categories.map((category) => {
-            return (
-              <CategoryLink
-                key={category.name}
-                categoryName={category.name}
-                categoryIcon={selectCategoryIcon(category.icon)}
-                categoryLink={category.link}
-                path={path}
-              />
-            );
-          })
-        }
+        <CategoryLink key="최신 글" categoryName="최신 글" categoryIcon={svgNew} categoryLink="/" path={path} />
+        {categories.map(category => {
+          return (
+            <CategoryLink
+              key={category.name}
+              categoryName={category.name}
+              categoryIcon={selectCategoryIcon(category.icon)}
+              categoryLink={category.link}
+              path={path}
+            />
+          );
+        })}
       </CategoryItemList>
     </Nav>
   );

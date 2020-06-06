@@ -1,7 +1,6 @@
 import { graphql } from 'gatsby';
 import React from 'react';
 import Helmet from 'react-helmet';
-
 import CategoryMenu from '../components/CategoryMenu';
 import HomeJsonLd from '../components/json/HomeJsonLd';
 import Layout from '../components/Layout';
@@ -23,9 +22,9 @@ class BlogIndex extends React.Component<Props> {
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
-        <SEO title='' />
+        <SEO title="" />
         <Helmet>
-          <link rel='canonical' href='http://localhost:8000' />
+          <link rel="canonical" href="https://wwlee94.github.io" />
         </Helmet>
         <HomeJsonLd />
         <CategoryMenu location={location} categories={categories} />

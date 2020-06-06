@@ -1,10 +1,10 @@
 module.exports = {
   siteMetadata: {
-    title: `Evan.dev`,
-    author: `Evan.dev`,
+    title: `Weekend.dev`,
+    author: `Weekend.dev`,
     description: `스페셜리스트보다 제너럴리스트가 되고싶은
     백엔드 개발자입니다 :)`,
-    siteUrl: `http://localhost:8000`,
+    siteUrl: `https://wwlee94.github.io`,
     email: `wwlee94@naver.com`,
     social: {
       github: `https://github.com/wwlee94`,
@@ -18,14 +18,21 @@ module.exports = {
         icon: `cactusYellow`,
         link: `/category/blog`,
       },
+      {
+        name: `알고리즘`,
+        slug: `algorithm`,
+        color: `#ffa22b`,
+        icon: `algorithmIcon`,
+        link: `/category/algorithm`,
+      },
     ],
   },
   plugins: [
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Evan.dev | 기술 블로그`,
-        short_name: `Evan.dev`,
+        name: `Weekend.dev | 기술 블로그`,
+        short_name: `Weekend.dev`,
         start_url: `/`,
         background_color: `rgb(33, 36, 45)`,
         theme_color: `#0c9ee4`,
@@ -36,8 +43,8 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        path: `${__dirname}/content/blog`,
-        name: `blog`,
+        path: `${__dirname}/contents`,
+        name: `contents`,
       },
     },
     {
@@ -106,12 +113,6 @@ module.exports = {
           `gatsby-remark-copy-linked-files`,
           `gatsby-remark-smartypants`,
         ],
-      },
-    },
-    {
-      resolve: `gatsby-plugin-sitemap`,
-      options: {
-        output: `/sitemap.xml`,
       },
     },
     `gatsby-transformer-sharp`,

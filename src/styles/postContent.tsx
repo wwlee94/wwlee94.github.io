@@ -11,6 +11,7 @@ const postContentStyle = css`
   p {
     margin-bottom: 1em;
   }
+  h1,
   h2,
   h3,
   h4,
@@ -20,7 +21,7 @@ const postContentStyle = css`
     font-weight: 700;
     line-height: 1.5;
   }
-  h2 {
+  h1, h2 {
     position: relative;
     margin: 55px 0 12px;
     padding: 5px 0 5px 17px;
@@ -37,9 +38,12 @@ const postContentStyle = css`
       background: linear-gradient(0deg,#ffa649 0% ,#ffa649 50%,#f7645b 50%,#f7645b 100%);
     }
   }
+  h2 {
+    font-size: 1.45em;
+  }
   h3 {
     margin: 55px 0 12px;
-    font-size: 1.45em;
+    font-size: 1.40em;
   }
   h4 {
     position: relative;
@@ -99,7 +103,7 @@ const postContentStyle = css`
         line-height: 25px;
         content: counter(number);
         counter-increment: number;
-        background: ${(props) => props.theme.colors.highlight};
+        background: ${props => props.theme.colors.highlight};
       }
     }
   }
@@ -128,7 +132,7 @@ const postContentStyle = css`
     font-size: .9em;
     line-height: 1.4;
     th {
-      background-color: ${(props) => props.theme.colors.highlight};
+      background-color: ${props => props.theme.colors.highlight};
       color: #FFF;
       padding: 10px 12px;
       text-align: center;
@@ -141,8 +145,8 @@ const postContentStyle = css`
       }
     }
     td {
-      background-color:  ${(props) => props.theme.colors.whitesmoke};
-      color: ${(props) => props.theme.colors.blackLight};
+      background-color:  ${props => props.theme.colors.whitesmoke};
+      color: ${props => props.theme.colors.blackLight};
       padding: 10px 12px;
     }
     thead tr {
@@ -165,7 +169,7 @@ const postContentStyle = css`
   blockquote {
     margin: 2.3em 0;
     font-style: italic;
-    background: ${(props) => props.theme.colors.whitesmoke};
+    background: ${props => props.theme.colors.whitesmoke};
     padding: 1em;
     p {
       margin: .3em 0;
