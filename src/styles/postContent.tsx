@@ -39,7 +39,7 @@ const postContentStyle = css`
     }
   }
   h2 {
-    font-size: 1.45em;
+    font-size: 1.40em;
   }
   h3 {
     margin: 55px 0 12px;
@@ -48,7 +48,7 @@ const postContentStyle = css`
   h4 {
     position: relative;
     padding-left: 18px;
-    font-size: 1.1em;
+    font-size: 1.2em;
     &:before {
       position: absolute;
       top: .2em;
@@ -84,7 +84,7 @@ const postContentStyle = css`
       list-style: none;
       list-style-position: inside;
       position: relative;
-      line-height: 25px;
+      line-height: 20px;
       padding-left: 34px;
       margin: 1em 0;
       &:before {
@@ -92,15 +92,15 @@ const postContentStyle = css`
         position: absolute;
         left: 0;
         top: 0;
-        width: 25px;
-        height: 25px;
+        width: 20px;
+        height: 20px;
         border-radius: 50%;
         background: #5c9ee7;
         color: #fff;
         font-weight: 700;
         font-size: 14px;
         text-align: center;
-        line-height: 25px;
+        line-height: 20px;
         content: counter(number);
         counter-increment: number;
         background: ${props => props.theme.colors.highlight};
@@ -167,13 +167,9 @@ const postContentStyle = css`
     }
   }
   blockquote {
-    margin: 2.3em 0;
-    font-style: italic;
-    background: ${props => props.theme.colors.whitesmoke};
-    padding: 1em;
-    p {
-      margin: .3em 0;
-    }
+    padding: 0 1em;
+    color: #6a737d;
+    border-left: .25em solid #dfe2e5;
   }
   .gatsby-resp-image-wrapper {
     margin: 1em 0;

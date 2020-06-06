@@ -116,6 +116,8 @@ function selectCategoryIcon(name: string) {
       return CategoryIcon.cactusBlue;
     case 'algorithmIcon':
       return CategoryIcon.algorithmIcon;
+    case 'blogIcon':
+      return CategoryIcon.blogIcon;
   }
 }
 
