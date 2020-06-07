@@ -53,14 +53,6 @@ src/components/bio.js
     You should follow him on Twitter
   </a>
 </p>
-
-<p>
-  서울에 사는 <strong>윤우식</strong>입니다.
-  {` `}
-  <a href={`https://twitter.com/${social.twitter}`}>
-    You should follow him on Twitter
-  </a>
-</p>
 ```
 
 ## 테스트 이미지 출력

@@ -1,5 +1,5 @@
 ---
-title: 프로그래머스 캐시 / Python
+title: '[프로그래머스] 캐시 - [1차] 2018 카카오 / Python'
 date: '2020-05-30'
 category: 'algorithm'
 description: ''

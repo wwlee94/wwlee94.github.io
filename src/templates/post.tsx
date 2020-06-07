@@ -3,21 +3,21 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
 import twemoji from 'twemoji';
-
+import svgPattern from '../../static/images/svg/others/pattern.svg';
 import CategoryLabel from '../components/CategoryLabel';
 import PostJsonLd from '../components/json/PostJsonLd';
 import Layout from '../components/Layout';
 import RelatedPosts from '../components/RelatedPosts';
 import SEO from '../components/SEO';
-
+import Utterances from '../components/Utterances';
+import { PostPageContext, QueryResult } from '../models';
 import postContentStyle from '../styles/postContent';
 import postCustomBlockStyle from '../styles/postCustomBlock';
 import postSyntaxHighlightStyle from '../styles/postSyntaxHighlight';
 
-import svgPattern from '../../static/images/svg/others/pattern.svg';
 
-import { QueryResult } from '../models';
-import { PostPageContext } from '../models';
+
+
 
 const Content = styled.section`
   position: relative;
@@ -151,6 +151,7 @@ class BlogPostTemplate extends React.Component<Props> {
           </ContentMain>
           <aside>
             <RelatedPosts posts={relatedPosts} />
+            <Utterances repo='wwlee94/wwlee94.github.io' theme='github-light' />
           </aside>
         </Content>
       </Layout>
