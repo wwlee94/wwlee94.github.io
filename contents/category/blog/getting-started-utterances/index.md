@@ -1,5 +1,5 @@
 ---
-title: 'Gatsby 블로그에 소셜 댓글 기능 도입하기 / utterances'
+title: 'Gatsby 블로그 - utterances 소셜 댓글 기능 도입하기'
 date: '2020-06-07'
 category: 'blog'
 description: ''
@@ -22,7 +22,9 @@ emoji: '💬'
 
 ## 그렇다면 utterances 위젯을 도입해보자 !
 
-> 서비스를 도입하기 전에 먼저 GitHub Repo를 생성해주고 따라와주세요 !
+[[notice | utterances 설치 전에]]
+| 먼저 GitHub Repo를 생성해주고 따라와주세요 !  
+| 저는 이슈 받을 Repo와 블로그 Repo를 동일하게 지정하였습니다.
 
 ### 1. utterances app 을 설치합니다.
 
@@ -57,7 +59,7 @@ utterances는 게시글 하나에 래퍼지토리의 이슈 하나가 연동되�
 
 다음과 같은 `Utterances` 컴포넌트를 작성합니다.
 
-```typescript
+```typescript:title=Utterances.tsx
 import React, { createRef, useLayoutEffect } from 'react';
 
 const src = 'https://utteranc.es/client.js';

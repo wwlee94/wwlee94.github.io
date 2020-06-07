@@ -23,7 +23,8 @@ const SyntaxHighlightStyle = css`
   pre[class*="language-"],
   :not(pre) > code[class*="language-"] {
     background: ${(props) => props.theme.colors.blackLight};
-    border-radius: 5px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,.5);
     @media screen and (max-width: ${(props) => props.theme.responsive.small}) {
       border-radius: 0;
     }
@@ -161,6 +162,7 @@ const SyntaxHighlightStyle = css`
   .gatsby-code-title + .gatsby-highlight {
     margin-top: 0;
   }
+  
   /* Inline code */
   p > code,
   li > code {

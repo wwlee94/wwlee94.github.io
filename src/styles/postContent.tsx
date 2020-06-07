@@ -174,7 +174,7 @@ const postContentStyle = css`
   .gatsby-resp-image-wrapper {
     margin: 1em 0;
     border: solid 1px #e5e8ea;
-    box-shadow: 0 2px 5px -1px rgba(0,0,0,.25);
+    box-shadow: 1px 1px 20px lightgrey;
     border-radius: 4px;
     overflow: hidden;
   }
