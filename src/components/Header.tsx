@@ -20,7 +20,7 @@ const HeaderInner = styled.div`
   padding: 5px;
   .logo {
     display: block;
-    width: 100px;
+    width: 200px;
     height: 65px;
     @media screen and (max-width: ${props => props.theme.responsive.small}) {
       margin: 0 auto;

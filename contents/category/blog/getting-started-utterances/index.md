@@ -7,11 +7,13 @@ emoji: '💬'
 ---
 
 #### 소셜 댓글 서비스란?
+
 댓글을 직접 구현하지 않고 위젯의 형태로 서비스에 삽입할 수 있는 댓글 전문 서비스로 여러 개인 블로그에 사용됩니다.
 
 정적 사이트에 댓글 기능을 넣기 위한 가장 편리하고 간단한 방법이라고 할 수 있습니다.
 
 #### 어떤 서비스을 선택할까?
+
 여러 서비스들을 알아보던 중 가장 많이 쓰이고 `SEO(검색엔진최적화)` 측면에서 유리한 `Disqus`라는 소셜 댓글 서비스를 찾았습니다.  
 `Disqus`의 경우는, [댓글을 남기는 사람에게 SEO 혜택이 돌아가는 구조](https://hackya.com/kr/%EB%94%94%EC%8A%A4%EC%BB%A4%EC%8A%A4-%EB%8C%93%EA%B8%80%EC%9D%98-%EB%86%80%EB%9D%BC%EC%9A%B4-seo-%ED%98%9C%ED%83%9D/) 로 구성되어 있고 유명한 서비스에 고품질의 백링크를 얻을 수 있다는 장점이 있었습니다.
 
@@ -46,8 +48,8 @@ utterances는 게시글 하나에 래퍼지토리의 이슈 하나가 연동되�
 저는 1번 `Pathname`을 선택했습니다.
 
 1. Pathname
-    * 포스트의 `pathname`으로 이슈를 생성합니다.  
-      Ex) posts/{포스팅 이름}
+   - 포스트의 `pathname`으로 이슈를 생성합니다.  
+     Ex) posts/{포스팅 이름}
 
 ### 3. utterances 설정 코드 적용하기
 
@@ -101,6 +103,7 @@ export default Utterances;
 ```
 
 이후에 `Utterances` 컴포넌트를 호출하여 원하는 위치에 삽입하면 끝 !
+
 ```typescript
 ...
 <Utterances repo='wwlee94/wwlee94.github.io' theme='github-light' />
@@ -114,5 +117,6 @@ export default Utterances;
 긴 글 봐주셔서 감사합니다 🙇🏻‍♂️
 
 #### 참고 문서
+
 [Disqus의 리소스 ](https://blueshw.github.io/2020/05/20/disqus-to-utterances)  
 [Gatsby에 utterances 도입하기](https://imch.dev/posts/build-a-blog-with-gatsby-and-typescript-part-4)

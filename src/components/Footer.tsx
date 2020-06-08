@@ -24,7 +24,7 @@ const Footer = () => {
     <FooterContent>
       <ContentWrapper>
         <FooterInner>
-          <div>© {new Date().getFullYear()}, Weekend.dev</div>
+          <div>© {new Date().getFullYear()}, Blausee. All rights reserved.</div>
         </FooterInner>
       </ContentWrapper>
     </FooterContent>

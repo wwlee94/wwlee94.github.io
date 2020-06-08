@@ -34,7 +34,7 @@ LRU 페이지 교체 알고리즘을 우선적으로 이해해야 합니다.
 
 - 단, 소문자, 대문자를 구분하지 않으므로 받은 문자열은 전부 소문자로 바꾸어 문제를 풀어야합니다.
 
-```python:title=코드
+```python:title=Python
 import collections
 def solution(cacheSize, cities):
   answer = 0
@@ -59,4 +59,4 @@ def solution(cacheSize, cities):
   return answer
 ```
 
-문제 보기 : https://programmers.co.kr/learn/courses/30/lessons/17680
+문제 링크 : https://programmers.co.kr/learn/courses/30/lessons/17680

@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
-    title: `Weekend.dev`,
-    author: `Weekend.dev`,
+    title: `Blausee 기술 블로그`,
+    author: `wwlee94`,
     description: `스페셜리스트보다 제너럴리스트가 되고싶은
     백엔드 개발자입니다 :)`,
     siteUrl: `https://wwlee94.github.io`,
@@ -31,8 +31,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Weekend.dev | 기술 블로그`,
-        short_name: `Weekend.dev`,
+        name: `Blausee | 기술 블로그`,
+        short_name: `Blausee`,
         start_url: `/`,
         background_color: `rgb(33, 36, 45)`,
         theme_color: `#0c9ee4`,
