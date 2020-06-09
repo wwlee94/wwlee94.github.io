@@ -10,12 +10,13 @@ const PostCardWrapper = styled.div`
     display: flex;
     align-items: start;
     padding: 1.4em 0;
-    color: #fff;
-    border-top: solid 1px ${(props) => props.theme.colors.blackLight};
+    transition: all 0.3s ease-in-out 0s; /* 테마 변환 시 애니메이션 */
+    color: ${props => props.theme.postCard.color};
+    border-top: solid 1px ${props => props.theme.colors.blackLight};
     &:hover {
-      background: ${(props) => props.theme.colors.blackLight};
+      background: ${props => props.theme.postCard.highlight};
     }
-    @media screen and (max-width: ${(props) => props.theme.responsive.large}) {
+    @media screen and (max-width: ${props => props.theme.responsive.large}) {
       padding: 1em 0;
     }
   }
@@ -24,17 +25,18 @@ const PostCardEmoji = styled.p`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0;
+  margin: 0 0 0 10px;
   width: 90px;
   height: 90px;
-  background: ${(props) => props.theme.colors.blackLight};
+  background: ${props => props.theme.postCard.emoji};
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
   border-radius: 4px;
   font-size: 50px;
   img {
     width: 55px;
     height: 55px;
   }
-  @media screen and (max-width: ${(props) => props.theme.responsive.large}) {
+  @media screen and (max-width: ${props => props.theme.responsive.large}) {
     width: 70px;
     height: 70px;
     img {
@@ -56,9 +58,9 @@ const PostCardContent = styled.div`
     margin-bottom: 0.2em;
     letter-spacing: 0.05em;
     font-size: 0.9em;
-    color: ${(props) => props.theme.colors.gray};
+    color: ${props => props.theme.colors.gray};
   }
-  @media screen and (max-width: ${(props) => props.theme.responsive.large}) {
+  @media screen and (max-width: ${props => props.theme.responsive.large}) {
     width: calc(100% - 70px);
     padding-left: 15px;
     h3 {
@@ -83,7 +85,7 @@ const PostCard = ({ node }: Props) => {
 
   return (
     <PostCardWrapper>
-      <Link to={node.fields.slug} className='post-card-link'>
+      <Link to={node.fields.slug} className="post-card-link">
         <PostCardEmoji dangerouslySetInnerHTML={{ __html: emoji }} />
         <PostCardContent>
           <h3>{title}</h3>

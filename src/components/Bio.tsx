@@ -14,7 +14,7 @@ const BioWrapper = styled.div`
   width: ${props => props.theme.sizes.bioWidth};
   padding: 1.5em;
   font-size: 15.5px;
-  background: ${props => props.theme.colors.blackLight};
+  background: ${props => props.theme.bio.background};
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
   @media screen and (max-width: ${props => props.theme.responsive.large}) {
@@ -43,19 +43,19 @@ const BioName = styled.div`
   font-weight: 700;
   letter-spacing: 1px;
   font-size: 1.3em;
-  color: #fff;
+  color: ${props => props.theme.bio.color};
 `;
 const BioMain = styled.div`
   margin-top: 1em;
 `;
 const BioText = styled.div`
-  color: #fff;
+  color: ${props => props.theme.bio.color};
   font-size: 0.92em;
 `;
 const BioLinks = styled.div`
   margin-top: 1.5em;
   display: flex;
-  color: #fff;
+  color: ${props => props.theme.bio.color};
   text-align: center;
   max-width: 244px;
   img {
@@ -75,7 +75,7 @@ const BioLink = styled.a`
   color: ${props => props.theme.colors.gray};
   letter-spacing: 0.5px;
   &:hover {
-    color: ${props => props.theme.colors.highlight};
+    color: ${props => props.theme.bio.highlight};
   }
 `;
 
@@ -99,13 +99,13 @@ const Bio = () => {
               </BioText>
               <BioLinks>
                 <BioLink href={`${social.notion}`}>
-                  <Icon icon={notionIcon} color="#FFFFFF" width="32" height="32" />
+                  <Icon icon={notionIcon} width="32" height="32" />
                 </BioLink>
                 <BioLink href={`${social.github}`}>
-                  <FaGithub color={'#FFF'} size={32} />
+                  <FaGithub size={32} />
                 </BioLink>
                 <BioLink className="bio-link--email" href={`mailto:${email}`}>
-                  <MdMail color={'#FFF'} size={32} />
+                  <MdMail size={32} />
                 </BioLink>
               </BioLinks>
             </BioMain>

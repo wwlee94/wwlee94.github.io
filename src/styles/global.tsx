@@ -31,7 +31,7 @@ const globalStyle = createGlobalStyle`
   }
   body {
     background: ${(props: any) => props.theme.colors.background};
-    color: ${(props: any) => props.theme.colors.background};
+    color: ${(props: any) => props.theme.colors.color};
     line-height: 1.6;
     font-size: 100%;
     font-weight: 400;

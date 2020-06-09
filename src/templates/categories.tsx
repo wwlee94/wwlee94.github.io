@@ -6,13 +6,13 @@ import CategoryJsonLd from '../components/json/CategoryJsonLd';
 import Layout from '../components/Layout';
 import PostCard from '../components/PostCard';
 import SEO from '../components/SEO';
-import { QueryResult } from '../models';
-import { CategoryPageContext } from '../models';
+import { CategoryPageContext, QueryResult } from '../models';
 
 const Heading = styled.h1`
   margin: 0.5em 0 0.8em;
   font-size: 32px;
-  color: #fff;
+  transition: all 0.3s ease-in-out 0s; /* 테마 변환 시 애니메이션 */
+  color: ${props => props.theme.category.header};
   font-weight: 700;
   line-height: 44px;
   letter-spacing: 1px;
@@ -31,20 +31,17 @@ class CategoryTemplate extends React.Component<Props> {
     // get Category name from category slug
     const categorySlug = pageContext.category;
     const categories = data.site.siteMetadata.categories;
-    const categoryObject = categories.find((cat) => {
+    const categoryObject = categories.find(cat => {
       return cat.slug === categorySlug;
     });
-    
+
     // use slug when name doesn't exist
     const categoryName = categoryObject ? categoryObject.name : categorySlug;
 
     return (
       <Layout location={this.props.location} title={categoryName}>
         <SEO title={categoryName} />
-        <CategoryJsonLd
-          categorySlug={categorySlug}
-          categoryName={categoryName}
-        />
+        <CategoryJsonLd categorySlug={categorySlug} categoryName={categoryName} />
         <CategoryMenu location={location} categories={categories} />
         <Heading>{categoryName}</Heading>
         {posts.map(({ node }) => {
@@ -70,11 +67,7 @@ export const pageQuery = graphql`
         }
       }
     }
-    allMarkdownRemark(
-      limit: 1000
-      sort: { fields: [frontmatter___date], order: DESC }
-      filter: { frontmatter: { category: { eq: $category } } }
-    ) {
+    allMarkdownRemark(limit: 1000, sort: { fields: [frontmatter___date], order: DESC }, filter: { frontmatter: { category: { eq: $category } } }) {
       edges {
         node {
           fields {

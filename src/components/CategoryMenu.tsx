@@ -47,12 +47,12 @@ const CategoryItem = styled.li`
 
   .category-item__image {
     padding: 2px;
-    background: ${props => props.theme.colors.blackLight};
+    background: ${props => props.theme.category.image};
     border-radius: 50%;
     position: relative;
     img {
       position: relative;
-      background: ${props => props.theme.colors.blackLight};
+      background: ${props => props.theme.category.image};
       border-radius: 50%;
       display: block;
       z-index: 2;
@@ -69,7 +69,7 @@ const CategoryItem = styled.li`
     font-size: 13px;
     font-weight: 700;
     letter-spacing: 0.5px;
-    color: ${props => props.theme.colors.gray};
+    color: ${props => props.theme.category.color};
     @media screen and (max-width: ${props => props.theme.responsive.small}) {
       font-size: 12px;
     }
@@ -88,7 +88,7 @@ const CategoryItem = styled.li`
       animation: rotating 2s linear infinite;
     }
     img {
-      border: solid 2px ${props => props.theme.colors.background};
+      border: solid 1.5px ${props => props.theme.colors.background};
     }
     .cactus {
       fill: #fff;
