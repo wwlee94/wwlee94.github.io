@@ -1,12 +1,17 @@
 import { useState } from 'react';
 
 export const useTheme = () => {
-  // 브라우저 테마 정보 확인
-  const isBrowserDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  let initTheme = isBrowserDarkMode ? 'dark' : 'light';
 
-  // 사용자가 테마 설정을 직접 지정한 테마가 있는지 확인
-  const localSettingTheme = localStorage.getItem('theme');
+  let initTheme;
+  let localSettingTheme;
+  if (typeof window !== 'undefined') {
+    // 브라우저 테마 정보 확인
+    const isBrowserDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    initTheme = isBrowserDarkMode ? 'dark' : 'light';
+
+    // 사용자가 테마 설정을 직접 지정한 테마가 있는지 확인
+    localSettingTheme = localStorage.getItem('theme');
+  }
 
   // 지정한 테마가 존재한다면 해당 테마로 설정 없으면 브라우저 기본 설정 테마로 세팅
   if (localSettingTheme) {

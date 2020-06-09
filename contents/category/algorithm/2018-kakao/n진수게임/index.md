@@ -3,7 +3,7 @@ title: '[프로그래머스] n진수 게임 - [3차] 2018 카카오 / Python'
 date: '2020-06-02'
 category: 'algorithm'
 description: ''
-emoji: '📚'
+emoji: '🎮'
 ---
 
 ## 문제
