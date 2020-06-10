@@ -41,11 +41,11 @@ const HeaderInner = styled.div`
 interface Props {
   title: string;
   location: any;
-  themeState: string;
+  theme: string;
   onChangeTheme: () => void;
 }
 
-const Header = ({ title, location, themeState, onChangeTheme }: Props) => {
+const Header = ({ title, location, theme, onChangeTheme }: Props) => {
   const logoLink = (
     <Link to={`/`} className="logo-link">
       <img className="logo" src={pngLogo} alt={title} />
@@ -61,7 +61,7 @@ const Header = ({ title, location, themeState, onChangeTheme }: Props) => {
       <ContentWrapper>
         <HeaderInner>
           {logoLink}
-          <ColorModeToggle themeState={themeState} onChangeTheme={onChangeTheme} />
+          <ColorModeToggle theme={theme} onChangeTheme={onChangeTheme} />
         </HeaderInner>
       </ContentWrapper>
     </HeaderTag>

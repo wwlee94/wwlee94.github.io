@@ -22,12 +22,12 @@ const ToggleButton = styled.div`
 `;
 
 interface Props {
-  themeState: string;
+  theme: string;
   onChangeTheme: () => void;
 }
 
-const ColorModeToggle = ({ themeState, onChangeTheme }: Props) => {
-  const checked = themeState === 'dark' ? true : false;
+const ColorModeToggle = ({ theme, onChangeTheme }: Props) => {
+  const checked = theme === 'dark' ? true : false;
   return (
     <ToggleButton>
       <Switch

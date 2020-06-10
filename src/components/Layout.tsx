@@ -1,33 +1,11 @@
 import React from 'react';
-import styled, { ThemeProvider } from 'styled-components';
-import { useTheme } from '../models/useTheme';
+import { ThemeProvider } from 'styled-components';
+import { useDarkMode } from '../models/useDarkMode';
 import GlobalStyle from '../styles/global';
 import { darkTheme, lightTheme } from '../styles/theme';
-import Bio from './Bio';
-import ContentWrapper from './ContentWrapper';
+import Contents from './Contents';
 import Footer from './Footer';
 import Header from './Header';
-
-const Content = styled.div`
-  margin-top: 2em;
-  display: flex;
-  min-height: 85vh;
-  align-items: flex-start;
-  @media screen and (max-width: ${props => props.theme.responsive.large}) {
-    display: block;
-  }
-  @media screen and (max-width: ${props => props.theme.responsive.small}) {
-    margin-top: 0;
-  }
-`;
-
-const MainWrapper = styled.div`
-  width: calc(100% - ${props => props.theme.sizes.bioWidth} - 40px);
-  margin-right: 40px;
-  @media screen and (max-width: ${props => props.theme.responsive.large}) {
-    width: 100%;
-  }
-`;
 
 interface Props {
   location: any;
@@ -36,26 +14,26 @@ interface Props {
 }
 
 const Layout = ({ location, title, children }: Props) => {
-  const { themeMode, toggleTheme } = useTheme(); // hook 함수 하용
-  const theme = themeMode === 'dark' ? darkTheme : lightTheme; // 테마 환경에 맞는 테마 컬러 가져오기.
+  const { theme, themeToggler, mountedComponent } = useDarkMode();
 
-  return (
-    <ThemeProvider theme={theme}>
-      <div className="siteRoot">
-        <Header title={title} location={location} themeState={themeMode} onChangeTheme={toggleTheme} />
-        <ContentWrapper>
-          <Content>
-            <MainWrapper>
-              <main>{children}</main>
-            </MainWrapper>
-            <Bio />
-          </Content>
-        </ContentWrapper>
-        <Footer />
-      </div>
-      <GlobalStyle />
+  const themeMode = theme === 'light' ? lightTheme : darkTheme;
+
+  const body = (
+    <ThemeProvider theme={themeMode}>
+      <>
+        <GlobalStyle />
+        <div className="App">
+          <Header title={title} location={location} theme={theme} onChangeTheme={themeToggler} />
+          <Contents children={children} />
+          <Footer />
+        </div>
+      </>
     </ThemeProvider>
   );
+
+  if (!mountedComponent) return <div style={{ visibility: 'hidden' }}>{body}</div>;
+
+  return body;
 };
 
 export default Layout;
