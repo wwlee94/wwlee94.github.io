@@ -35,13 +35,9 @@ interface Props {
   children: any;
 }
 
-interface States {
-  theme: string;
-}
-
 const Layout = ({ location, title, children }: Props) => {
   const { themeMode, toggleTheme } = useTheme(); // hook 함수 하용
-  const theme = themeMode === 'light' ? lightTheme : darkTheme; // 테마 환경에 맞는 테마 컬러 가져오기.
+  const theme = themeMode === 'dark' ? darkTheme : lightTheme; // 테마 환경에 맞는 테마 컬러 가져오기.
 
   return (
     <ThemeProvider theme={theme}>
@@ -56,8 +52,8 @@ const Layout = ({ location, title, children }: Props) => {
           </Content>
         </ContentWrapper>
         <Footer />
-        <GlobalStyle />
       </div>
+      <GlobalStyle />
     </ThemeProvider>
   );
 };

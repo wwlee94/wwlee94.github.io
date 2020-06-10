@@ -21,7 +21,6 @@ const HeaderInner = styled.div`
   .logo {
     width: 200px;
     height: 60px;
-    text: ${props => props.title};
     @media screen and (max-width: ${props => props.theme.responsive.small}) {
       margin: 0 auto;
     }

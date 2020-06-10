@@ -1,8 +1,6 @@
 const variables = {
   colors: {
     base: '#121212',
-    background: '#21242d',
-    color: '#21242d',
     clearBlack: '#000000',
     black: 'rgba(0, 0, 0, 0.87)',
     blackLight: '#313746',
@@ -39,6 +37,8 @@ export const darkTheme = {
   ...variables,
   colors: {
     ...variables.colors,
+    background: '#21242d',
+    color: '#21242d',
   },
   header: {
     background: variables.colors.blue,
@@ -64,8 +64,7 @@ export const lightTheme = {
   ...variables,
   colors: {
     ...variables.colors,
-    base: '#ffffff',
-    background: '#f5f5f5', // homepage color
+    background: '#f5f5f5',
     color: '#21242d',
   },
   header: {
