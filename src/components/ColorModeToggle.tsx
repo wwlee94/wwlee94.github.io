@@ -2,6 +2,7 @@ import React from 'react';
 import { TiAdjustBrightness } from 'react-icons/ti';
 import Switch from 'react-switch';
 import styled from 'styled-components';
+import { useDarkMode } from '../models/useDarkMode';
 
 const ToggleButton = styled.div`
   display: flex;
@@ -43,20 +44,26 @@ const MoonIcon = () => {
     </div>
   );
 };
-
-interface Props {
-  theme: string;
-  onChangeTheme: () => void;
+function getTheme(checked: boolean) {
+  return checked ? 'dark' : 'light';
 }
 
-const ColorModeToggle = ({ theme, onChangeTheme }: Props) => {
-  const checked = theme === 'dark' ? true : false;
+const ColorModeToggle = () => {
+  // 'gatsby-plugin-dark-mode' 를 직접적으로 사용하지 않으나
+  // 해당 모듈에서 front단에서 현재 환경을 체크하는 <script>를 삽입해주어서 이렇게 확인
+  const { theme, themeToggler } = useDarkMode();
+
+  const handleChange = (checked: boolean) => {
+    const theme = getTheme(checked);
+
+    themeToggler(theme);
+  };
 
   return (
     <ToggleButton>
       <Switch
-        onChange={onChangeTheme}
-        checked={checked}
+        onChange={handleChange}
+        checked={theme === 'dark' ? true : false}
         id="normal-switch"
         height={24}
         width={48}

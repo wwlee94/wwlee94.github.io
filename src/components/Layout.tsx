@@ -1,6 +1,5 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
-import { useDarkMode } from '../models/useDarkMode';
 import GlobalStyle from '../styles/global';
 import DefaultTheme from '../styles/theme';
 import Contents from './Contents';
@@ -14,8 +13,6 @@ interface Props {
 }
 
 const Layout = ({ location, title, children }: Props) => {
-  const { theme, themeToggler } = useDarkMode();
-
   const body = (
     <ThemeProvider theme={DefaultTheme}>
       <>
@@ -28,15 +25,13 @@ const Layout = ({ location, title, children }: Props) => {
             transition: 'color 0.2s ease-out, background 0.2s ease-out',
           }}
         >
-          <Header title={title} location={location} theme={theme} onChangeTheme={themeToggler} />
+          <Header title={title} location={location} />
           <Contents children={children} />
           <Footer />
         </div>
       </>
     </ThemeProvider>
   );
-
-  // if (!mountedComponent) return <div style={{ visibility: 'hidden' }}>{body}</div>;
 
   return body;
 };

@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 // 초기화 작업
-const getInitTheme = () => {
+const getCurrentTheme = () => {
   let initTheme = 'light';
 
   if (typeof window !== 'undefined') {
@@ -9,7 +9,7 @@ const getInitTheme = () => {
     const isBrowserDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 
     // 사용자가 테마 설정을 직접 지정한 테마가 있는지 확인
-    const localSettingTheme = localStorage.getItem('theme');
+    const localSettingTheme = window.localStorage.getItem('theme');
 
     // 브라우저 다크 테마가 있다면 다크 테마로 지정
     if (isBrowserDarkMode && !localSettingTheme) initTheme = 'dark';
@@ -21,37 +21,30 @@ const getInitTheme = () => {
 };
 
 export const useDarkMode = () => {
-  const [theme, setTheme] = useState(getInitTheme());
+  const [theme, setTheme] = useState('light');
 
   const setMode = (mode: string) => {
     window.localStorage.setItem('theme', mode);
     setTheme(mode);
   };
 
-  const themeToggler: () => void = () => {
-    const isDark = theme === 'light' ? false : true;
+  const themeToggler = (currentTheme: string) => {
+    const isDark = currentTheme === 'light' ? false : true;
     if (isDark) {
-      document.body.classList.remove('dark');
-      document.body.classList.add('light');
-    } else {
       document.body.classList.remove('light');
       document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+      document.body.classList.add('light');
     }
 
-    theme === 'light' ? setMode('dark') : setMode('light');
+    currentTheme === 'light' ? setMode('light') : setMode('dark');
   };
 
-  // useEffect(() => {
-  //   if (typeof window !== 'undefined') {
-  //     const localTheme = window.localStorage.getItem('theme');
-  //     localTheme ? setTheme(localTheme) : setMode('light');
+  useEffect(() => {
+    const currentTheme = getCurrentTheme();
+    setMode(currentTheme);
+  }, []);
 
-  //     const isBrowserDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  //     if (isBrowserDarkMode) {
-  //       const color = isBrowserDarkMode ? 'dark' : 'light';
-  //       window.localStorage.setItem('theme', color);
-  //     }
-  //   }
-  // }, []);
   return { theme, themeToggler };
 };
