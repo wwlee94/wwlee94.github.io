@@ -14,7 +14,7 @@ const BioWrapper = styled.div`
   width: ${props => props.theme.sizes.bioWidth};
   padding: 1.5em;
   font-size: 15.5px;
-  background: ${props => props.theme.bio.background};
+  background: var(--bioBackground);
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
   @media screen and (max-width: ${props => props.theme.responsive.large}) {
@@ -43,19 +43,19 @@ const BioName = styled.div`
   font-weight: 700;
   letter-spacing: 1px;
   font-size: 1.3em;
-  color: ${props => props.theme.bio.color};
+  color: var(--bioColor);
 `;
 const BioMain = styled.div`
   margin-top: 1em;
 `;
 const BioText = styled.div`
-  color: ${props => props.theme.bio.color};
+  color: var(--bioColor);
   font-size: 0.92em;
 `;
 const BioLinks = styled.div`
   margin-top: 1.5em;
   display: flex;
-  color: ${props => props.theme.bio.color};
+  color: var(--bioColor);
   text-align: center;
   max-width: 244px;
   img {
@@ -75,7 +75,7 @@ const BioLink = styled.a`
   color: ${props => props.theme.colors.gray};
   letter-spacing: 0.5px;
   &:hover {
-    color: ${props => props.theme.bio.highlight};
+    color: var(--bioHighlight);
   }
 `;
 

@@ -12,7 +12,7 @@ const Heading = styled.h1`
   margin: 0.5em 0 0.8em;
   font-size: 32px;
   transition: all 0.3s ease-in-out 0s; /* 테마 변환 시 애니메이션 */
-  color: ${props => props.theme.category.header};
+  color: var(--categoryHeader);
   font-weight: 700;
   line-height: 44px;
   letter-spacing: 1px;

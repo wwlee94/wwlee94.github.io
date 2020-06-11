@@ -11,10 +11,10 @@ const PostCardWrapper = styled.div`
     align-items: start;
     padding: 1.4em 0;
     transition: all 0.3s ease-in-out 0s; /* 테마 변환 시 애니메이션 */
-    color: ${props => props.theme.postCard.color};
+    color: var(--postCardColor);
     border-top: solid 1px ${props => props.theme.colors.blackLight};
     &:hover {
-      background: ${props => props.theme.postCard.highlight};
+      background: var(--postCardHighlight);
     }
     @media screen and (max-width: ${props => props.theme.responsive.large}) {
       padding: 1em 0;
@@ -28,7 +28,7 @@ const PostCardEmoji = styled.p`
   margin: 0 0 0 10px;
   width: 90px;
   height: 90px;
-  background: ${props => props.theme.postCard.emoji};
+  background: var(--postCardEmoji);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
   border-radius: 4px;
   font-size: 50px;

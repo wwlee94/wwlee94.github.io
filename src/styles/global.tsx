@@ -30,14 +30,55 @@ const globalStyle = createGlobalStyle`
     height: 100%;
   }
   body {
-    background: ${(props: any) => props.theme.colors.background};
-    color: ${(props: any) => props.theme.colors.color};
+    --bg: #f5f5f5;
+    --textNormal: #21242d;
+    --headerBackground: ${props => props.theme.colors.clearWhite};
+    --bioBackground: ${props => props.theme.colors.clearWhite};
+    --bioColor: ${props => props.theme.colors.black};
+    --bioHighlight: ${props => props.theme.colors.clearBlack};
+    --categoryHeader: ${props => props.theme.colors.black};
+    --categoryColor: ${props => props.theme.colors.black};
+    --categotyImgage: ${props => props.theme.colors.gradient};
+    --postCardColor: ${props => props.theme.colors.black};
+    --postCardHighlight: ${props => props.theme.colors.transparentBlack};
+    --postCardEmoji: ${props => props.theme.colors.clearWhite};
+
+    background-color: var(--bg);
+    color: var(--textNormal);
+
     line-height: 1.6;
     font-size: 100%;
     font-weight: 400;
     font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Kaku Gothic ProN","Hiragino Kaku Gothic Pro","メイリオ", Meiryo, sans-serif;
     -webkit-text-size-adjust: 100%;
   }
+  
+  body.dark {
+    --bg: #21242d;
+    --textNormal: #21242d;
+    --headerBackground: ${props => props.theme.colors.blue};
+    --bioBackground: ${props => props.theme.colors.blackLight};
+    --bioColor: ${props => props.theme.colors.clearWhite};
+    --bioHighlight: ${props => props.theme.colors.clearWhite};
+    --categoryHeader: ${props => props.theme.colors.clearWhite};
+    --categoryColor: ${props => props.theme.colors.gray};
+    --categotyImgage: ${props => props.theme.colors.blackLight};
+    --postCardColor: ${props => props.theme.colors.clearWhite};
+    --postCardHighlight: ${props => props.theme.colors.blackLight};
+    --postCardEmoji: ${props => props.theme.colors.blackLight};
+    
+    background-color: var(--bg);
+    color: var(--textNormal);
+
+
+    line-height: 1.6;
+    font-size: 100%;
+    font-weight: 400;
+    font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Kaku Gothic ProN","Hiragino Kaku Gothic Pro","メイリオ", Meiryo, sans-serif;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+  }
+  
   article, aside, details, figcaption, figure,
   footer, header, hgroup, menu, nav, section {
     display: block;

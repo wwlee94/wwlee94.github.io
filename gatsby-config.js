@@ -121,6 +121,7 @@ module.exports = {
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-styled-components`,
     `gatsby-plugin-material-ui`,
+    'gatsby-plugin-dark-mode',
     `gatsby-plugin-typescript`,
   ],
 };
