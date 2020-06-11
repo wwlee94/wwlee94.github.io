@@ -57,7 +57,7 @@ emoji: '🎮'
 2. 각 참여자의 모든 턴에 대한 답안지(후보)를 `candidate`에 미리 저장합니다.
 3. 현재 구해야하는 튜브의 시작 턴(p), 모든 참가 인원(m)을 가지고 튜브의 답(t개 만큼)을 answer에 저장하면 됩니다.
 
-## 나의 코드
+## 풀이 코드
 
 ```python:title=Python
 def solution(n, t, m, p):

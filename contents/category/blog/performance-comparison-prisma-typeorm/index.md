@@ -116,18 +116,17 @@ console.timeEnd('prisma');
 
 ![Prisma](./images/prisma-test.png)
 
-
 ##### 2. TypeORM 코드
 
 ```typescript:title=TypeORM
 createConnection().then(async connection => {
-  console.log('------- TypeORM -------')
+  console.log('------- TypeORM -------');
   const repository = connection.getRepository(User);
 
-  console.time('typeorm')
-  const users2 = await repository.find({relations: ['posts']});
-  console.timeEnd('typeorm')
-})
+  console.time('typeorm');
+  const users2 = await repository.find({ relations: ['posts'] });
+  console.timeEnd('typeorm');
+});
 ```
 
 ##### 결과
@@ -135,6 +134,7 @@ createConnection().then(async connection => {
 ![TypeORM](./images/typeorm-test.png)
 
 ## 결론
+
 Prisma (180-240ms), TypeORM (90-120ms) 여러번 실행해보니 대략적인 결과가 나왔습니다.
 
 시간 차이가 나는 이유는 아무래도 `Prisma`는 쿼리를 2번 나누어 보내고, `TypeORM`은 Join 시킨 1번의 쿼리로 보내서 차이가 생기는 것 같습니다.

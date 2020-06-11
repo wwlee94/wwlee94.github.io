@@ -34,6 +34,8 @@ LRU 페이지 교체 알고리즘을 우선적으로 이해해야 합니다.
 
 - 단, 소문자, 대문자를 구분하지 않으므로 받은 문자열은 전부 소문자로 바꾸어 문제를 풀어야합니다.
 
+## 풀이 코드
+
 ```python:title=Python
 import collections
 def solution(cacheSize, cities):
