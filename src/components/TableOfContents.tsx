@@ -6,7 +6,7 @@ const TableIndex = styled.div`
   top: 2em;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: left;
   width: ${props => props.theme.sizes.bioWidth};
   padding: 1.5em;
   font-size: 20px;
@@ -25,26 +25,33 @@ const TableIndex = styled.div`
 
 const TableWrapper = styled.div`
   display: block;
+  width: 100%;
   max-width: 360px;
   max-height: calc(100vh - 200px);
   word-break: break-word;
   font-size: 14px;
   color: black;
   overflow: auto;
+  border-left: 2px solid rgb(233, 236, 239);
 `;
 
 const TableHeader = styled.h1`
+  display: block;
+  text-align: center;
   font-size: 18px;
   color: var(--bioColor);
+  margin-bottom: 15px;
 `;
 
 const TableContents = styled.div`
+  margin-left: 10px;
+  
   & a {
     color: rgb(134, 142, 150);
   };
 
   & a:hover {
-    color: rgb(33, 37, 41);
+    color: var(--tableOfContentsFocusColor);
   }
 
   & ul {
@@ -62,7 +69,7 @@ const TableContents = styled.div`
 
   & ul > li a[href='${(props: TableContentsProps) => props.currentHeaderUrl}'] {
     font-size: 15px;
-    color: rgb(33, 37, 41);
+    color: var(--tableOfContentsFocusColor);
     font-weight: 600;
   };
 `;

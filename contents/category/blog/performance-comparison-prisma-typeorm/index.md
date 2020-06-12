@@ -1,5 +1,5 @@
 ---
-title: 'Prisma와 TypeORM은 성능에 어떤 차이가 있을까?'
+title: 'Prisma와 TypeORM은 성능에 차이가 있을까?'
 date: '2020-06-09'
 category: 'blog'
 description: 'Prisma와 TypeORM 쿼리 성능 비교'
@@ -112,7 +112,7 @@ await prisma.user.findMany({
 console.timeEnd('prisma');
 ```
 
-##### 결과
+**결과**
 
 ![Prisma](./images/prisma-test.png)
 
@@ -129,7 +129,7 @@ createConnection().then(async connection => {
 });
 ```
 
-##### 결과
+**결과**
 
 ![TypeORM](./images/typeorm-test.png)
 

@@ -1,10 +1,10 @@
 const variables = {
   colors: {
-    base: '#121212',
     clearBlack: '#000000',
     black: 'rgba(0, 0, 0, 0.87)',
     blackLight: '#313746',
     transparentBlack: 'rgba(0, 0, 0, 0.08)',
+    darkgray: 'rgb(134, 142, 150)',
     gray: '#727d86',
     silver: '#969fa7',
     whitesmoke: '#f1f4f7',

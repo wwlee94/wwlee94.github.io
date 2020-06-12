@@ -21,7 +21,7 @@ emoji: '📋'
 
 ## 마크다운 사용법
 
-#### 1. 제목 (Heading)
+### 1. 제목 (Heading)
 
 HTML의 `<h1> ~ <h6>`와 태그와 동일합니다.
 
@@ -37,7 +37,7 @@ HTML의 `<h1> ~ <h6>`와 태그와 동일합니다.
 
 ##### Heading
 
-#### 2. 인용문 (Blockquotes)
+### 2. 인용문 (Blockquotes)
 
 ```
 > This is a first blockqute.
@@ -51,9 +51,9 @@ HTML의 `<h1> ~ <h6>`와 태그와 동일합니다.
 > >
 > > > This is a third blockqute.
 
-#### 3. 리스트 (List)
+### 3. 리스트 (List)
 
-##### 순서 없는 리스트
+#### 순서 없는 리스트
 
 `*`, `-`, `+` 모두 사용이 가능하다 !
 
@@ -69,7 +69,7 @@ HTML의 `<h1> ~ <h6>`와 태그와 동일합니다.
   - NodeJS
   - Python
 
-##### 순서 있는 리스트
+#### 순서 있는 리스트
 
 ```
 1. 알고리즘 풀기
@@ -81,7 +81,7 @@ HTML의 `<h1> ~ <h6>`와 태그와 동일합니다.
 2. 블로그 글 작성
 3. 휴식 시간
 
-#### 4. 코드 블럭 (Code blocks)
+### 4. 코드 블럭 (Code blocks)
 
 1. 한 단어만 감싸는 경우
 
@@ -107,7 +107,7 @@ HTML의 `<h1> ~ <h6>`와 태그와 동일합니다.
 const value = 'Hello World!';
 ```
 
-#### 5. 강조 (Emphasis)
+### 5. 강조 (Emphasis)
 
 각각 `<em>`, `<strong>`, `<del>` 태그로 변환됩니다.
 
@@ -124,7 +124,7 @@ _Hello World_
 밑줄은 `<u></u>` 태그를 사용하세요.  
 <u>문자 밑줄 긋기</u>
 
-#### 6. 수평선 (Horizontal Line)
+### 6. 수평선 (Horizontal Line)
 
 문단과 문단 사이를 나눌 때 사용되는 수평선은 HTML의 `<hr />`과 동일합니다.
 
@@ -146,7 +146,7 @@ _Hello World_
 
 ---
 
-#### 7. 링크 (Links)
+### 7. 링크 (Links)
 
 HTML의 `<a>` 링크를 걸 수 있습니다.
 
@@ -182,7 +182,7 @@ NAVER : <https://naver.com>
 
 [var]: https://github.com
 
-#### 이미지 (Images)
+### 8. 이미지 (Images)
 
 HTML의 `<img>` 태그와 동일하게 작동합니다.
 
@@ -192,7 +192,7 @@ HTML의 `<img>` 태그와 동일하게 작동합니다.
 
 ![Rocket](./images/rocket.png)
 
-#### 추천 해줄 마크다운 툴
+## 추천 해줄 마크다운 툴
 
 `Mac`과 `Window` 또는 `웹 플랫폼`에서도 사용이 가능한 `Notion`을 사용해보시는 것을 추천드립니다.
 
@@ -221,7 +221,7 @@ Gatsby Plugin - 2 : [gatsby-remark-embed-video](https://www.gatsbyjs.org/package
 
 `youtube:https://www.youtube.com/embed/7-x3uD5z1bQ`
 
-#### 참고 문서
+## 참고 문서
 
 [ihoneymon의 마크다운 작성법](https://gist.github.com/ihoneymon/652be052a0727ad59601)  
 [hyeyoonjung의 마크다운 작성법](http://blog.hyeyoonjung.com/2017/05/30/how-to-use-markdown/)

@@ -6,6 +6,9 @@ description: ''
 emoji: '📚'
 ---
 
+[[info | LEVEL 2 - '캐시' 문제 보러 가기 !]]
+| https://programmers.co.kr/learn/courses/30/lessons/17680
+
 ## 프로그래머스 캐시 문제를 풀기 전에 !
 
 LRU 페이지 교체 알고리즘을 우선적으로 이해해야 합니다.
@@ -28,7 +31,7 @@ LRU 페이지 교체 알고리즘을 우선적으로 이해해야 합니다.
 
 3. 캐시가 꽉 차있다면 사용이 가장 적었던 큐의 가장 앞부분을 제거하고 가져오려는 데이터를 캐시 큐의 가장 뒷 부분에 데이터 삽입
 
-## 문제 풀이 접근
+## 문제 접근 방식
 
 프로그래머스의 `캐시` 알고리즘 문제 또한 위의 `LRU 알고리즘`을 적용하면 쉽게 풀 수 있습니다.
 
@@ -60,5 +63,3 @@ def solution(cacheSize, cities):
           answer += 5
   return answer
 ```
-
-문제 링크 : https://programmers.co.kr/learn/courses/30/lessons/17680

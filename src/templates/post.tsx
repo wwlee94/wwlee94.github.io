@@ -29,17 +29,18 @@ const Content = styled.section`
     width: 0;
     height: 0;
     z-index: 5;
+    transition: all 0.2s ease-out 0s;
   }
   &:before {
     top: 0;
     left: 0;
-    border-top: 20px solid ${props => props.theme.colors.background};
+    border-top: 20px solid var(--bg);
     border-right: 20px solid transparent;
   }
   &:after {
     bottom: 0;
     right: 0;
-    border-bottom: 20px solid ${props => props.theme.colors.background};
+    border-bottom: 20px solid var(--bg);
     border-left: 20px solid transparent;
   }
   @media screen and (max-width: ${props => props.theme.responsive.small}) {
@@ -119,6 +120,8 @@ const BlogPostTemplate = ({ ...props }: Props) => {
   const location_full_url = `${siteUrl + location.pathname}`;
 
   const [currentHeaderUrl, setCurrentHeaderUrl] = useState(undefined);
+  const HEADER_OFFSET = 30;
+
   useEffect(() => {
     const handleScroll = () => {
       let aboveHeaderUrl;
@@ -128,7 +131,7 @@ const BlogPostTemplate = ({ ...props }: Props) => {
         const { top } = elem.getBoundingClientRect();
         const elemTop = top + currentOffsetY;
         const isLast = elem === headerElements[headerElements.length - 1];
-        if (currentOffsetY < elemTop - 100) {
+        if (currentOffsetY < elemTop - HEADER_OFFSET) {
           // 기억해둔 aboveHeaderUrl이 있다면 바로 위 header와 현재 element 사이에 화면이 스크롤 되어 있다.
           aboveHeaderUrl && setCurrentHeaderUrl(aboveHeaderUrl.split(location.origin)[1]);
           // 기억해둔 aboveHeaderUrl이 없다면 첫번째 header다.

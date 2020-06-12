@@ -9,9 +9,6 @@ const SyntaxHighlightStyle = css`
       margin: 1.5em -${props => props.theme.sideSpace.contentSmall};
     }
   }
-  code[class*='language-'] {
-    margin: 0 2px 5px 2px;
-  }
   code[class*='language-'],
   pre[class*='language-'] {
     hyphens: none;
@@ -32,26 +29,28 @@ const SyntaxHighlightStyle = css`
       border-radius: 0;
     }
   }
+
   pre[class*='language-'] {
-    padding: 26px ${boxPaddingSide};
-    overflow: auto;
+    padding: 1.2em ${boxPaddingSide};
     -webkit-overflow-scrolling: touch;
-  }
-
-  pre[class*='language-'] {
     position: relative;
+    overflow: auto;
   }
-  pre[class*='language-'] code {
-    white-space: pre;
-    display: block;
+  /**
+   * gatsby-remark-prismjs
+   * Add line number
+  */
+  .gatsby-highlight pre[class*='language-'].line-numbers {
+    padding-left: 3.5em;
+    overflow: initial;
+  }
+  pre[class*='language-'].line-numbers span.line-numbers-rows {
+    padding: 1.2em 0 1.2em 0.8em;
+    background-color: hsla(0, 0%, 78.4%, 0.15);
+    border: none;
+    overflow: auto;
   }
 
-  :not(pre) > code[class*='language-'] {
-    padding: 0.15em 0.2em 0.05em;
-    border-radius: 0.3em;
-    border: 0.13em solid #7a6652;
-    box-shadow: 1px 1px 0.3em -0.1em #000 inset;
-  }
   .token.namespace {
     opacity: 0.7;
   }
@@ -141,19 +140,19 @@ const SyntaxHighlightStyle = css`
     border-left: 5px solid #22aef1;
   }
 
-  /*gatsby-remark-code-titles*/
+  /* gatsby-remark-code-titles */
   .gatsby-code-title {
     position: relative;
     margin: 1.5em 0 -24px auto;
-    background: #20242e;
+    background: #616161;
     color: #fff;
     font-size: 12px;
     height: 24px;
     padding: 0 8px;
     line-height: 24px;
     font-family: SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
-    font-weight: 700;
-    border-radius: 0 4px;
+    font-weight: 550;
+    border-radius: 0 8px;
     display: table;
     z-index: 2;
     @media screen and (max-width: ${props => props.theme.responsive.small}) {
@@ -169,12 +168,12 @@ const SyntaxHighlightStyle = css`
   p > code,
   li > code {
     display: inline-block;
-    background: #edf2f7;
+    background: #f9f1f3;
     padding: 0.1em 0.3em;
-    margin: 0 0.2em;
+    margin: 0 0.2em 0.4em 0.2em;
     border-radius: 3px;
-    line-height: 1.4;
-    color: #454e63 !important;
+    line-height: 1.2;
+    color: #ff3860 !important;
   }
 `;
 

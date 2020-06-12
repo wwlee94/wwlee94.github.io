@@ -42,6 +42,7 @@ const globalStyle = createGlobalStyle`
     --postCardColor: ${props => props.theme.colors.black};
     --postCardHighlight: ${props => props.theme.colors.transparentBlack};
     --postCardEmoji: ${props => props.theme.colors.clearWhite};
+    --tableOfContentsFocusColor: rgb(33, 37, 41)
 
     background-color: var(--bg);
     color: var(--textNormal);
@@ -66,6 +67,7 @@ const globalStyle = createGlobalStyle`
     --postCardColor: ${props => props.theme.colors.clearWhite};
     --postCardHighlight: ${props => props.theme.colors.blackLight};
     --postCardEmoji: ${props => props.theme.colors.blackLight};
+    --tableOfContentsFocusColor:  ${props => props.theme.colors.whitesmoke};
     
     background-color: var(--bg);
     color: var(--textNormal);
