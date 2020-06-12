@@ -1,10 +1,21 @@
 import React from 'react';
-import { ThemeProvider } from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import GlobalStyle from '../styles/global';
 import DefaultTheme from '../styles/theme';
-import Contents from './Contents';
+import ContentWrapper from './ContentWrapper';
 import Footer from './Footer';
 import Header from './Header';
+
+const Content = styled.div`
+  margin-top: 2em;
+  min-height: 85vh;
+  @media screen and (max-width: ${props => props.theme.responsive.large}) {
+    display: block;
+  }
+  @media screen and (max-width: ${props => props.theme.responsive.small}) {
+    margin-top: 0;
+  }
+`;
 
 interface Props {
   location: any;
@@ -26,7 +37,11 @@ const Layout = ({ location, title, children }: Props) => {
           }}
         >
           <Header title={title} location={location} />
-          <Contents children={children} />
+          <ContentWrapper>
+            <Content>
+              <main>{children}</main>
+            </Content>
+          </ContentWrapper>
           <Footer />
         </div>
       </>

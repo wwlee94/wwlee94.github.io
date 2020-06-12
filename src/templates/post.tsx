@@ -1,5 +1,5 @@
 import { graphql } from 'gatsby';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
 import twemoji from 'twemoji';
@@ -7,8 +7,10 @@ import svgPattern from '../../static/images/svg/others/pattern.svg';
 import CategoryLabel from '../components/CategoryLabel';
 import PostJsonLd from '../components/json/PostJsonLd';
 import Layout from '../components/Layout';
+import MainWrapper from '../components/MainWrapper';
 import RelatedPosts from '../components/RelatedPosts';
 import SEO from '../components/SEO';
+import TableOfContents from '../components/TableOfContents';
 import Utterances from '../components/Utterances';
 import { PostPageContext, QueryResult } from '../models';
 import postContentStyle from '../styles/postContent';
@@ -105,48 +107,96 @@ interface Props {
   location: any;
 }
 
-class BlogPostTemplate extends React.Component<Props> {
-  render() {
-    const post = this.props.data.markdownRemark;
-    const { siteUrl, title: siteTitle } = this.props.data.site.siteMetadata;
-    const { relatedPosts, slug } = this.props.pageContext;
-    const { title, description, date, category, emoji } = post.frontmatter;
+const BlogPostTemplate = ({ ...props }: Props) => {
+  const post = props.data.markdownRemark;
+  const tocItems = post.tableOfContents;
 
-    const location = this.props.location;
-    const location_full_url = `${siteUrl + location.pathname}`;
-    return (
-      <Layout location={location} title={siteTitle}>
-        <SEO title={title} description={description || post.excerpt} />
-        <Helmet>
-          <link rel="canonical" href={location_full_url} />
-        </Helmet>
-        <PostJsonLd title={title} description={description || post.excerpt} date={date} url={location.href} categorySlug={category} />
-        <Content>
-          <HeroImage
-            dangerouslySetInnerHTML={{
-              __html: twemoji.parse(emoji || '😺', {
-                folder: 'svg',
-                ext: '.svg',
-              }),
-            }}
-          />
-          <ContentMain>
-            <PostDate>{date}</PostDate>
-            <PostTitle>{title}</PostTitle>
-            <CategoryLabel slug={category} isLink={true} />
-            <PostContent dangerouslySetInnerHTML={{ __html: post.html }} />
-          </ContentMain>
-          <aside>
-            <RelatedPosts posts={relatedPosts} />
-            <Utterances repo="wwlee94/wwlee94.github.io" theme="github-light" />
-          </aside>
-        </Content>
-      </Layout>
-    );
+  const { siteUrl, title: siteTitle } = props.data.site.siteMetadata;
+  const { relatedPosts, slug } = props.pageContext;
+  const { title, description, date, category, emoji } = post.frontmatter;
+
+  const location = props.location;
+  const location_full_url = `${siteUrl + location.pathname}`;
+
+  const [currentHeaderUrl, setCurrentHeaderUrl] = useState(undefined);
+  useEffect(() => {
+    const handleScroll = () => {
+      let aboveHeaderUrl;
+      const currentOffsetY = window.pageYOffset;
+      const headerElements: any = document.querySelectorAll('.anchor-header');
+      for (const elem of headerElements) {
+        const { top } = elem.getBoundingClientRect();
+        const elemTop = top + currentOffsetY;
+        const isLast = elem === headerElements[headerElements.length - 1];
+        if (currentOffsetY < elemTop - 100) {
+          // 기억해둔 aboveHeaderUrl이 있다면 바로 위 header와 현재 element 사이에 화면이 스크롤 되어 있다.
+          aboveHeaderUrl && setCurrentHeaderUrl(aboveHeaderUrl.split(location.origin)[1]);
+          // 기억해둔 aboveHeaderUrl이 없다면 첫번째 header다.
+          // 이때는 어떤 header도 active 하지 않은 상태다.
+          !aboveHeaderUrl && setCurrentHeaderUrl(undefined);
+          break;
+        } else {
+          // 마지막 header면 다음 element가 없기 때문에 현재 header를 active header라 간주한다.
+          isLast && setCurrentHeaderUrl(elem.href.split(location.origin)[1]);
+          !isLast && (aboveHeaderUrl = elem.href);
+        }
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  if (!post) {
+    return null;
   }
-}
+
+  const isTOCVisible = tocItems?.length > 0;
+
+  return (
+    <Layout location={location} title={siteTitle}>
+      <SEO title={title} description={description || post.excerpt} />
+      <Helmet>
+        <link rel="canonical" href={location_full_url} />
+      </Helmet>
+      <PostJsonLd title={title} description={description || post.excerpt} date={date} url={location.href} categorySlug={category} />
+      <MainWrapper
+        posts={
+          <Content>
+            <HeroImage
+              dangerouslySetInnerHTML={{
+                __html: twemoji.parse(emoji || '😺', {
+                  folder: 'svg',
+                  ext: '.svg',
+                }),
+              }}
+            />
+            <ContentMain>
+              <PostDate>{date}</PostDate>
+              <PostTitle>{title}</PostTitle>
+              <CategoryLabel slug={category} isLink={true} />
+              <PostContent dangerouslySetInnerHTML={{ __html: post.html }} />
+            </ContentMain>
+            <aside>
+              <RelatedPosts posts={relatedPosts} />
+              <Utterances repo="wwlee94/wwlee94.github.io" theme="github-light" />
+            </aside>
+          </Content>
+        }
+        tableOfContents={isTOCVisible && <TOC tocItems={tocItems} currentHeaderUrl={currentHeaderUrl} />}
+        category={null}
+        bio={null}
+      />
+    </Layout>
+  );
+};
 
 export default BlogPostTemplate;
+
+const TOC = ({ ...props }: any) => {
+  return <TableOfContents items={props.tocItems} currentHeaderUrl={props.currentHeaderUrl} />;
+};
 
 export const pageQuery = graphql`
   query BlogPostBySlug($slug: String!) {
@@ -161,6 +211,7 @@ export const pageQuery = graphql`
       id
       excerpt(pruneLength: 160)
       html
+      tableOfContents
       frontmatter {
         title
         description

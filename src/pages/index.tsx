@@ -1,9 +1,11 @@
 import { graphql } from 'gatsby';
 import React from 'react';
 import Helmet from 'react-helmet';
+import Bio from '../components/Bio';
 import CategoryMenu from '../components/CategoryMenu';
 import HomeJsonLd from '../components/json/HomeJsonLd';
 import Layout from '../components/Layout';
+import MainWrapper from '../components/MainWrapper';
 import PostCard from '../components/PostCard';
 import SEO from '../components/SEO';
 import { QueryResult } from '../models';
@@ -27,16 +29,23 @@ class BlogIndex extends React.Component<Props> {
           <link rel="canonical" href="https://wwlee94.github.io" />
         </Helmet>
         <HomeJsonLd />
-        <CategoryMenu location={location} categories={categories} />
-        {posts.map(({ node }) => {
-          return <PostCard key={node.fields.slug} node={node} />;
-        })}
+        <MainWrapper category={Category({ location, categories })} posts={Posts({ posts })} bio={<Bio />} tableOfContents={null} />
       </Layout>
     );
   }
 }
 
 export default BlogIndex;
+
+const Category = ({ location, categories }: any) => {
+  return <CategoryMenu location={location} categories={categories} />;
+};
+
+const Posts = ({ posts }: any) => {
+  return posts.map(({ node }: any) => {
+    return <PostCard key={node.fields.slug} node={node} />;
+  });
+};
 
 export const pageQuery = graphql`
   query {

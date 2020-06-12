@@ -85,7 +85,7 @@ const postContentStyle = css`
       list-style-position: inside;
       position: relative;
       line-height: 20px;
-      padding-left: 34px;
+      padding: 0 0 0 34px;
       margin: 1em 0;
       &:before {
         display: inline-block;
@@ -178,6 +178,9 @@ const postContentStyle = css`
     box-shadow: 1px 1px 20px lightgrey;
     border-radius: 4px;
     overflow: hidden;
+  }
+  .anchor-header {
+    margin: 2px 0 0 0;
   }
 `;
 

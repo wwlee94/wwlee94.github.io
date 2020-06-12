@@ -11,20 +11,28 @@ const ToggleButton = styled.div`
   margin-left: auto;
   cursor: pointer;
 
-  .icon {
+  .icon-sun {
     display: flex;
     text-align: center;
     align-items: center;
     justify-content: center;
+    height: 100%;
     color: #222;
-    font-size: 14px;
-    font-weight: 900;
+  }
+
+  .icon-moon {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: #fff;
   }
 `;
 
 const SunIcon = () => {
   return (
-    <div className="icon uncheckedIcon">
+    <div className="icon-sun uncheckedIcon">
       <TiAdjustBrightness size="24" />
     </div>
   );
@@ -32,8 +40,8 @@ const SunIcon = () => {
 
 const MoonIcon = () => {
   return (
-    <div className="icon checkedIcon">
-      <svg width="24" height="24">
+    <div className="icon-moon checkedIcon">
+      <svg width="24" height="24" fill="#EFDC05">
         <rect width="24" height="24" fill="none" rx="0" ry="0" />
         <path
           fillRule="evenodd"
@@ -65,14 +73,17 @@ const ColorModeToggle = () => {
         onChange={handleChange}
         checked={theme === 'dark' ? true : false}
         id="normal-switch"
-        height={24}
-        width={48}
+        height={26}
+        width={54}
+        handleDiameter={26}
         checkedIcon={<MoonIcon />}
         uncheckedIcon={<SunIcon />}
         offColor={'#d9dfe2'}
         offHandleColor={'#fff'}
-        onColor={'#999'}
-        onHandleColor={'#282c35'}
+        onColor={'#383A3F'}
+        onHandleColor={'#3B71DA'}
+        boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+        activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
       />
     </ToggleButton>
   );

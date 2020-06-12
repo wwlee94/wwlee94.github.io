@@ -1,9 +1,11 @@
 import { graphql } from 'gatsby';
 import React from 'react';
 import styled from 'styled-components';
+import Bio from '../components/Bio';
 import CategoryMenu from '../components/CategoryMenu';
 import CategoryJsonLd from '../components/json/CategoryJsonLd';
 import Layout from '../components/Layout';
+import MainWrapper from '../components/MainWrapper';
 import PostCard from '../components/PostCard';
 import SEO from '../components/SEO';
 import { CategoryPageContext, QueryResult } from '../models';
@@ -42,17 +44,28 @@ class CategoryTemplate extends React.Component<Props> {
       <Layout location={this.props.location} title={categoryName}>
         <SEO title={categoryName} />
         <CategoryJsonLd categorySlug={categorySlug} categoryName={categoryName} />
-        <CategoryMenu location={location} categories={categories} />
-        <Heading>{categoryName}</Heading>
-        {posts.map(({ node }) => {
-          return <PostCard key={node.fields.slug} node={node} />;
-        })}
+        <MainWrapper category={Category({ location, categories, categoryName })} posts={Posts({ posts })} bio={<Bio />} tableOfContents={null} />
       </Layout>
     );
   }
 }
 
 export default CategoryTemplate;
+
+const Category = ({ location, categories, categoryName }: any) => {
+  return (
+    <React.Fragment>
+      <CategoryMenu location={location} categories={categories} />
+      <Heading>{categoryName}</Heading>
+    </React.Fragment>
+  );
+};
+
+const Posts = ({ posts }: any) => {
+  return posts.map(({ node }: any) => {
+    return <PostCard key={node.fields.slug} node={node} />;
+  });
+};
 
 export const pageQuery = graphql`
   query BlogPostByCategory($category: String) {
