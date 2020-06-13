@@ -84,7 +84,6 @@ interface Props {
 }
 
 const TableOfContents = ({ items, currentHeaderUrl }: Props) => {
-  console.log(currentHeaderUrl);
   return items ? (
     <TableIndex>
       <TableWrapper className="table-of-contents">

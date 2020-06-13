@@ -13,7 +13,6 @@ const SyntaxHighlightStyle = css`
   pre[class*='language-'] {
     hyphens: none;
     white-space: pre;
-    white-space: pre-wrap;
     word-wrap: normal;
     font-family: Menlo, Monaco, 'Courier New', monospace;
     font-size: 14.5px;
@@ -36,19 +35,15 @@ const SyntaxHighlightStyle = css`
     position: relative;
     overflow: auto;
   }
-  /**
-   * gatsby-remark-prismjs
-   * Add line number
-  */
+
+  /* gatsby-remark-prismjs : Add line number */
   .gatsby-highlight pre[class*='language-'].line-numbers {
-    padding-left: 3.5em;
-    overflow: initial;
+    padding-left: 3.4em;
   }
   pre[class*='language-'].line-numbers span.line-numbers-rows {
-    padding: 1.2em 0 1.2em 0.8em;
+    padding: 1.2em 0 1.2em 0.7em;
     background-color: hsla(0, 0%, 78.4%, 0.15);
     border: none;
-    overflow: auto;
   }
 
   .token.namespace {
@@ -156,7 +151,7 @@ const SyntaxHighlightStyle = css`
     display: table;
     z-index: 2;
     @media screen and (max-width: ${props => props.theme.responsive.small}) {
-      border-radius: 0;
+      border-radius: 0 0 0 8px;
       margin-right: -${props => props.theme.sideSpace.contentSmall};
     }
   }

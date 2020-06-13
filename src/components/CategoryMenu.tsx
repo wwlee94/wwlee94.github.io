@@ -118,6 +118,8 @@ function selectCategoryIcon(name: string) {
       return CategoryIcon.algorithmIcon;
     case 'blogIcon':
       return CategoryIcon.blogIcon;
+    case 'springIcon':
+      return CategoryIcon.springIcon;
   }
 }
 
