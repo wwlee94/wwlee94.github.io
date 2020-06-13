@@ -25,6 +25,13 @@ module.exports = {
         icon: `algorithmIcon`,
         link: `/category/algorithm`,
       },
+      {
+        name: `스프링`,
+        slug: `spring`,
+        color: `#C0D545`,
+        icon: `springIcon`,
+        link: `/category/spring`,
+      },
     ],
   },
   plugins: [
