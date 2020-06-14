@@ -1,6 +1,6 @@
 ---
 title: '[프로그래머스] 단속 카메라 - 그리디 알고리즘 / Python'
-date: '2020-06-11'
+date: '2020-06-12'
 category: 'algorithm'
 description: ''
 emoji: '📸'

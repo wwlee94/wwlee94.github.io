@@ -21,11 +21,16 @@ const postContentStyle = css`
     font-weight: 700;
     line-height: 1.5;
   }
-  h1, h2 {
-    position: relative;
+  h1{
     margin: 55px 0 12px;
     padding: 5px 0 5px 17px;
     font-size: 1.55em;
+  }
+  h2 {
+    position: relative;
+    margin: 50px 0 12px;
+    padding: 5px 0 5px 17px;
+    font-size: 1.40em;
     &:before {
       position: absolute;
       top: 0;
@@ -38,11 +43,8 @@ const postContentStyle = css`
       background: linear-gradient(0deg,#ffa649 0% ,#ffa649 50%,#f7645b 50%,#f7645b 100%);
     }
   }
-  h2 {
-    font-size: 1.40em;
-  }
   h3 {
-    margin: 55px 0 12px;
+    margin: 50px 0 12px;
     font-size: 1.40em;
   }
   h4 {
@@ -148,6 +150,9 @@ const postContentStyle = css`
       background-color:  ${props => props.theme.colors.whitesmoke};
       color: ${props => props.theme.colors.blackLight};
       padding: 10px 12px;
+    }
+    td code[class*='language-'] {
+      color: ${props => props.theme.colors.blackLight};
     }
     thead tr {
       th:first-child {

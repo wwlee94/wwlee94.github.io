@@ -7,7 +7,7 @@ const TableIndex = styled.div`
   display: flex;
   align-items: center;
   justify-content: left;
-  width: ${props => props.theme.sizes.bioWidth};
+  width: ${props => props.theme.sizes.tableOfContentWidth};
   padding: 1.5em;
   font-size: 20px;
   background: var(--bioBackground);
@@ -26,13 +26,12 @@ const TableIndex = styled.div`
 const TableWrapper = styled.div`
   display: block;
   width: 100%;
-  max-width: 360px;
   max-height: calc(100vh - 200px);
   word-break: break-word;
   font-size: 14px;
   color: black;
   overflow: auto;
-  border-left: 2px solid rgb(233, 236, 239);
+  border-left: 1.5px solid rgb(233, 236, 239);
 `;
 
 const TableHeader = styled.h1`
@@ -46,30 +45,30 @@ const TableHeader = styled.h1`
 const TableContents = styled.div`
   margin-left: 10px;
   
-  & a {
+  a {
     color: rgb(134, 142, 150);
   };
 
-  & a:hover {
+  a:hover {
     color: var(--tableOfContentsFocusColor);
   }
 
-  & ul {
+  ul {
     list-style: none;
     margin-left: 10px;
     margin-bottom: 0px;
   };
 
-  & ul > li {
+  ul > li {
     line-height: 1.5rem;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
   };
 
-  & ul > li a[href='${(props: TableContentsProps) => props.currentHeaderUrl}'] {
-    font-size: 15px;
+  ul > li a[href='${(props: TableContentsProps) => props.currentHeaderUrl}'] {
     color: var(--tableOfContentsFocusColor);
+    // font-size: 15px;
     font-weight: 600;
   };
 `;

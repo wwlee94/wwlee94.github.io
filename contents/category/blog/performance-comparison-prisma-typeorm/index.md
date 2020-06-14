@@ -1,6 +1,6 @@
 ---
 title: 'Prisma와 TypeORM은 성능에 차이가 있을까?'
-date: '2020-06-09'
+date: '2020-06-11'
 category: 'blog'
 description: 'Prisma와 TypeORM 쿼리 성능 비교'
 emoji: '⁉️'
