@@ -22,13 +22,13 @@ const postContentStyle = css`
     line-height: 1.5;
   }
   h1{
-    margin: 55px 0 12px;
+    margin: 45px 0 12px;
     padding: 5px 0 5px 17px;
     font-size: 1.55em;
   }
   h2 {
     position: relative;
-    margin: 50px 0 12px;
+    margin: 45px 0 12px;
     padding: 5px 0 5px 17px;
     font-size: 1.40em;
     &:before {
@@ -44,7 +44,7 @@ const postContentStyle = css`
     }
   }
   h3 {
-    margin: 50px 0 12px;
+    margin: 40px 0 12px;
     font-size: 1.40em;
   }
   h4 {

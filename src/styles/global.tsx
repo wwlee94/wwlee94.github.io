@@ -88,6 +88,7 @@ const globalStyle = createGlobalStyle`
   a {
     color: ${(props: any) => props.theme.colors.highlight};
     text-decoration: none;
+    word-break: break-all;
     transition: .2s;
     :focus{
       outline: none;
