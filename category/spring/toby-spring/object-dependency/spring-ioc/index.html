@@ -145,7 +145,7 @@ void function() {
 <h4 id="애플리케이션-컨텍스트와-설정-정보" style="position:relative;"><a href="#%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8%EC%99%80-%EC%84%A4%EC%A0%95-%EC%A0%95%EB%B3%B4" aria-label="애플리케이션 컨텍스트와 설정 정보 permalink" class="anchor-header before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>애플리케이션 컨텍스트와 설정 정보</h4>
 <p>스프링에서는 스프링이 <code class="language-text">제어권 + 관계</code>를 부여하는 객체를 <code class="language-text">빈(bean)</code>이라고 부릅니다.<br>
 동시에, <code class="language-text">빈의 생성</code>과 <code class="language-text">관계 설정</code>과 같은 제어를 담당하는 IoC 객체를 <code class="language-text">빈 팩토리(bean factory)</code>라고 부르며 보통 빈 팩토리 보다는 <code class="language-text">애플리케이션 컨텍스트</code>를 주로 사용합니다.</p>
-<div class="custom-block info"><div class="custom-block-heading">애플리케이션 컨텍스트란 ?</div><div class="custom-block-body"><p>IoC 방식을 따라 만들어진 일종의 빈 팩토리<br>
+<div class="custom-block info"><div class="custom-block-heading">애플리케이션 컨텍스트란 ?</div><div class="custom-block-body"><p>IoC 방식을 따라 확장된 일종의 빈 팩토리<br>
 두 가지가 앞으로 동일하다고 생각하면 OK !</p></div></div>
 <p><code class="language-text">애플리케이션 컨텍스트</code>는 설정 정보, 관계 정보 등을 직접 담고 있지는 않습니다.<br>
 대신, 별도로 설정 정보를 담고 있는 무엇인가를 가져와 이를 활용하는 범용적인 IoC 엔진이라고 볼 수 있다.</p>
@@ -177,9 +177,6 @@ void function() {
     <span class="token class-name">UserDao</span> dao <span class="token operator">=</span> context<span class="token punctuation">.</span><span class="token function">getBean</span><span class="token punctuation">(</span><span class="token string">"userDao"</span><span class="token punctuation">,</span> <span class="token class-name">UserDao</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span></code><span aria-hidden="true" class="line-numbers-rows" style="white-space: normal; width: auto; left: 0;"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre></div>
-<blockquote>
-<p>뒤에서도 나오지만 XML 버전 애플리케이션 컨텍스트 적용도 나옵니다.</p>
-</blockquote>
 <h4 id="오브젝트-팩토리-vs-애플리케이션-컨텍스트" style="position:relative;"><a href="#%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8-%ED%8C%A9%ED%86%A0%EB%A6%AC-vs-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8" aria-label="오브젝트 팩토리 vs 애플리케이션 컨텍스트 permalink" class="anchor-header before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>오브젝트 팩토리 VS 애플리케이션 컨텍스트</h4>
 <p>기존의 <code class="language-text">오브젝트 팩토리</code> 방식과 스프링의 <code class="language-text">애플리케이션 컨텍스트</code> 방식을 비교해보자.</p>
 <ol>
@@ -194,6 +191,21 @@ void function() {
 <ul>
 <li>애플리케이션에서 IoC를 적용해서 관리할 모든 객체에 대한 생성과 관계 설정을 담당</li>
 <li>단, 직접적으로 맺어주는 코드는 없고 별도의 설정 정보를 통해 얻습니다.</li>
+</ul>
+</li>
+</ol>
+<h4 id="빈-팩토리-vs-애플리케이션-컨텍스트" style="position:relative;"><a href="#%EB%B9%88-%ED%8C%A9%ED%86%A0%EB%A6%AC-vs-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8" aria-label="빈 팩토리 vs 애플리케이션 컨텍스트 permalink" class="anchor-header before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>빈 팩토리 VS 애플리케이션 컨텍스트</h4>
+<ol>
+<li>
+<p><strong>빈 팩토리</strong></p>
+<ul>
+<li>클라이언트가 요청할 때 되서야 <code class="language-text">Lazy</code> 하게 요청을 처리힙니다.</li>
+</ul>
+</li>
+<li>
+<p><strong>애플리케이션 컨텍스트</strong></p>
+<ul>
+<li>빈을 미리 <code class="language-text">Eager</code> 하게 생성한 뒤 클라이언트가 요청할 때 준비된 오브젝트를 반환합니다.</li>
 </ul>
 </li>
 </ol>
@@ -244,8 +256,9 @@ void function() {
 <ul>
 <li><a href="/category/spring/toby-spring/object-dependency/spring-ioc/#%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8%EC%99%80-%EC%84%A4%EC%A0%95-%EC%A0%95%EB%B3%B4">애플리케이션 컨텍스트와 설정 정보</a></li>
 <li><a href="/category/spring/toby-spring/object-dependency/spring-ioc/#daofactory%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%98%EB%8A%94-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8">DaoFactory를 사용하는 애플리케이션 컨텍스트</a></li>
+<li><a href="/category/spring/toby-spring/object-dependency/spring-ioc/#%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8-%ED%8C%A9%ED%86%A0%EB%A6%AC-vs-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8">오브젝트 팩토리 VS 애플리케이션 컨텍스트</a></li>
 <li>
-<p><a href="/category/spring/toby-spring/object-dependency/spring-ioc/#%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8-%ED%8C%A9%ED%86%A0%EB%A6%AC-vs-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8">오브젝트 팩토리 VS 애플리케이션 컨텍스트</a></p>
+<p><a href="/category/spring/toby-spring/object-dependency/spring-ioc/#%EB%B9%88-%ED%8C%A9%ED%86%A0%EB%A6%AC-vs-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8">빈 팩토리 VS 애플리케이션 컨텍스트</a></p>
 <ul>
 <li><a href="/category/spring/toby-spring/object-dependency/spring-ioc/#%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8-%EB%82%B4%EB%B6%80-%EB%8F%99%EC%9E%91-%EA%B3%BC%EC%A0%95">애플리케이션 컨텍스트 내부 동작 과정</a></li>
 <li><a href="/category/spring/toby-spring/object-dependency/spring-ioc/#%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8%EC%9D%98-%EC%9E%A5%EC%A0%90">애플리케이션 컨텍스트의 장점</a></li>
