@@ -6,15 +6,15 @@ description: ''
 emoji: '🚧'
 ---
 
+## XML 설정 포스팅을 보기 전에
+
+`Spring Boot`로 개발을 많이 진행하면서, 또 몇가지 이유 등으로 `XML` 파일 설정은 최근 잘 사용되지 않으니 해당 포스팅은 참고용으로 보시길 바랍니다. !
+
+**JavaConfig의 이점**
+
+참고 링크 : https://stackoverflow.com/questions/29162278/benefits-of-javaconfig-over-xml-configurations-in-spring
+
 ## XML을 이용한 DI 설정
-
-#### XML을 사용하면 좋은 이유 ?
-
-오브젝트의 의존 정보를 자바 코드로 만들어주는 것은 번거로운 일입니다.
-
-대부분 틀에 박힌 구조가 반복되고 자바 코드를 수정하고 클래스 파일로 다시 컴파일 하는 것도 번거롭습니다.
-
-그렇기 때문에, 대표적인 XML 설정 파일을 사용합니다.
 
 **클래스 설정과 XML 설정의 대응 항목**
 

@@ -1,6 +1,6 @@
 ---
 title: '[프로그래머스] 저울 - 그리디 알고리즘 / Python'
-date: '2020-06-15'
+date: '2020-06-08'
 category: 'algorithm'
 description: ''
 emoji: '⚖️'
@@ -52,9 +52,9 @@ emoji: '⚖️'
 
 ```python:title=Python
 def solution(weight):
-  weight.sort()
+  weight.sort() # 작은 무게부터 더하면서 접근해야하므로
 
-  subtotal = 1
+  subtotal = 1 # 추의 최소 무게는 1
   for w in weight:
     if subtotal < w:
       break
