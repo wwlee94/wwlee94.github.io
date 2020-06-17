@@ -15,7 +15,6 @@ const SyntaxHighlightStyle = css`
     white-space: pre;
     word-wrap: normal;
     font-family: Menlo, Monaco, 'Courier New', monospace;
-    font-size: 14.5px;
     color: #22aef1;
     text-shadow: none;
   }
@@ -33,6 +32,7 @@ const SyntaxHighlightStyle = css`
     padding: 1.2em ${boxPaddingSide};
     -webkit-overflow-scrolling: touch;
     position: relative;
+    font-size: 14.5px;
     overflow: auto;
   }
 
@@ -162,13 +162,14 @@ const SyntaxHighlightStyle = css`
   /* Inline code */
   p > code,
   li > code {
-    display: inline-block;
-    background: #f9f1f3;
-    padding: 0.1em 0.3em;
-    margin: 0.2em;
-    border-radius: 3px;
-    line-height: 1.2;
     color: #ff3860 !important;
+    background: #f9f1f3;
+    padding: 0.2em 0.4em;
+    margin: 0.2em;
+    border-radius: 4px;
+    font-size: 14.5px;
+    word-break: break-all;
+    white-spaze: pre-line;
   }
 `;
 
