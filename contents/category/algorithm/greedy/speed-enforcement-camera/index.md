@@ -40,12 +40,12 @@ def solution(routes):
   checked = [0] * leng
 
   for i in range(leng):
-      if checked[i] == 0:
-          camera = routes[i][1] # 진출 지점에 카메라를 갱신
-          answer += 1
-      for j in range(i+1, leng):
-          if routes[j][0] <= camera <= routes[j][1] and checked[j] == 0:
-              checked[j] = 1
+    if checked[i] == 0:
+      camera = routes[i][1] # 진출 지점에 카메라를 갱신
+      answer += 1
+    for j in range(i+1, leng):
+      if routes[j][0] <= camera <= routes[j][1] and checked[j] == 0:
+        checked[j] = 1
   return answer
 ```
 
@@ -75,8 +75,8 @@ def solution(routes):
   camera = -30001 # -30001부터 카메라 위치를 찾습니다.
 
   for route in routes:
-      if camera < route[0]:
-          answer += 1
-          camera = route[1]
+    if camera < route[0]:
+      answer += 1
+      camera = route[1]
   return answer
 ```

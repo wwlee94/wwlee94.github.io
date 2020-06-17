@@ -12,11 +12,10 @@ const SyntaxHighlightStyle = css`
   code[class*='language-'],
   pre[class*='language-'] {
     hyphens: none;
-    white-space: pre;
-    word-wrap: normal;
     font-family: Menlo, Monaco, 'Courier New', monospace;
     color: #22aef1;
     text-shadow: none;
+    word-break: break-all;
   }
   pre[class*='language-'],
   :not(pre) > code[class*='language-'] {

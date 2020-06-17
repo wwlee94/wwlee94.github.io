@@ -92,7 +92,7 @@ def solution(n, costs):
       union_parent(parent, edge[0], edge[1])
       answer.append(edge[2])
 
-    return sum(answer)
+  return sum(answer)
 ```
 
 ## 마무리
