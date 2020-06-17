@@ -2,7 +2,7 @@
 title: '[토비의 스프링] 1. 오브젝트와 의존관계 - 싱글톤 레지스트리와 오브젝트 스코프'
 date: '2020-06-10'
 category: 'spring'
-description: ''
+description: '싱글톤, 오브젝트 스코프'
 emoji: '🔭'
 ---
 

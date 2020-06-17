@@ -86,7 +86,6 @@ const postContentStyle = css`
       list-style: none;
       list-style-position: inside;
       position: relative;
-      line-height: 20px;
       padding: 0 0 0 34px;
       margin: 1em 0;
       &:before {
@@ -96,6 +95,7 @@ const postContentStyle = css`
         top: 0;
         width: 20px;
         height: 20px;
+        margin: .4em 0;
         border-radius: 25%;
         background: #5c9ee7;
         color: #fff;

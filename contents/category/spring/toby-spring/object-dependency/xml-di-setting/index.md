@@ -2,7 +2,7 @@
 title: '[토비의 스프링] 1. 오브젝트와 의존관계 - XML을 이용한 DI 설정'
 date: '2020-06-14'
 category: 'spring'
-description: ''
+description: '스프링 XML 의존성 설정'
 emoji: '🚧'
 ---
 

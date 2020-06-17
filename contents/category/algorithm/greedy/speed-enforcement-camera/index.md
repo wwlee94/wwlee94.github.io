@@ -34,19 +34,19 @@ emoji: '📸'
 
 ```python:title=Python
 def solution(routes):
-  answer = 0
-  routes.sort(key=lambda x:x[1])
-  leng = len(routes)
-  checked = [0] * leng
+    answer = 0
+    routes.sort(key=lambda x:x[1])
+    leng = len(routes)
+    checked = [0] * leng
 
-  for i in range(leng):
-    if checked[i] == 0:
-      camera = routes[i][1] # 진출 지점에 카메라를 갱신
-      answer += 1
-    for j in range(i+1, leng):
-      if routes[j][0] <= camera <= routes[j][1] and checked[j] == 0:
-        checked[j] = 1
-  return answer
+    for i in range(leng):
+        if checked[i] == 0:
+            camera = routes[i][1] # 진출 지점에 카메라를 갱신
+            answer += 1
+        for j in range(i+1, leng):
+            if routes[j][0] <= camera <= routes[j][1] and checked[j] == 0:
+                checked[j] = 1
+    return answer
 ```
 
 > 진출 지점 오름차순 기준으로 정렬 또는 진입 지점 내림차순으로 정렬에 따라 코드가 달라지지만 모두 풀이가 가능합니다.
@@ -70,13 +70,13 @@ def solution(routes):
 
 ```python:title=Python
 def solution(routes):
-  answer = 0
-  routes.sort(key=lambda x: x[1]) # routes를 차량이 나간 지점 (진출) 기준으로 정렬
-  camera = -30001 # -30001부터 카메라 위치를 찾습니다.
+    answer = 0
+    routes.sort(key=lambda x: x[1]) # routes를 차량이 나간 지점 (진출) 기준으로 정렬
+    camera = -30001 # -30001부터 카메라 위치를 찾습니다.
 
-  for route in routes:
-    if camera < route[0]:
-      answer += 1
-      camera = route[1]
-  return answer
+    for route in routes:
+        if camera < route[0]:
+            answer += 1
+            camera = route[1]
+    return answer
 ```

@@ -52,13 +52,12 @@ emoji: '⚖️'
 
 ```python:title=Python
 def solution(weight):
-  weight.sort() # 작은 무게부터 더하면서 접근해야하므로
+    weight.sort() # 작은 무게부터 더하면서 접근해야하므로
 
-  subtotal = 1 # 추의 최소 무게는 1
-  for w in weight:
-    if subtotal < w:
-      break
-    subtotal += w
+    subtotal = 1 # 추의 최소 무게는 1
+    for w in weight:
+        if subtotal < w: break
+        subtotal += w
 
-  return subtotal
+    return subtotal
 ```

@@ -75,7 +75,7 @@ DI는 오브젝트를 오브젝트에 주입하는 동작이 아닌 `오브젝�
 
 2. 의존관계에 대한 내용을 외부로 노출시킴으로써 `컴파일 타임에 오류`를 잡아낼 수 있습니다.
 
-참고 링크 : https://yaboong.github.io/spring/2019/08/29/why-field-injection-is-bad/
+참고 링크 : https://yaboong.github.io/spring/2019/08/29/why-field-injection-is-bad
 
 ## 마무리
 

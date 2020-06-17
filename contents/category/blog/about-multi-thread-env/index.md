@@ -2,7 +2,7 @@
 title: '멀티 스레드 환경의 자원 공유에 대하여'
 date: '2020-06-16'
 category: 'blog'
-description: '멀티 스레드 환경에 대해서'
+description: '멀티 스레드 환경에서 자원 공유'
 emoji: '🏘'
 ---
 

@@ -69,29 +69,29 @@ emoji: '🎮'
 ```python:title=Python
 def solution(n, t, m, p):
 
-  #재귀함수 이용 - 10진수를 n진수로
-  def convert(n, base):
-    arr = "0123456789ABCDEF"
-    q, r = divmod(n, base)
-    if q == 0:
-      return arr[r]
-    else:
-      return convert(q, base) + arr[r]
+    #재귀함수 이용 - 10진수를 n진수로
+    def convert(n, base):
+        arr = "0123456789ABCDEF"
+        q, r = divmod(n, base)
+        if q == 0:
+            return arr[r]
+        else:
+            return convert(q, base) + arr[r]
 
-  answer = ''
-  candidate = []
+    answer = ''
+    candidate = []
 
   # 모든 턴의 답
-  for i in range(t*m):
-    conv = convert(i, n)
-    for c in conv:
-      candidate.append(c)
+    for i in range(t*m):
+        conv = convert(i, n)
+        for c in conv:
+            candidate.append(c)
 
-  # 튜브의 답만 추출
-  for i in range(p-1, t*m, m):
-    answer += candidate[i]
+    # 튜브의 답만 추출
+    for i in range(p-1, t*m, m):
+        answer += candidate[i]
 
-  return answer
+    return answer
 ```
 
 문제 링크 : https://programmers.co.kr/learn/courses/30/lessons/17687

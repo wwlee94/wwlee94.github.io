@@ -42,24 +42,24 @@ LRU 페이지 교체 알고리즘을 우선적으로 이해해야 합니다.
 ```python:title=Python
 import collections
 def solution(cacheSize, cities):
-  answer = 0
-  caches = collections.deque()
+    answer = 0
+    caches = collections.deque()
 
-  for city in cities:
-    city = city.lower()
-    # cache hit
-    if city in caches:
-      caches.remove(city)
-      caches.append(city)
-      answer += 1
-    # cache miss
-    else:
-      if cacheSize == 0:
-        return 5 * len(cities)
-      # 최근 사용하지 않은 캐시 업데이트
-      if len(caches) == cacheSize:
-        caches.popleft()
-      caches.append(city)
-      answer += 5
-  return answer
+    for city in cities:
+        city = city.lower()
+        # cache hit
+        if city in caches:
+            caches.remove(city)
+            caches.append(city)
+            answer += 1
+        # cache miss
+        else:
+            if cacheSize == 0:
+                return 5 * len(cities)
+            # 최근 사용하지 않은 캐시 업데이트
+            if len(caches) == cacheSize:
+                caches.popleft()
+            caches.append(city)
+            answer += 5
+    return answer
 ```
