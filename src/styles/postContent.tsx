@@ -86,7 +86,7 @@ const postContentStyle = css`
       list-style: none;
       list-style-position: inside;
       position: relative;
-      padding: 0 0 0 34px;
+      padding: 0 0 0 30px;
       margin: 1em 0;
       &:before {
         display: inline-block;
@@ -105,7 +105,6 @@ const postContentStyle = css`
         line-height: 20px;
         content: counter(number);
         counter-increment: number;
-        background: ${props => props.theme.colors.highlight};
       }
     }
   }

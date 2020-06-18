@@ -2,7 +2,7 @@
 title: '[토비의 스프링] 1. 오브젝트와 의존관계 - 스프링의 IoC'
 date: '2020-06-09'
 category: 'spring'
-description: '스프링 IoC'
+description: '스프링 IoC에 대하여'
 emoji: '📖'
 ---
 

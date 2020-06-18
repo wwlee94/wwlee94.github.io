@@ -163,12 +163,16 @@ const SyntaxHighlightStyle = css`
   li > code {
     color: #ff3860 !important;
     background: #f9f1f3;
-    padding: 0.2em 0.4em;
+    padding: 0.15em 0.4em;
     margin: 0.2em;
     border-radius: 4px;
-    font-size: 14.5px;
+    font-size: 0.85em;
     word-break: break-all;
-    white-spaze: pre-line;
+    white-space: pre-line;
+  }
+
+  strong > code {
+    font-family: inherit !important;
   }
 `;
 

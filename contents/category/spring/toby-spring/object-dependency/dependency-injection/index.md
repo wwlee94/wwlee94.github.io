@@ -2,7 +2,7 @@
 title: '[토비의 스프링] 1. 오브젝트와 의존관계 - 의존관계 주입(DI)'
 date: '2020-06-13'
 category: 'spring'
-description: ''
+description: '의존관계 주입(DI)에 대하여'
 emoji: '📲'
 ---
 
