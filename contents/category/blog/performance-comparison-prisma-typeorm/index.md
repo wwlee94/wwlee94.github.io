@@ -11,7 +11,7 @@ emoji: '⁉️'
 최근 [Prography](http://prography.org/) 라는 IT 대외동아리 모임에 참여하여 프로젝트를 `NodeJS`런타임과 `Express`를 사용하여 개발을 진행했습니다.
 
 같은 팀원과 의견을 나누면서 팀 개발에는 `JavaScript`보다 `TypeScript`언어가 적합하다고 생각해 채택했고  
-`ORM`(Object-relatinal mapping)은 `Prisma`와 `TypeORM`를 고민하던 중 아래와 같은 이유로 `Prisma`를 채택했습니다. (Prisma2 버전)
+`ORM`(Object Relatinal Mapping)은 `Prisma`와 `TypeORM`를 고민하던 중 아래와 같은 이유로 `Prisma`를 채택했습니다. (Prisma2 버전)
 
 1. Node.js 와 TypeScript 를 위한 Auto-generated & Type-safe 한 `Querybuilder`를 제공해준다.
 
@@ -23,11 +23,11 @@ emoji: '⁉️'
 
 ## 베타 버전의 한계 ?
 
-위와 같은 이유로 `Prisma`를 채택하여 개발을 진행했지만 다음과 같은 여러 베타 버전의 문제점을 마주했습니다 😭
+위와 같은 이유로 `Prisma`를 채택하여 개발을 진행했지만 다음과 같은 몇 가지 베타 버전의 문제점을 마주하게 되었습니다. 😭
 
 1. [Multi-field primary ID 이슈](https://github.com/prisma/prisma-client-js/issues/710)
 
-   > 현재 이슈 등록 후 해결 완료 !
+   > 현재 이슈 등록 후 .8버전이 나오면서 해결 완료 !
 
 2. [Prisma Fluent API의 성능에 대한 의문](https://github.com/prisma/prisma/issues/1984)
 
@@ -135,10 +135,10 @@ createConnection().then(async connection => {
 
 ## 결론
 
-Prisma (180-240ms), TypeORM (90-120ms) 여러번 실행해보니 대략적인 결과가 나왔습니다.
+`Prisma` (180-240ms), `TypeORM` (90-120ms) 여러번 실행해보니 대략적인 결과가 나왔습니다.
 
 시간 차이가 나는 이유는 아무래도 `Prisma`는 쿼리를 2번 나누어 보내고, `TypeORM`은 Join 시킨 1번의 쿼리로 보내서 차이가 생기는 것 같습니다.
 
-Prisma가 Optimize가 잘 안되어 있는 건지..?
+`Prisma`가 `Optimize`가 잘 안되어 있는 건지..?
 
 확실치 않지만 아무래도 베타 버전이기에 사용을 고민하는 개발자분이 있다면 깊게 고민하시고 기술을 선택하셨으면 합니다 !
