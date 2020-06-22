@@ -47,7 +47,7 @@ answer = list(set(parent)) # 2
 
 프로그래머스의 `네트워크` 문제는 `섬 연결하기`와 접근이 특정 부분 유사한 문제이니 참고해주세요 !
 
-> [[프로그래머스] 섬 연결하기 문제 보기](http://localhost:8000/category/algorithm/greedy/island-connection)
+> [[프로그래머스] 섬 연결하기 문제 보기](/category/algorithm/greedy/island-connection)
 
 ## 풀이 코드
 
