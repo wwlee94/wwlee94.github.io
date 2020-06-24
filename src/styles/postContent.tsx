@@ -87,7 +87,7 @@ const postContentStyle = css`
       list-style-position: inside;
       position: relative;
       padding: 0 0 0 30px;
-      margin: 1em 0;
+      margin: 0.5em 0;
       &:before {
         display: inline-block;
         position: absolute;
