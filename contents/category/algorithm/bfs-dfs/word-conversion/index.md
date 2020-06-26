@@ -22,8 +22,6 @@ emoji: '🔄'
 
 #### 제한 사항
 
-**제한사항**
-
 - 각 단어는 알파벳 소문자로만 이루어져 있습니다.
 - 각 단어의 길이는 3 이상 10 이하이며 모든 단어의 길이는 같습니다.
 - words에는 3개 이상 50개 이하의 단어가 있으며 중복되는 단어는 없습니다.
@@ -46,12 +44,37 @@ emoji: '🔄'
 
 4. 현재 단어와 target이 같으면 `현재 층`(level)을 반환합니다.
 
+**path에 담기는 정보 예시**
+
+초기 정보가 다음과 같을 때
+
+```python:title=초기값
+begin = 'hit'
+words = ['hot', 'dot', 'dog', 'lot', 'log', 'cog']
+```
+
+path 변수의 출력 예시
+
+- 주어진 모든 `words`에 대해 각 단어가 갈 수 있는 경로를 담은 것
+
+```json:title=path변수
+{
+  "hot": ["dot", "lot", "hit"],
+  "dot": ["hot", "dog", "lot"],
+  "dog": ["dot", "log", "cog"],
+  "lot": ["hot", "dot", "log"],
+  "log": ["dog", "lot", "cog"],
+  "cog": ["dog", "log"],
+  "hit": ["hot"]
+}
+```
+
 ## 풀이 코드
 
 ```python:title=Python
 def solution(begin, target, words):
     # 1. 현재 노드에서 갈 수 있는 다른 경로 구하는 함수
-    def get_path(current, words):
+    def get_path(current):
         arr = []
         for word in words:
             count = 0
@@ -61,35 +84,44 @@ def solution(begin, target, words):
                 arr.append(word)
         return arr
 
+    # 2. path에 각 노드 별 변환 될 수 있는 모든 노드 리스트 저장
+    def init_path():
+        path = {}
+        words.append(begin) # 초기값도 추가
+
+        # path 초기화
+        for word in words:
+            res = get_path(word)
+            if word not in path.keys():
+                path[word] = res
+            else:
+                path[word].append(res)
+        return path
+
+    def bfs():
+        answer = []
+        queue = [(begin, [begin])]
+        path = init_path()
+
+        # 3. 첫 단어를 시작으로 BFS로 인접한 노드를 방문합니다.
+        while queue:
+            current, visited = queue.pop(0)
+
+            # 4. 현재 단어와 target이 같으면 정답에 도달 !
+            if current == target:
+                answer = visited
+                break
+
+            # 인접한 노드를 방문
+            for node in path[current]:
+                if node not in visited:
+                    queue.append((node, visited + [node]))
+        return len(answer) - 1
+
     # target이 words에 없으면 답을 못 구하니 0 반환
     if target not in words: return 0
 
-    path = {} # 각 단어별로 갈 수 있는 모든 노드 리스트를 저장하는 변수
-    words.append(begin) # 초기값도 추가
-
-    # 2. path에 각 노드 별 변환 될 수 있는 모든 노드 리스트 저장
-    for word in words:
-        res = get_path(word, words)
-        if word not in path.keys():
-            path[word] = res
-        else:
-            path[word].append(res)
-
-    answer = []
-    queue = [(begin, [begin])]
-    # 3. 첫 단어를 시작으로 BFS로 인접한 노드를 방문합니다.
-    while queue:
-        current, visited = queue.pop(0)
-
-        # 4. 현재 단어와 target이 같으면 정답에 도달 !
-        if current == target:
-            answer = len(visited) - 1 # 그래프의 깊이(level) 출력
-            break
-
-        # 인접한 노드를 방문
-        for node in path[current]:
-            if node not in visited:
-                queue.append((node, visited + [node]))
+    answer = bfs()
 
     return answer
 ```
