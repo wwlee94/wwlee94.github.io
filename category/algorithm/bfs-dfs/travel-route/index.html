@@ -148,8 +148,8 @@ void function() {
 <li>모든 도시를 방문할 수 없는 경우는 주어지지 않습니다.</li>
 </ul>
 <h2 id="문제-접근-방식" style="position:relative;"><a href="#%EB%AC%B8%EC%A0%9C-%EC%A0%91%EA%B7%BC-%EB%B0%A9%EC%8B%9D" aria-label="문제 접근 방식 permalink" class="anchor-header before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>문제 접근 방식</h2>
-<p><code class="language-text">여행 경로</code> 문제를 처음 풀었을 때 예제는 맞았지만 제출시 1,2번 테스트에서 실패했었습니다.</p>
-<p>구글링을 통해 조사한 결과 1,2번 테스트 케이스는 다음과 같은 예제라고 생각합니다.</p>
+<p><code class="language-text">여행 경로</code> 문제를 처음 풀었을 때 예제는 맞았지만 제출시 1,2번 테스트에서 계속 실패했었습니다.</p>
+<p>그래서 구글링을 통해 조사한 결과 1,2번 테스트 케이스는 다음과 같은 예제라고 의견이 나왔습니다.</p>
 <div class="gatsby-highlight" data-language="json"><pre style="counter-reset: linenumber NaN" class="language-json line-numbers"><code class="language-json">ticket
 <span class="token number">1.</span> <span class="token string">"ICN"</span> -> <span class="token string">"AAA"</span>
 <span class="token number">2.</span> <span class="token string">"ICN"</span> -> <span class="token string">"BBB"</span>
@@ -171,12 +171,12 @@ void function() {
 <ul>
 <li>스택에서 가장 위 데이터(top)를 가져옵니다.</li>
 <li>가져온 데이터(top)가 그래프에 없거나, 티켓을 모두 사용한 경우, <code class="language-text">path</code>에 저장</li>
-<li>아니라면, 가져온 데이터(top)을 시작점으로 하는 도착점 데이터 중 가장 앞 데이터(알파벳순)를 가져와 <code class="language-text">stack</code>에 저장</li>
+<li>아니라면, 가져온 데이터(top)을 시작점으로 하는 도착점 데이터 중 가장 앞 데이터(알파벳순으로 선택해야하므로)를 가져와 <code class="language-text">stack</code>에 저장</li>
 </ul>
 </li>
 <li>path를 역순으로 출력 !</li>
 </ol>
-<p>위의 stack, path 출력 과정은 다음과 같다</p>
+<p><strong>위의 <code class="language-text">stack</code>, <code class="language-text">path</code> 출력 과정은 다음과 같다</strong></p>
 <div class="gatsby-code-title">Python</div>
 <div class="gatsby-highlight" data-language="python"><pre style="counter-reset: linenumber NaN" class="language-python line-numbers"><code class="language-python">path <span class="token punctuation">[</span><span class="token punctuation">]</span>
 stack <span class="token punctuation">[</span><span class="token string">'ICN'</span><span class="token punctuation">]</span>
@@ -217,10 +217,6 @@ path <span class="token punctuation">[</span><span class="token string">'ICN'</s
 
     <span class="token comment"># 스택을 사용한 DFS</span>
     <span class="token keyword">def</span> <span class="token function">dfs</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-        routes <span class="token operator">=</span> init_graph<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        <span class="token keyword">for</span> r <span class="token keyword">in</span> routes<span class="token punctuation">:</span>
-            routes<span class="token punctuation">[</span>r<span class="token punctuation">]</span><span class="token punctuation">.</span>sort<span class="token punctuation">(</span><span class="token punctuation">)</span>
-
         stack <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">"ICN"</span><span class="token punctuation">]</span>
         path <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>  <span class="token comment"># 가려고하는 경로를 저장하는 변수</span>
         <span class="token keyword">while</span> <span class="token builtin">len</span><span class="token punctuation">(</span>stack<span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">:</span>  <span class="token comment"># stack이 비어있을 때까지</span>
@@ -232,13 +228,16 @@ path <span class="token punctuation">[</span><span class="token string">'ICN'</s
                 stack<span class="token punctuation">.</span>append<span class="token punctuation">(</span>routes<span class="token punctuation">[</span>top<span class="token punctuation">]</span><span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
         <span class="token keyword">return</span> path<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span>
 
+    routes <span class="token operator">=</span> init_graph<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> r <span class="token keyword">in</span> routes<span class="token punctuation">:</span>
+        routes<span class="token punctuation">[</span>r<span class="token punctuation">]</span><span class="token punctuation">.</span>sort<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
     answer <span class="token operator">=</span> dfs<span class="token punctuation">(</span><span class="token punctuation">)</span>
     <span class="token keyword">return</span> answer</code><span aria-hidden="true" class="line-numbers-rows" style="white-space: normal; width: auto; left: 0;"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre></div>
 <h4 id="dfs-재귀를-이용한-풀이" style="position:relative;"><a href="#dfs-%EC%9E%AC%EA%B7%80%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%ED%92%80%EC%9D%B4" aria-label="dfs 재귀를 이용한 풀이 permalink" class="anchor-header before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>DFS 재귀를 이용한 풀이</h4>
 <div class="gatsby-code-title">Python</div>
 <div class="gatsby-highlight" data-language="python"><pre style="counter-reset: linenumber NaN" class="language-python line-numbers"><code class="language-python"><span class="token keyword">from</span> collections <span class="token keyword">import</span> defaultdict
 <span class="token keyword">def</span> <span class="token function">solution</span><span class="token punctuation">(</span>tickets<span class="token punctuation">)</span><span class="token punctuation">:</span>
-
     <span class="token comment"># 특정 티켓의 인접 리스트를 구하는 함수</span>
     <span class="token keyword">def</span> <span class="token function">init_graph</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
         routes <span class="token operator">=</span> defaultdict<span class="token punctuation">(</span><span class="token builtin">list</span><span class="token punctuation">)</span>
@@ -248,21 +247,19 @@ path <span class="token punctuation">[</span><span class="token string">'ICN'</s
 
     <span class="token comment"># 재귀 호출을 사용한 DFS</span>
     <span class="token keyword">def</span> <span class="token function">dfs</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> footprint<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">print</span><span class="token punctuation">(</span>footprint<span class="token punctuation">)</span>
-
         <span class="token keyword">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>footprint<span class="token punctuation">)</span> <span class="token operator">==</span> N <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">:</span>
             <span class="token keyword">return</span> footprint
 
         <span class="token keyword">for</span> idx<span class="token punctuation">,</span> country <span class="token keyword">in</span> <span class="token builtin">enumerate</span><span class="token punctuation">(</span>routes<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
             routes<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">.</span>pop<span class="token punctuation">(</span>idx<span class="token punctuation">)</span>
 
-            fp <span class="token operator">=</span> footprint<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
+            fp <span class="token operator">=</span> footprint<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">]</span> <span class="token comment"># deepcopy</span>
             fp<span class="token punctuation">.</span>append<span class="token punctuation">(</span>country<span class="token punctuation">)</span>
 
             ret <span class="token operator">=</span> dfs<span class="token punctuation">(</span>country<span class="token punctuation">,</span> fp<span class="token punctuation">)</span>
-            <span class="token keyword">if</span> ret<span class="token punctuation">:</span> <span class="token keyword">return</span> ret
+            <span class="token keyword">if</span> ret<span class="token punctuation">:</span> <span class="token keyword">return</span> ret <span class="token comment"># 모든 티켓을 사용해 통과한 경우</span>
 
-            routes<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">.</span>insert<span class="token punctuation">(</span>idx<span class="token punctuation">,</span> country<span class="token punctuation">)</span>
+            routes<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">.</span>insert<span class="token punctuation">(</span>idx<span class="token punctuation">,</span> country<span class="token punctuation">)</span> <span class="token comment"># 통과 못했으면 티켓 반환</span>
 
     routes <span class="token operator">=</span> init_graph<span class="token punctuation">(</span><span class="token punctuation">)</span>
     <span class="token keyword">for</span> r <span class="token keyword">in</span> routes<span class="token punctuation">:</span>
@@ -271,7 +268,7 @@ path <span class="token punctuation">[</span><span class="token string">'ICN'</s
     N <span class="token operator">=</span> <span class="token builtin">len</span><span class="token punctuation">(</span>tickets<span class="token punctuation">)</span>
     answer <span class="token operator">=</span> dfs<span class="token punctuation">(</span><span class="token string">"ICN"</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">"ICN"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
 
-    <span class="token keyword">return</span> answer</code><span aria-hidden="true" class="line-numbers-rows" style="white-space: normal; width: auto; left: 0;"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre></div></div></div><aside><div class="RelatedPosts__Wrapper-sc-1nrzwfn-0 fFDafD"><div class="RelatedPosts__PostCardWrapper-sc-1nrzwfn-1 gvYRzK"><a class="post-card-link" href="/category/algorithm/bfs-dfs/word-conversion/"><p class="RelatedPosts__PostCardEmoji-sc-1nrzwfn-2 COWRd"><img class="emoji" draggable="false" alt="🔄" src="https://twemoji.maxcdn.com/v/12.1.6/svg/1f504.svg"/></p><div class="RelatedPosts__PostCardContent-sc-1nrzwfn-3 jNfPFJ"><h5>[프로그래머스] 단어 변환 - DFS &amp; BFS 알고리즘 / Python</h5><time>2020.06.21</time></div></a></div><div class="RelatedPosts__PostCardWrapper-sc-1nrzwfn-1 gvYRzK"><a class="post-card-link" href="/category/algorithm/bfs-dfs/network/"><p class="RelatedPosts__PostCardEmoji-sc-1nrzwfn-2 COWRd"><img class="emoji" draggable="false" alt="🌏" src="https://twemoji.maxcdn.com/v/12.1.6/svg/1f30f.svg"/></p><div class="RelatedPosts__PostCardContent-sc-1nrzwfn-3 jNfPFJ"><h5>[프로그래머스] 네트워크 - DFS &amp; BFS 알고리즘 / Python</h5><time>2020.06.18</time></div></a></div><div class="RelatedPosts__PostCardWrapper-sc-1nrzwfn-1 gvYRzK"><a class="post-card-link" href="/category/algorithm/binary-search/immigration/"><p class="RelatedPosts__PostCardEmoji-sc-1nrzwfn-2 COWRd"><img class="emoji" draggable="false" alt="🔍" src="https://twemoji.maxcdn.com/v/12.1.6/svg/1f50d.svg"/></p><div class="RelatedPosts__PostCardContent-sc-1nrzwfn-3 jNfPFJ"><h5>[프로그래머스] 입국심사 - 이진탐색 알고리즘 / Python</h5><time>2020.06.17</time></div></a></div><div class="RelatedPosts__PostCardWrapper-sc-1nrzwfn-1 gvYRzK"><a class="post-card-link" href="/category/algorithm/greedy/island-connection/"><p class="RelatedPosts__PostCardEmoji-sc-1nrzwfn-2 COWRd"><img class="emoji" draggable="false" alt="🏝" src="https://twemoji.maxcdn.com/v/12.1.6/svg/1f3dd.svg"/></p><div class="RelatedPosts__PostCardContent-sc-1nrzwfn-3 jNfPFJ"><h5>[프로그래머스] 섬 연결하기 - 그리디 알고리즘 / Python</h5><time>2020.06.15</time></div></a></div></div><div></div></aside></section></div><div class="TableOfContents__TableIndex-sc-1xzats2-0 jkbcXl"><div class="TableOfContents__TableWrapper-sc-1xzats2-1 eUzVwc table-of-contents"><h1 class="TableOfContents__TableHeader-sc-1xzats2-2 guDYpi">TABLE OF CONTENTS</h1><div class="TableOfContents__TableContents-sc-1xzats2-3 bcrmFE"><ul>
+    <span class="token keyword">return</span> answer</code><span aria-hidden="true" class="line-numbers-rows" style="white-space: normal; width: auto; left: 0;"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre></div></div></div><aside><div class="RelatedPosts__Wrapper-sc-1nrzwfn-0 fFDafD"><div class="RelatedPosts__PostCardWrapper-sc-1nrzwfn-1 gvYRzK"><a class="post-card-link" href="/category/algorithm/bfs-dfs/word-conversion/"><p class="RelatedPosts__PostCardEmoji-sc-1nrzwfn-2 COWRd"><img class="emoji" draggable="false" alt="🔄" src="https://twemoji.maxcdn.com/v/12.1.6/svg/1f504.svg"/></p><div class="RelatedPosts__PostCardContent-sc-1nrzwfn-3 jNfPFJ"><h5>[프로그래머스] 단어 변환 - DFS &amp; BFS 알고리즘 / Python</h5><time>2020.06.21</time></div></a></div><div class="RelatedPosts__PostCardWrapper-sc-1nrzwfn-1 gvYRzK"><a class="post-card-link" href="/category/algorithm/bfs-dfs/network/"><p class="RelatedPosts__PostCardEmoji-sc-1nrzwfn-2 COWRd"><img class="emoji" draggable="false" alt="🌏" src="https://twemoji.maxcdn.com/v/12.1.6/svg/1f30f.svg"/></p><div class="RelatedPosts__PostCardContent-sc-1nrzwfn-3 jNfPFJ"><h5>[프로그래머스] 네트워크 - DFS &amp; BFS 알고리즘 / Python</h5><time>2020.06.18</time></div></a></div><div class="RelatedPosts__PostCardWrapper-sc-1nrzwfn-1 gvYRzK"><a class="post-card-link" href="/category/algorithm/binary-search/immigration/"><p class="RelatedPosts__PostCardEmoji-sc-1nrzwfn-2 COWRd"><img class="emoji" draggable="false" alt="🔍" src="https://twemoji.maxcdn.com/v/12.1.6/svg/1f50d.svg"/></p><div class="RelatedPosts__PostCardContent-sc-1nrzwfn-3 jNfPFJ"><h5>[프로그래머스] 입국심사 - 이진탐색 알고리즘 / Python</h5><time>2020.06.17</time></div></a></div><div class="RelatedPosts__PostCardWrapper-sc-1nrzwfn-1 gvYRzK"><a class="post-card-link" href="/category/algorithm/greedy/island-connection/"><p class="RelatedPosts__PostCardEmoji-sc-1nrzwfn-2 COWRd"><img class="emoji" draggable="false" alt="🏝" src="https://twemoji.maxcdn.com/v/12.1.6/svg/1f3dd.svg"/></p><div class="RelatedPosts__PostCardContent-sc-1nrzwfn-3 jNfPFJ"><h5>[프로그래머스] 섬 연결하기 - 그리디 알고리즘 / Python</h5><time>2020.06.15</time></div></a></div></div><div></div></aside></section></div><div class="TableOfContents__TableIndex-sc-1xzats2-0 jkbcXl"><div class="TableOfContents__TableWrapper-sc-1xzats2-1 eUzVwc table-of-contents"><h1 class="TableOfContents__TableHeader-sc-1xzats2-2 guDYpi">TABLE OF CONTENTS</h1><div class="TableOfContents__TableContents-sc-1xzats2-3 bcrmFE"><ul>
 <li>
 <p><a href="/category/algorithm/bfs-dfs/travel-route/#%EB%AC%B8%EC%A0%9C-%EC%84%A4%EB%AA%85">문제 설명</a></p>
 <ul>
