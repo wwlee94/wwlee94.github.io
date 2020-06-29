@@ -1,8 +1,8 @@
 ---
-title: '[토비의 스프링] 3. 스프링 템플릿'
-date: '2020-06-25'
+title: '[토비의 스프링] 3. 전략 패턴과 템플릿/콜백에 대해서'
+date: '2020-06-23'
 category: 'spring'
-description: 'Java, Spring 템플릿 패턴에 대해서'
+description: 'Java, Spring 템플릿/콜백 패턴에 대해서'
 emoji: '📃'
 ---
 
@@ -46,7 +46,7 @@ public void deleteAll() throws SQLException {
 }
 ```
 
-코드를 보면 한숨부터 나옵니다..  
+코드를 보자마자 너무 막막합니다 😦  
 복잡한 `try/catch/finally` 블록이 2중으로 중첩까지되며 만드는 모든 메소드마다 코드가 반복될 것입니다.
 
 **이런 코드를 효과적으로 다룰 수 있는 방법은 없을까?**
@@ -130,8 +130,8 @@ public void jdbcContextWithStatementStrategy(StatementStrategy stmt) throws SQLE
 }
 ```
 
-다음으로 클라이언트에서 직접적으로 전략을 선택해 사용하는 메서드를 작성합니다.  
-`전략을 생성`하고 생성한 전략을 컨텍스트에 `DI` 해줍니다.
+다음으로 `클라이언트`에서 직접적으로 `전략을 생성, 선택`해 사용하는 메서드를 작성합니다.  
+전략을 생성하고 생성한 전략을 컨텍스트에 `DI` 해줍니다.
 
 **4. 클라이언트 책임을 담당할 deleteAll() 메소드**
 
@@ -159,13 +159,11 @@ public interface StatementStrategy {
 }
 ```
 
-**????**
-
 ```java:title=Java
 public void deleteAll() throws SQLException {
     jdbcContextWithStatementStrategy((Connection c) -> {
         return c.prepareStatement("delete from users");
-    })
+    });
 }
 ```
 
@@ -270,7 +268,7 @@ public Integer lineReadTemplate(String filepath, LineCallback callback, int init
 
 ```java:title=Java
 public Integer calSum(String filepath){
-    LineCallback sumCallback = () -> { return value + Integer.valueOf(line); } //????
+    LineCallback sumCallback = (line, value) -> { return value + Integer.valueOf(line); };
     return lineReadTemplate(filepath, sumCallback, 0);
 }
 ```

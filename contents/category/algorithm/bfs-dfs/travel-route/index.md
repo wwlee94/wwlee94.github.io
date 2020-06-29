@@ -1,6 +1,6 @@
 ---
 title: '[프로그래머스] 여행 경로 - DFS & BFS 알고리즘 / Python'
-date: '2020-06-23'
+date: '2020-06-25'
 category: 'algorithm'
 description: ''
 emoji: '✈️'
