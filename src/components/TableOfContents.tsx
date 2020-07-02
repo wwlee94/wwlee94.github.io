@@ -86,7 +86,7 @@ const TableOfContents = ({ items, currentHeaderUrl }: Props) => {
   return items ? (
     <TableIndex>
       <TableWrapper className="table-of-contents">
-        <TableHeader>TABLE OF CONTENTS</TableHeader>
+        <TableHeader>🔖 Catalog</TableHeader>
         <TableContents dangerouslySetInnerHTML={{ __html: items }} currentHeaderUrl={currentHeaderUrl} />
       </TableWrapper>
     </TableIndex>

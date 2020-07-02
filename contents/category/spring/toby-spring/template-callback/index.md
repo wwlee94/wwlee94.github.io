@@ -152,6 +152,12 @@ public void deleteAll() throws SQLException {
 
 **람다를 활용한 예제**
 
+Java 8버전에서 제공되는 `람다`를 사용하려면 인터페이스는 하나의 추상 메소드를 가지는 인터페이스로 정의해야합니다.
+
+위와 같이 하나의 추상 메소드 가지는 인터페이스를 `함수형 인터페이스`라고 부릅니다.
+
+추가적으로 `@FunctionalInterface`라는 어노테이션이 있는데, 함수형 인터페이스를 명시적으로 컴파일러에게 알려 함수형 인터페이스의 조건을 위반하면 컴파일러는 예러를 발생시킵니다.
+
 ```java:title=Java
 @FunctionalInterface
 public interface StatementStrategy {
