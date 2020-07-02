@@ -31,13 +31,14 @@ emoji: '✅'
 | JPQL이란 플랫폼에 독립적인 객체지향 쿼리 언어입니다.  
 | 자바 코드에서 데이터베이스를 조회할 때 특정 SQL이나 저장 엔진에 종속되지 않게 도와줍니다.
 
-## N+1 쿼리 예제
+## 엔티티 모델링
 
-#### 엔티티 모델링
+`1:N` 관계를 만들기 위해 `하나의 앨범(Album)`이 `많은 노래(Song)`를 가질 수 있도록 엔티티를 생성하고 관계를 연결시키겠습니다.
 
 **Album Model**
 
 ```java:title=Java
+@Entity
 public class Album {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,6 +59,7 @@ public class Album {
 **Song Model**
 
 ```java:title=Java
+@Entity
 public class Song {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -78,7 +80,11 @@ public class Song {
 }
 ```
 
-#### 하위 엔티티를 조회하지 않는 경우
+**Database Diagram**
+
+![DB 다이어그램](./images/diagram.png)
+
+## 1. 하위 엔티티를 조회하지 않는 경우
 
 **Album의 Song에 접근하지 않은 경우**
 
@@ -100,13 +106,13 @@ public void N1_쿼리테스트_1() throws Exception{
 **N+1 발생 !**
 
 `JPQL`에서 동작한 쿼리를 통해서 `Album`에 데이터를 조회합니다.  
-그 이후 `JPA`에서는 글로벌 패치 전략(`Eager`로딩)을 보고 `Album`의 `Song` 대해서 추가적인 로딩 작업을 진행해 `N+1 문제`를 발생시킵니다.
+그 이후 `JPA`에서는 글로벌 패치 전략(`EAGER` 로딩)을 보고 `Album`의 `Song` 대해서 추가적인 로딩 작업을 진행해 `N+1 문제`를 발생시킵니다.
 ![EAGER 방식](./images/eager_1.png)
 
-## 하위 엔티티를 조회하는 경우
+## 2. 하위 엔티티를 조회하는 경우
 
-`Lazy` 로딩을 하기 위해서는 해당 `Entity` 가 영속 상태여야 합니다.  
-보통 `Repository` 에서 리스트로 가져오면 영속이 끊긴 상태로 가져오기 때문에 `Lazy` 전략 테스팅 시 `@Transactional` 꼭 사용해야합니다 !
+`LAZY` 로딩을 하기 위해서는 해당 `Entity`가 영속 상태여야 합니다.  
+보통 `Repository`에서 리스트로 가져오면 영속이 끊긴 상태로 가져오기 때문에 `LAZY` 전략 테스팅 시 `@Transactional`를 꼭 사용해야합니다 !
 
 `@Transactional`을 사용하지 않으면 다음과 같은 에러가 발생합니다.
 
@@ -129,21 +135,21 @@ public void N1_쿼리테스트_2() throws Exception{
 
 **N+1 발생 !**
 
-처음엔 `Album` 리스트만 조회했지만 `Album` 엔티티에서 하위 엔티티인 `Song` 엔티티로 접근했기 때문에 Lazy 로딩이 일어나면서 `N+1 문제` 발생
+처음엔 `Album` 리스트만 조회했지만 `Album` 엔티티에서 하위 엔티티인 `Song` 엔티티로 접근했기 때문에 `LAZY` 로딩이 일어나면서 `N+1 문제` 발생
 ![LAZY 방식2](./images/lazy_2.png)
 
 #### EAGER 방식 결과
 
 **N+1 발생 !**
 
-`하위 엔티티를 조회하지 않는 경우`의 `Eager` 방식 결과와 동일하게 `N+1 문제`가 발생하는 것을 볼 수 있습니다.
+`하위 엔티티를 조회하지 않는 경우`의 `EAGER` 방식 결과와 동일하게 `N+1 문제`가 발생하는 것을 볼 수 있습니다.
 ![EAGER 방식2](./images/eager_2.png)
 
-## 해결 방법
-
-미리 쿼리로 테이블을 조인해서 가져오기 때문에 `Lazy`, `Eager` 두개의 전략에 해당되는 해결법입니다.
+## N+1 문제 해결 방법
 
 #### 1. 패치 조인(Fetch Join)
+
+미리 쿼리로 테이블을 조인해서 가져오기 때문에 `LAZY`, `EAGER` 두개의 전략에 해당되는 해결법입니다.
 
 ```java:title=Java
 @Query("select DISTINCT a from Album a join fetch a.songs")
@@ -167,18 +173,27 @@ public void fetchJoin테스트() throws Exception{
 
 1. `JPA`가 제공하는 `Pagable` 기능 사용 불가 (페이징 API)
 2. `1:N` 관계가 2개인 엔티티를 패치 조인 사용 불가
-   > 임시 해결법은 `List -> Set`으로 변경하는 것
+   > 임시 해결법은 `List -> Set`으로 자료구조를 변경하는 것
 
 #### 2. Batch Size 조절
 
 설정한 `Size`만큼 데이터를 미리 로딩합니다. (`where in`을 사용하여)  
-`JPA`의 페이징 API 기능과 함께 사용할 때 유용하게 사용 가능할 듯 합니다.
+`JPA`의 페이징 API 기능처럼 개수가 고정된 데이터를 가져올 때 함께 사용할 때 유용하게 사용 가능할 듯합니다.
+
+하지만, 글로벌 패치 전략을 `EAGER`로 변경해야하는 단점이 존재합니다.
 
 ```java:title=Java
 @BatchSize(size = 5)
 @OneToMany(mappedBy = "album", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 private List<Song> songs = new ArrayList<>();
 ```
+
+## Reference
+
+[Vlad Mihalcea - N+1 query problem with JPA and Hibernate](https://vladmihalcea.com/n-plus-1-query-problem/)  
+[Stack Overflow - What is the solution for the N+1 issue in JPA and Hibernate?](https://stackoverflow.com/questions/32453989/what-is-the-solution-for-the-n1-issue-in-jpa-and-hibernate)  
+[Yun - JPA N+1 발생원인과 해결 방법](https://www.popit.kr/jpa-n1-%EB%B0%9C%EC%83%9D%EC%9B%90%EC%9D%B8%EA%B3%BC-%ED%95%B4%EA%B2%B0-%EB%B0%A9%EB%B2%95/)  
+[kapentaz - @ManyToOne의 N+1 문제 원인 및 해결](https://kapentaz.github.io/jpa/hibernate/@ManyToOne%EC%9D%98-N+1-%EB%AC%B8%EC%A0%9C-%EC%9B%90%EC%9D%B8-%EB%B0%8F-%ED%95%B4%EA%B2%B0/#)
 
 ## 마무리
 

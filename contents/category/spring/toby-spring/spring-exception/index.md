@@ -199,4 +199,4 @@ DB에 따라 발생할 수 있는 예외의 원인과 종류가 제각각이라�
 
 `DataAccessException`은 DB별 예외 처리뿐 아니라 JDBC 외의 자바 `데이터 액세스 기술`에서 발생하는 예외에도 적용됩니다.
 
-JDBC 이외에 자바 데이터 액세스 기술에는 `JPA`(ORM), `iBatis`(SQL Mapper) 등이 있습니다.
+JDBC 이외에 자바 데이터 액세스 기술에는 `JPA`(ORM), `MyBatis`(SQL Mapper) 등이 있습니다.
