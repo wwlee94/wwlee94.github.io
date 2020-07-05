@@ -144,7 +144,7 @@ void function() {
 <li><code class="language-text">SILVER</code>이면서 30번 이상 추천받으면 <code class="language-text">GOLD</code>로 업그레이드</li>
 <li>사용자 레벨 변경 작업은 일정한 주기를 가지고 일괄적으로 적용된다.</li>
 </ol>
-<p><strong>위의 기능을 추상화 없이, 한 곳에 로직을 몰아서 구현하면 ?!</strong></p>
+<p><strong>위의 기능을 메소드화 없이, 한 곳에 로직을 몰아서 구현하면 ?!</strong></p>
 <div class="gatsby-code-title">UserService.java</div>
 <div class="gatsby-highlight" data-language="java"><pre style="counter-reset: linenumber NaN" class="language-java line-numbers"><code class="language-java"><span class="token comment">// 전체 유저 조회 후 레벨 업그레이드 판단</span>
 <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">upgradeLevels</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -187,7 +187,7 @@ void function() {
 <div class="gatsby-highlight" data-language="java"><pre style="counter-reset: linenumber NaN" class="language-java line-numbers"><code class="language-java"><span class="token comment">// 기본 작업 흐름만 남겨둔 메소드</span>
 <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">upgradeLevels</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">User</span><span class="token punctuation">></span></span> users <span class="token operator">=</span> userDao<span class="token punctuation">.</span><span class="token function">getAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    
+
     <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">User</span> user <span class="token operator">:</span> users<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token comment">// 1. 현재 레벨 확인 후 업그레이드 가능한지 알려주는 로직</span>
         <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">canUpgradeLevel</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -273,7 +273,7 @@ void function() {
 <p>더 이상 나눌 수 없는 단위인 작업을 말합니다.  </p>
 <p>작업을 쪼개서 작은 단위로 만들 수 없다는 것은 트랜잭션의 핵심 속성인 <code class="language-text">원자성</code>을 의미합니다.<br>
 따라서, 중간에 예외가 발생해서 작업을 완료할 수 없다면 아예 <code class="language-text">작업이 시작되지 않던 초기 상태</code>로 돌려놔야합니다.</p>
-<div class="custom-block info"><div class="custom-block-heading">추가) 트랜잭션 ACID</div><div class="custom-block-body"><p>[1] 원자성 ( Atomicity )<br>
+<div class="custom-block info"><div class="custom-block-heading">추가) 트랜잭션의 특징 - ACID</div><div class="custom-block-body"><p>[1] 원자성 ( Atomicity )<br>
 [2] 일관성 ( Consistency )<br>
 [3] 독립성 ( Isolation )<br>
 [4] 지속성 ( Durability )</p></div></div>

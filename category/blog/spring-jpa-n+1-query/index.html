@@ -431,6 +431,32 @@ void function() {
 <div class="gatsby-highlight" data-language="java"><pre style="counter-reset: linenumber NaN" class="language-java line-numbers"><code class="language-java"><span class="token annotation punctuation">@BatchSize</span><span class="token punctuation">(</span>size <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">)</span>
 <span class="token annotation punctuation">@OneToMany</span><span class="token punctuation">(</span>mappedBy <span class="token operator">=</span> <span class="token string">"album"</span><span class="token punctuation">,</span> cascade <span class="token operator">=</span> <span class="token class-name">CascadeType</span><span class="token punctuation">.</span>ALL<span class="token punctuation">,</span> fetch <span class="token operator">=</span> <span class="token class-name">FetchType</span><span class="token punctuation">.</span>EAGER<span class="token punctuation">)</span>
 <span class="token keyword">private</span> <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Song</span><span class="token punctuation">></span></span> songs <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code><span aria-hidden="true" class="line-numbers-rows" style="white-space: normal; width: auto; left: 0;"><span></span><span></span><span></span></span></pre></div>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; "
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 10.638297872340425%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAACCAYAAABYBvyLAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAWElEQVQI102MSwoAIQxDvZYo4hcV9f7HiSTgMItHk7SNaa2hlIKUEnrvn661ipyzeDknc+rn/zeGhXNOlZ1zpMkYQ6y1sPfWnjk9f2KMKgwhwDkHay2897iKbke8Sdu2xgAAAABJRU5ErkJggg=='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="배치 사이즈 조절"
+        title="배치 사이즈 조절"
+        src="/static/d53bc563989b95a8061d693eaa089613/1d69c/batch-size.png"
+        srcset="/static/d53bc563989b95a8061d693eaa089613/4dcb9/batch-size.png 188w,
+/static/d53bc563989b95a8061d693eaa089613/5ff7e/batch-size.png 375w,
+/static/d53bc563989b95a8061d693eaa089613/1d69c/batch-size.png 750w,
+/static/d53bc563989b95a8061d693eaa089613/78797/batch-size.png 1125w,
+/static/d53bc563989b95a8061d693eaa089613/aa440/batch-size.png 1500w,
+/static/d53bc563989b95a8061d693eaa089613/497e9/batch-size.png 2064w"
+        sizes="(max-width: 750px) 100vw, 750px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+      />
+    </span></p>
+<h4 id="또-다른-방식의-해결-방법" style="position:relative;"><a href="#%EB%98%90-%EB%8B%A4%EB%A5%B8-%EB%B0%A9%EC%8B%9D%EC%9D%98-%ED%95%B4%EA%B2%B0-%EB%B0%A9%EB%B2%95" aria-label="또 다른 방식의 해결 방법 permalink" class="anchor-header before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>또 다른 방식의 해결 방법?</h4>
+<p><code class="language-text">@EntityGraph</code> 를 사용해 <code class="language-text">N+1 문제</code>를 해결하는 방식도 존재합니다만 이번 포스팅에서는 다루지 않습니다 !</p>
 <h2 id="reference" style="position:relative;"><a href="#reference" aria-label="reference permalink" class="anchor-header before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Reference</h2>
 <p><a href="https://vladmihalcea.com/n-plus-1-query-problem/">Vlad Mihalcea - N+1 query problem with JPA and Hibernate</a><br>
 <a href="https://stackoverflow.com/questions/32453989/what-is-the-solution-for-the-n1-issue-in-jpa-and-hibernate">Stack Overflow - What is the solution for the N+1 issue in JPA and Hibernate?</a><br>
@@ -472,6 +498,7 @@ void function() {
 <ul>
 <li><a href="/category/blog/spring-jpa-n+1-query/#1-%ED%8C%A8%EC%B9%98-%EC%A1%B0%EC%9D%B8fetch-join">1. 패치 조인(Fetch Join)</a></li>
 <li><a href="/category/blog/spring-jpa-n+1-query/#2-batch-size-%EC%A1%B0%EC%A0%88">2. Batch Size 조절</a></li>
+<li><a href="/category/blog/spring-jpa-n+1-query/#%EB%98%90-%EB%8B%A4%EB%A5%B8-%EB%B0%A9%EC%8B%9D%EC%9D%98-%ED%95%B4%EA%B2%B0-%EB%B0%A9%EB%B2%95">또 다른 방식의 해결 방법?</a></li>
 </ul>
 </li>
 </ul>
