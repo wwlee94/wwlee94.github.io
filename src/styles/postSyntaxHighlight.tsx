@@ -32,6 +32,7 @@ const SyntaxHighlightStyle = css`
     -webkit-overflow-scrolling: touch;
     position: relative;
     font-size: 14.5px;
+    line-height: 1.7;
     overflow: auto;
   }
 
