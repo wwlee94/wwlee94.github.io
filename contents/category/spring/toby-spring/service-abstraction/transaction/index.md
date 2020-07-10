@@ -1,5 +1,5 @@
 ---
-title: '[토비의 스프링] 5. 서비스 추상화와 트랜잭션'
+title: '[토비의 스프링] 5-1. 서비스 추상화와 트랜잭션'
 date: '2020-07-01'
 category: 'spring'
 description: 'Spring 서비스 추상화하기'
