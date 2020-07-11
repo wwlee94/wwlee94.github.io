@@ -133,7 +133,7 @@ const postContentStyle = css`
     font-size: .9em;
     line-height: 1.4;
     th {
-      background-color: ${props => props.theme.colors.highlight};
+      background-color: ${props => props.theme.colors.blackLight};
       color: #FFF;
       padding: 10px 12px;
       text-align: center;

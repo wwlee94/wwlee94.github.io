@@ -13,7 +13,7 @@ const SyntaxHighlightStyle = css`
   pre[class*='language-'] {
     hyphens: none;
     font-family: Menlo, Monaco, 'Courier New', monospace;
-    color: #22aef1;
+    color: #ccc;
     text-shadow: none;
     word-break: break-all;
   }
@@ -46,94 +46,84 @@ const SyntaxHighlightStyle = css`
     border: none;
   }
 
-  .token.namespace {
-    opacity: 0.7;
-  }
   .token.comment,
+  .token.block-comment,
   .token.prolog,
   .token.doctype,
   .token.cdata {
-    color: rgba(255, 255, 255, 0.6);
+    color: #999;
   }
-  .token.operator,
-  .token.boolean,
-  .token.number {
-    color: #a77afe;
-  }
-  .token.attr-name,
-  .token.string {
-    color: #ffab3c;
-  }
-  .token.entity,
-  .token.url,
-  .language-css .token.string,
-  .style .token.string {
-    color: #ffab3c;
-  }
-  .token.selector,
-  .token.inserted {
-    color: #3eda86;
-  }
-  .token.atrule,
-  .token.attr-value,
-  .token.keyword,
-  .token.important,
-  .token.deleted {
-    color: #ff7574;
-  }
-  .token.regex,
-  .token.statement {
-    color: #22aef1;
-  }
-  .token.placeholder,
-  .token.variable {
-    color: #fff;
-  }
-  .token.important,
-  .token.statement,
-  .token.bold {
-    font-weight: 700;
-  }
+
   .token.punctuation {
-    color: #bebec5;
+    color: #ccc;
   }
-  .token.entity {
-    cursor: help;
+
+  .token.tag,
+  .token.attr-name,
+  .token.namespace,
+  .token.deleted {
+    color: #e2777a;
+  }
+
+  .token.function-name {
+    color: #6196cc;
+  }
+
+  .token.boolean,
+  .token.number,
+  .token.function {
+    color: #f08d49;
+  }
+
+  .token.property,
+  .token.class-name,
+  .token.constant,
+  .token.symbol {
+    color: #f8c555;
+  }
+
+  .token.selector,
+  .token.important,
+  .token.atrule,
+  .token.keyword,
+  .token.builtin {
+    color: #cc99cd;
+  }
+
+  .token.string,
+  .token.char,
+  .token.attr-value,
+  .token.regex,
+  .token.variable {
+    color: #7ec699;
+  }
+
+  .token.operator,
+  .token.entity,
+  .token.url {
+    color: #67cdcc;
+  }
+
+  .token.important,
+  .token.bold {
+    font-weight: bold;
   }
   .token.italic {
     font-style: italic;
   }
 
-  code.language-markup {
-    color: #f9f9f9;
-  }
-  code.language-markup .token.tag {
-    color: #ff7574;
-  }
-  code.language-markup .token.attr-name {
-    color: #3eda86;
-  }
-  code.language-markup .token.attr-value {
-    color: #ffab3c;
-  }
-  code.language-markup .token.style,
-  code.language-markup .token.script {
-    color: #22aef1;
-  }
-  code.language-markup .token.script .token.keyword {
-    color: #22aef1;
+  .token.entity {
+    cursor: help;
   }
 
-  /* Line highlight plugin */
-  .gatsby-highlight-code-line {
-    background-color: rgba(0, 0, 0, 0.3);
-    display: table;
-    min-width: calc(100% + ${boxPaddingSide} * 2);
-    margin-right: -${boxPaddingSide};
-    margin-left: -${boxPaddingSide};
-    padding-left: 12px;
-    border-left: 5px solid #22aef1;
+  .token.inserted {
+    color: green;
   }
+
+  /* 
+    [Delete] Line highlight plugin 
+    Ex) javascript{1,4-6}
+  */
 
   /* gatsby-remark-code-titles */
   .gatsby-code-title {
@@ -146,12 +136,12 @@ const SyntaxHighlightStyle = css`
     padding: 0 8px;
     line-height: 24px;
     font-family: SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
-    font-weight: 550;
-    border-radius: 0 8px;
+    font-weight: 500;
+    border-radius: 0 5px;
     display: table;
     z-index: 2;
     @media screen and (max-width: ${props => props.theme.responsive.small}) {
-      border-radius: 0 0 0 8px;
+      border-radius: 0 0 0 5px;
       margin-right: -${props => props.theme.sideSpace.contentSmall};
     }
   }

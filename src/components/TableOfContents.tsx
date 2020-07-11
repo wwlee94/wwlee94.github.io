@@ -10,9 +10,8 @@ const TableIndex = styled.div`
   width: ${props => props.theme.sizes.tableOfContentWidth};
   padding: 1.5em;
   font-size: 20px;
-  background: var(--bioBackground);
+  background: none;
   border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
   @media screen and (max-width: ${props => props.theme.responsive.large}) {
     position: relative;
     margin: 2em 0;
@@ -36,9 +35,10 @@ const TableWrapper = styled.div`
 
 const TableHeader = styled.h1`
   display: block;
-  text-align: center;
-  font-size: 18px;
+  text-align: left;
+  font-size: 17px;
   color: var(--bioColor);
+  padding-left: 15px;
   margin-bottom: 15px;
 `;
 
@@ -51,6 +51,7 @@ const TableContents = styled.div`
 
   a:hover {
     color: var(--tableOfContentsFocusColor);
+    transform: scale(1.05);
   }
 
   ul {

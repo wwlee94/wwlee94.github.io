@@ -19,7 +19,7 @@ const variables = {
   sizes: {
     bioWidth: '290px',
     tableOfContentWidth: '320px',
-    maxWidth: '1200px',
+    maxWidth: '1250px',
   },
   sideSpace: {
     small: '20px',

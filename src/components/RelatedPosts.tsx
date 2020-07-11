@@ -34,6 +34,7 @@ const PostCardEmoji = styled.p`
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.4)
   margin: 0;
   width: 80px;
   height: 80px;

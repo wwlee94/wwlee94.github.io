@@ -70,7 +70,7 @@ path
 
 4. path를 역순으로 출력 !
 
-**위의 `stack`, `path` 출력 과정은 다음과 같다**
+**위의 'stack', 'path' 출력 과정은 다음과 같습니다 !**
 
 ```python:title=Python
 path []
