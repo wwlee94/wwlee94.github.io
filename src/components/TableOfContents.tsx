@@ -25,7 +25,7 @@ const TableIndex = styled.div`
 const TableWrapper = styled.div`
   display: block;
   width: 100%;
-  max-height: calc(100vh - 200px);
+  max-height: calc(100vh - 150px);
   word-break: break-word;
   font-size: 14px;
   color: black;

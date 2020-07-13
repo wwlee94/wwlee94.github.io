@@ -9,7 +9,7 @@ const postContentStyle = css`
     text-decoration: underline;
   }
   p {
-    margin-bottom: 1em;
+    margin: 0.5em 0;
   }
   h1,
   h2,
@@ -124,6 +124,7 @@ const postContentStyle = css`
   }
   table {
     display: block;
+    margin: 1em 0;
     border-spacing: 2px;
     border-collapse: separate;
     overflow: auto;

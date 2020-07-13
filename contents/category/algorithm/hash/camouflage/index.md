@@ -1,6 +1,6 @@
 ---
 title: '[프로그래머스] 위장 - 해시 알고리즘 / Python'
-date: '2020-07-11'
+date: '2020-07-12'
 category: 'algorithm'
 description: ''
 emoji: '🌫'
