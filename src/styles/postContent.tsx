@@ -65,7 +65,6 @@ const postContentStyle = css`
     }
   }
   ul, ol {
-    margin: 1em 0;
     p {
       margin: 0;
     }

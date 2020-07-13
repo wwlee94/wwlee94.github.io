@@ -37,6 +37,7 @@ const PostCardEmoji = styled.p`
     height: 55px;
   }
   @media screen and (max-width: ${props => props.theme.responsive.large}) {
+    margin: 0;
     width: 70px;
     height: 70px;
     img {
