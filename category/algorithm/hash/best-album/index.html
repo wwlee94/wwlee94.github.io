@@ -138,12 +138,7 @@ void function() {
 <p>스트리밍 사이트에서 장르 별로 가장 많이 재생된 노래를 두 개씩 모아 베스트 앨범을 출시하려 합니다.<br>
 노래는 고유 번호로 구분하며, 노래를 수록하는 기준은 다음과 같습니다.</p>
 <ol>
-<li>
-<p>속한 노래가 많이 재생된 장르를 먼저 수록합니다.</p>
-<ul>
-<li>이 부분이 너무 많이 띄워져서?</li>
-</ul>
-</li>
+<li>속한 노래가 많이 재생된 장르를 먼저 수록합니다.</li>
 <li>장르 내에서 많이 재생된 노래를 먼저 수록합니다.</li>
 <li>장르 내에서 재생 횟수가 같은 노래 중에서는 고유 번호가 낮은 노래를 먼저 수록합니다.</li>
 </ol>
@@ -196,13 +191,13 @@ void function() {
 </ul>
 </li>
 <li>
-<p>장르 내에서 많이 재생된 노래를 먼저 수록합니다. </p>
+<p>장르 내에서 많이 재생된 노래를 먼저 수록합니다.</p>
 <ul>
 <li>재생횟수 순 내림차순 정렬</li>
 </ul>
 </li>
 <li>
-<p>장르 내에서 재생 횟수가 같은 노래 중에서는 고유 번호(인덱스)가 낮은 노래를 먼저 수록합니다. </p>
+<p>장르 내에서 재생 횟수가 같은 노래 중에서는 고유 번호(인덱스)가 낮은 노래를 먼저 수록합니다.</p>
 <ul>
 <li>인덱스 오름차순</li>
 </ul>
@@ -214,26 +209,26 @@ void function() {
 <span class="token keyword">def</span> <span class="token function">solution</span><span class="token punctuation">(</span>genres<span class="token punctuation">,</span> plays<span class="token punctuation">)</span><span class="token punctuation">:</span>
     <span class="token comment"># zip을 사용해 두 리스트를 합친다.</span>
     genres_with_plays <span class="token operator">=</span> <span class="token builtin">list</span><span class="token punctuation">(</span><span class="token builtin">zip</span><span class="token punctuation">(</span>genres<span class="token punctuation">,</span> plays<span class="token punctuation">)</span><span class="token punctuation">)</span>
-    
+
     <span class="token comment"># {장르 종류 : [인덱스, 재생횟수]} 구조를 담을 albums 변수</span>
     albums <span class="token operator">=</span> defaultdict<span class="token punctuation">(</span><span class="token builtin">list</span><span class="token punctuation">)</span>
     idx <span class="token operator">=</span> <span class="token number">0</span>
     <span class="token keyword">for</span> genre<span class="token punctuation">,</span> play <span class="token keyword">in</span> genres_with_plays<span class="token punctuation">:</span>
         albums<span class="token punctuation">[</span>genre<span class="token punctuation">]</span><span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token punctuation">(</span>idx<span class="token punctuation">,</span> play<span class="token punctuation">)</span><span class="token punctuation">)</span>
         idx <span class="token operator">+=</span> <span class="token number">1</span>
-    
+
     top_plays <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
     <span class="token keyword">for</span> key <span class="token keyword">in</span> albums<span class="token punctuation">:</span>
         albums<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">.</span>sort<span class="token punctuation">(</span>key <span class="token operator">=</span> <span class="token keyword">lambda</span> x<span class="token punctuation">:</span>x<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token comment"># 인덱스 오름차순 - 3번 조건</span>
         albums<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">.</span>sort<span class="token punctuation">(</span>key <span class="token operator">=</span> <span class="token keyword">lambda</span> x<span class="token punctuation">:</span>x<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> reverse<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span> <span class="token comment"># 재생횟수 내림차순 - 2번 조건</span>
-        
-        <span class="token comment"># 모든 장르별 총 재생 횟수 구하기</span>
+
+        <span class="token comment"># 장르의 총 재생 횟수 구하기</span>
         total <span class="token operator">=</span> <span class="token builtin">sum</span><span class="token punctuation">(</span><span class="token builtin">int</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span> <span class="token keyword">for</span> <span class="token punctuation">(</span>idx<span class="token punctuation">,</span> v<span class="token punctuation">)</span> <span class="token keyword">in</span> albums<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">)</span>
         top_plays<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> total<span class="token punctuation">)</span><span class="token punctuation">)</span>
-        
+
     <span class="token comment"># 많이 재생된 장르 순으로 정렬 - 1번 조건</span>
     top_plays<span class="token punctuation">.</span>sort<span class="token punctuation">(</span>key<span class="token operator">=</span><span class="token keyword">lambda</span> x<span class="token punctuation">:</span>x<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> reverse<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
-    
+
     answer <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
     <span class="token keyword">for</span> genre<span class="token punctuation">,</span> total <span class="token keyword">in</span> top_plays<span class="token punctuation">:</span>
         <span class="token comment"># 상위 2개만 slice</span>
@@ -243,11 +238,11 @@ void function() {
     <span class="token keyword">return</span> answer</code><span aria-hidden="true" class="line-numbers-rows" style="white-space: normal; width: auto; left: 0;"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre></div>
 <h2 id="마무리" style="position:relative;"><a href="#%EB%A7%88%EB%AC%B4%EB%A6%AC" aria-label="마무리 permalink" class="anchor-header before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>마무리</h2>
 <p>이번 프로그래머스 <code class="language-text">베스트 앨범</code>은 2회차로 풀어본 문제입니다.<br>
-문제를 다시 풀어본 뒤, 이전에 풀었던 풀이를 봤는데 다음과 같은 구조를 생성해서 문제를 해결했습니다.  </p>
+문제를 다시 풀어본 뒤, 이전에 풀었던 풀이를 봤는데 다음과 같은 구조를 생성해서 문제를 해결했습니다.</p>
 <div class="gatsby-code-title">Python</div>
 <div class="gatsby-highlight" data-language="python"><pre style="counter-reset: linenumber NaN" class="language-python line-numbers"><code class="language-python"><span class="token comment"># [[총 재생횟수, [[재생 횟수, 인덱스]]]]</span>
 <span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">3100</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">2500</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">600</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">1450</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">800</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">500</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">150</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">]</span></code><span aria-hidden="true" class="line-numbers-rows" style="white-space: normal; width: auto; left: 0;"><span></span><span></span></span></pre></div>
-<p>‘총 재생횟수, 재생 횟수, 인덱스’ 를 <code class="language-text">하나의 리스트</code>로 담아 문제를 해결했더라구요.  </p>
+<p>‘총 재생횟수, 재생 횟수, 인덱스’ 를 <code class="language-text">하나의 리스트</code>로 담아 문제를 해결했더라구요.</p>
 <p>제가 풀었지만 이전 풀이를 보면서 느꼈던 건<br>
 알고리즘은 풀었던 문제도 다시 풀면 다른 접근 방법도 보이기도하고 더 좋은 풀이를 찾을 수도 있어서 <code class="language-text">해결했던 문제를 다시 풀어보는 것</code>도 좋다고 느꼈습니다.</p></div></div><aside><div class="RelatedPosts__Wrapper-sc-1nrzwfn-0 fFDafD"><div class="RelatedPosts__PostCardWrapper-sc-1nrzwfn-1 gvYRzK"><a class="post-card-link" href="/category/algorithm/hash/camouflage/"><p class="RelatedPosts__PostCardEmoji-sc-1nrzwfn-2 hMlNHl"><img class="emoji" draggable="false" alt="🌫" src="https://twemoji.maxcdn.com/v/12.1.6/svg/1f32b.svg"/></p><div class="RelatedPosts__PostCardContent-sc-1nrzwfn-3 jNfPFJ"><h5>[프로그래머스] 위장 - 해시 알고리즘 / Python</h5><time>2020.07.12</time></div></a></div><div class="RelatedPosts__PostCardWrapper-sc-1nrzwfn-1 gvYRzK"><a class="post-card-link" href="/category/algorithm/dp/tile-decorations/"><p class="RelatedPosts__PostCardEmoji-sc-1nrzwfn-2 hMlNHl"><img class="emoji" draggable="false" alt="🖼" src="https://twemoji.maxcdn.com/v/12.1.6/svg/1f5bc.svg"/></p><div class="RelatedPosts__PostCardContent-sc-1nrzwfn-3 jNfPFJ"><h5>[프로그래머스] 타일 장식물 - DP 알고리즘 / Python</h5><time>2020.07.09</time></div></a></div><div class="RelatedPosts__PostCardWrapper-sc-1nrzwfn-1 gvYRzK"><a class="post-card-link" href="/category/algorithm/dp/2xn-tiling/"><p class="RelatedPosts__PostCardEmoji-sc-1nrzwfn-2 hMlNHl"><img class="emoji" draggable="false" alt="🔳" src="https://twemoji.maxcdn.com/v/12.1.6/svg/1f533.svg"/></p><div class="RelatedPosts__PostCardContent-sc-1nrzwfn-3 jNfPFJ"><h5>[프로그래머스] 2xn 타일링 - DP 알고리즘 / Python</h5><time>2020.07.05</time></div></a></div><div class="RelatedPosts__PostCardWrapper-sc-1nrzwfn-1 gvYRzK"><a class="post-card-link" href="/category/algorithm/bfs-dfs/travel-route/"><p class="RelatedPosts__PostCardEmoji-sc-1nrzwfn-2 hMlNHl"><img class="emoji" draggable="false" alt="✈️" src="https://twemoji.maxcdn.com/v/12.1.6/svg/2708.svg"/></p><div class="RelatedPosts__PostCardContent-sc-1nrzwfn-3 jNfPFJ"><h5>[프로그래머스] 여행 경로 - DFS &amp; BFS 알고리즘 / Python</h5><time>2020.06.25</time></div></a></div></div><div></div></aside></section></div><div class="TableOfContents__TableIndex-sc-1xzats2-0 ehhrHX"><div class="TableOfContents__TableWrapper-sc-1xzats2-1 bIwdqB table-of-contents"><h1 class="TableOfContents__TableHeader-sc-1xzats2-2 fYkEUy">🔖 Catalog</h1><div class="TableOfContents__TableContents-sc-1xzats2-3 ntjaR"><ul>
 <li>
