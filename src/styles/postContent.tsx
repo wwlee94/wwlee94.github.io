@@ -65,19 +65,20 @@ const postContentStyle = css`
     }
   }
   ul, ol {
+    margin: 1em 0;
     p {
       margin: 0;
     }
   }
   ul {
     padding-left: 1.2em;
-  }
-  ul li {
-    margin: .4em 0;
-    list-style: disc;
-  }
-  ul ul {
-    margin: 0;
+    li {
+      margin: .4em 0;
+      list-style: disc;
+    }
+    ul, ol {
+      margin: 0;
+    }
   }
   ol {
     counter-reset: number;
@@ -105,6 +106,9 @@ const postContentStyle = css`
         content: counter(number);
         counter-increment: number;
       }
+    }
+    ul {
+      margin: 0;
     }
   }
   strong {
