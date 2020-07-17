@@ -3,7 +3,7 @@ title: '[프로그래머스] 입국심사 - 이진탐색 알고리즘 / Python'
 date: '2020-06-17'
 category: 'algorithm'
 description: ''
-emoji: '🔍'
+emoji: '🔏'
 ---
 
 [[info | LEVEL 3 - '입국심사' 문제 보러 가기 !]]
