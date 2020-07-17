@@ -1,2 +1,4 @@
 User-agent: *
-Disallow:
+Allow: /
+Sitemap: https://wwlee94.github.io/sitemap.xml
+Host: https://wwlee94.github.io
