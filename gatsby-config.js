@@ -129,6 +129,14 @@ module.exports = {
               noInlineHighlight: false,
             },
           },
+          {
+            resolve: `gatsby-plugin-robots-txt`,
+            options: {
+              host: `https://wwlee94.github.io`,
+              sitemap: `https://wwlee94.github.io/sitemap.xml`,
+              policy: [{ userAgent: '*', allow: '/' }],
+            },
+          },
           `gatsby-remark-copy-linked-files`,
           `gatsby-remark-smartypants`,
         ],
@@ -139,7 +147,8 @@ module.exports = {
     `gatsby-plugin-offline`,
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-styled-components`,
-    'gatsby-plugin-dark-mode',
+    `gatsby-plugin-dark-mode`,
     `gatsby-plugin-typescript`,
+    `gatsby-plugin-sitemap`,
   ],
 };
