@@ -15,9 +15,8 @@ const SEO = ({ description, lang, meta, title }: Props) => {
     <StaticQuery
       query={detailsQuery}
       render={(data: QueryResult) => {
-        const metaDescription =
-          description || data.site.siteMetadata.description;
-        const defaultTitle =data.site.siteMetadata.title;
+        const metaDescription = description || data.site.siteMetadata.description;
+        const defaultTitle = data.site.siteMetadata.title;
         return (
           <Helmet
             htmlAttributes={{
@@ -49,11 +48,11 @@ const SEO = ({ description, lang, meta, title }: Props) => {
               },
               {
                 name: `google-site-verification`,
-                content: `88lff6Lu9mvm83qKi5gCz6QvnlyJzZnPjPQo7E7PdOw`,
+                content: `OxCmDAbFt_oP2EzYabwJiA4KNndMwAcKMQdvpa8vL6w`,
               },
               {
                 name: `naver-site-verification`,
-                content: `0d943f89faeb80f3af0c50cf57e4d269c64e695b`,
+                content: `07c520f56835b243f94776be22c4cbcb671bbfe5`,
               },
             ].concat(meta)}
           />
@@ -82,9 +81,9 @@ const detailsQuery = graphql`
     site {
       siteMetadata {
         title
-        siteUrl
-        description
         author
+        description
+        siteUrl
       }
     }
   }
