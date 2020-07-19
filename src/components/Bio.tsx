@@ -39,7 +39,7 @@ const BioHeader = styled.div`
   align-items: center;
 `;
 const BioName = styled.div`
-  margin-left: 20px;
+  margin-left: 15px;
   font-weight: 700;
   letter-spacing: 1px;
   font-size: 1.3em;

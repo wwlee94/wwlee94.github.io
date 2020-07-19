@@ -24,7 +24,7 @@ class BlogIndex extends React.Component<Props> {
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
-        <SEO title={siteTitle} />
+        <SEO title="" />
         <Helmet>
           <link rel="canonical" href="https://wwlee94.github.io" />
         </Helmet>

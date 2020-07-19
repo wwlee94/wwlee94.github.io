@@ -3,12 +3,16 @@ module.exports = {
     title: `Blausee 기술 블로그`,
     author: `wwlee94`,
     description: `스페셜리스트보다 제너럴리스트가 되고싶은
-    백엔드 개발자입니다 :)`,
+    백엔드 개발자의 기술 블로그입니다 :)`,
     siteUrl: `https://wwlee94.github.io`,
     email: `wwlee94@naver.com`,
     social: {
       github: `https://github.com/wwlee94`,
       notion: `https://www.notion.so/LEE-Woo-won-aa26875d3b4f40cdb4a75f86a77a0862`,
+    },
+    adsense: {
+      adClient: process.env.GOOGLE_AD_CLIENT || 'none',
+      adSlot: process.env.GOOGLE_AD_SLOT || 'none',
     },
     categories: [
       {
@@ -129,17 +133,81 @@ module.exports = {
               noInlineHighlight: false,
             },
           },
-          {
-            resolve: `gatsby-plugin-robots-txt`,
-            options: {
-              host: `https://wwlee94.github.io`,
-              sitemap: `https://wwlee94.github.io/sitemap.xml`,
-              policy: [{ userAgent: '*', allow: '/' }],
-            },
-          },
           `gatsby-remark-copy-linked-files`,
           `gatsby-remark-smartypants`,
         ],
+      },
+    },
+    {
+      resolve: `gatsby-plugin-robots-txt`,
+      options: {
+        host: `https://wwlee94.github.io`,
+        sitemap: `https://wwlee94.github.io/sitemap.xml`,
+        policy: [{ userAgent: '*', allow: '/' }],
+      },
+    },
+    {
+      resolve: `gatsby-plugin-feed`,
+      options: {
+        query: `
+          {
+            site {
+              siteMetadata {
+                title
+                description
+                siteUrl
+                site_url: siteUrl
+              }
+            }
+          }
+        `,
+        feeds: [
+          {
+            serialize: ({ query: { site, allMarkdownRemark } }) => {
+              return allMarkdownRemark.edges.map(edge => {
+                return Object.assign({}, edge.node.frontmatter, {
+                  description: edge.node.excerpt,
+                  date: edge.node.frontmatter.date,
+                  url: site.siteMetadata.siteUrl + edge.node.fields.slug,
+                  guid: site.siteMetadata.siteUrl + edge.node.fields.slug,
+                  custom_elements: [{ 'content:encoded': edge.node.html }],
+                });
+              });
+            },
+            query: `
+              {
+                allMarkdownRemark(
+                  sort: { order: DESC, fields: [frontmatter___date] },
+                ) {
+                  edges {
+                    node {
+                      excerpt
+                      html
+                      fields { slug }
+                      frontmatter {
+                        title
+                        date
+                      }
+                    }
+                  }
+                }
+              }
+            `,
+            output: '/rss.xml',
+            title: "Your Site's RSS Feed",
+            // optional configuration to insert feed reference in pages:
+            // if `string` is used, it will be used to create RegExp and then test if pathname of
+            // current page satisfied this regular expression;
+            // if not provided or `undefined`, all pages will have feed reference inserted
+            match: '^/category/',
+          },
+        ],
+      },
+    },
+    {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: process.env.GOOGLE_ANALYTICS_ID || 'none',
       },
     },
     `gatsby-transformer-sharp`,
