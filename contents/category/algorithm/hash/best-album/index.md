@@ -1,6 +1,6 @@
 ---
 title: '[프로그래머스] 베스트 앨범 - 해시 알고리즘 / Python'
-date: '2020-07-14'
+date: '2020-06-28'
 category: 'algorithm'
 description: ''
 emoji: '🎧'

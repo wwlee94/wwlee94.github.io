@@ -1,6 +1,6 @@
 ---
-title: '[프로그래머스] 소수 찾기 - 브루트 포스 알고리즘 / Python'
-date: '2020-07-16'
+title: '[프로그래머스] 소수 찾기 - 완전탐색 (브루트포스) 알고리즘 / Python'
+date: '2020-07-14'
 category: 'algorithm'
 description: ''
 emoji: '🔍'
@@ -35,17 +35,21 @@ emoji: '🔍'
 예를 들어, `011`이라는 숫자가 주어졌을 때 만들 수 있는 수는 다음과 같습니다.
 
 **숫자 1개를 선택할 경우**
+
 - `0`, `1`
 
 **숫자 2개를 선택할 경우**
+
 - `1`, `10`, `11`
 
 **숫자 3개를 선택할 경우**
+
 - `11`, `101`, `110`
 
 > 문제에서 '`11`과 `011`은 같은 숫자로 취급한다' 가정함
 
 **각각의 수를 set을 사용해 중복을 제거하면 ?!**
+
 - `0`, `1`, `10`, `11`, `110`, `101`
 
 결과로 나온 `set`을 `list`로 포팅한 뒤, 순회하며 소수를 판별해 개수를 세면 끝입니다. !
@@ -63,7 +67,7 @@ import itertools
 # 소수인지 판별해주는 함수
 def is_decimal(n):
     if n < 2: return False
-    
+
     to = int(math.sqrt(n)) + 1
     for i in range(2, to):
         if n % i == 0: return False
@@ -71,11 +75,11 @@ def is_decimal(n):
 
 def solution(number):
     candidate = set()
-    
+
     for i in range(len(number)):
         numbers = set(map(int, map(''.join, itertools.permutations(number, i+1))))
         candidate |= numbers # 합집합
-    
+
     answer = 0
     candidate = list(candidate) # 리스트 변환
     for n in candidate:
