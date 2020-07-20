@@ -3,8 +3,8 @@
 <url> <loc>https://wwlee94.github.io/category/algorithm/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://wwlee94.github.io/category/spring/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://wwlee94.github.io/category/blog/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://wwlee94.github.io/category/algorithm/dp/school-road/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://wwlee94.github.io/category/algorithm/brute-force-search/find-prime-numbers/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://wwlee94.github.io/category/algorithm/hash/best-album/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://wwlee94.github.io/category/algorithm/hash/camouflage/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://wwlee94.github.io/category/spring/toby-spring/aop/transaction-and-proxy/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://wwlee94.github.io/category/algorithm/dp/tile-decorations/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
@@ -12,6 +12,7 @@
 <url> <loc>https://wwlee94.github.io/category/algorithm/dp/2xn-tiling/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://wwlee94.github.io/category/spring/toby-spring/service-abstraction/transaction/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://wwlee94.github.io/category/blog/spring-jpa-n+1-query/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://wwlee94.github.io/category/algorithm/hash/best-album/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://wwlee94.github.io/category/spring/toby-spring/spring-exception/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://wwlee94.github.io/category/algorithm/bfs-dfs/travel-route/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://wwlee94.github.io/category/spring/toby-spring/template-callback/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
