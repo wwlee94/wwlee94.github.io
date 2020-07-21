@@ -1,5 +1,5 @@
 ---
-title: '[프로그래머스] 네트워크 - DFS & BFS 알고리즘 / Python'
+title: '[프로그래머스] DFS & BFS - 네트워크 / Python'
 date: '2020-06-18'
 category: 'algorithm'
 description: ''

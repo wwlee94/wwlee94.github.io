@@ -2,13 +2,13 @@
 title: '[토비의 스프링] 6-1. AOP'
 date: '2020-07-11'
 category: 'spring'
-description: 'AOP, 프록시, 다이나믹 프록시'
+description: 'AOP, 트랜잭션, 프록시, 다이나믹 프록시'
 emoji: 'ℹ️'
 ---
 
 ## 개요
 
-`AOP`는 `IoC/DI`, 서비스 추상화와 더불어 스프링의 3개 기반기술의 하나입니다.  
+`AOP`는 `IoC/DI`, `서비스 추상화`와 더불어 스프링의 3개 기반기술의 하나입니다.
 
 스프링에 적용된 가장 인기 있는 `AOP`의 적용 대상은 바로 선언적 트랜잭션 기능입니다.
 
@@ -17,7 +17,7 @@ emoji: 'ℹ️'
 ## 1. 트랜잭션 코드의 분리
 
 여러 기술과 환경에 독립적인 깔끔한 UserService 코드이지만, 한가지 찜찜한 문제가 있습니다.  
-바로 트랜잭션 경계설정 부분입니다.  
+바로 트랜잭션 경계설정 부분입니다.
 
 **트랜잭션과 비즈니스 로직이 공존하는 메소드**
 
@@ -56,6 +56,7 @@ UserService 클래스에서는 비즈니스 로직만 담는 것이 이상적인
 따라서, 이전에 계속 반복했던 `인터페이스`를 활용하여 강한 결합도를 분리합니다.
 
 또한, UserService의 비즈니스 처리 구현체인 UserServiceImpl과 트랜잭션 구현체인 UserServiceTx 2가지 클래스를 만듭니다.
+
 - UserServiceImpl: UserService의 순수한 비즈니스 로직 구현체
 - UserServiceTx : 트랜잭션 처리 책임을 맡고 있는 구현체
 
@@ -66,6 +67,7 @@ UserService 클래스에서는 비즈니스 로직만 담는 것이 이상적인
 #### 2) 분리된 트랜잭션 기능
 
 **UserService 인터페이스**
+
 ```java:title=Java
 public interface UserService {
     void add(User user);
@@ -74,6 +76,7 @@ public interface UserService {
 ```
 
 **트랜잭션 코드를 제거한 UserService 구현 클래스**
+
 ```java:title=Java
 public class UserServiceImpl implements UserService {
     // ...
@@ -92,6 +95,7 @@ public class UserServiceImpl implements UserService {
 ```
 
 **위임 기능을 가진 UserServiceTx 트랜잭션 클래스**
+
 ```java:title=Java
 public class UserServiceTx {
     // ...
@@ -115,7 +119,7 @@ public class UserServiceTx {
 ```
 
 트랜잭션 로직의 `역할`은 비즈니스 로직 처리 전후로 `트랜잭션 경계설정`을 해주고 실행될 비즈니스 로직을 `위임하는 역할`입니다.  
-이제 비즈니스 로직과 트랜잭션 로직 처리 코드가 깔끔하게 분리되었습니다.  
+이제 비즈니스 로직과 트랜잭션 로직 처리 코드가 깔끔하게 분리되었습니다.
 
 #### 3) 트랜잭션 적용을 위한 DI 설정
 
@@ -123,6 +127,7 @@ public class UserServiceTx {
 그렇기에 Spring의 DI기능을 사용하기 위해서는 같은 타입의 빈을 구별할 수 있도록 필드 이름을 수정해주어야합니다.
 
 DI 규칙은 다음과 같습니다.
+
 1. 스프링 컨테이너가 같은 `Class Type`으로 빈을 찾습니다.
 2. `Class Type`이 중복된다면, `필드명`으로 빈을 찾습니다.
 
@@ -187,7 +192,7 @@ public class MockUserDao implements UserDao {
 
 #### 2) 고립 단위 테스팅의 장점
 
-- 테스트만을 위해 완전히 독립적으로 동작하는 테스트 대상을 사용하기 때문에 스프링 컨테이너에서 빈을 가져올 필요가 없습니다.  
+- 테스트만을 위해 완전히 독립적으로 동작하는 테스트 대상을 사용하기 때문에 스프링 컨테이너에서 빈을 가져올 필요가 없습니다.
 - DB 연동, 실행 & 메일 서버 등을 이용하지 않으므로 테스트의 수행 성능이 향상됩니다.
 
 #### 3) 단위 테스트와 통합 테스트
@@ -333,7 +338,7 @@ public class TransactionHandler implements InvocationHandler {
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         // 트랜잭션 적용 대상 메소드 선별하여 트랜잭션 경계설정 기능 부여해준다.
-        if (method.getName().startsWith(pattern)) { 
+        if (method.getName().startsWith(pattern)) {
             return invokeInTransaction(method, args); // 트랜잭션 적용 O
         } else {
             return method.invoke(target, args); // 트랜잭션 적용 X
@@ -383,6 +388,7 @@ public void upgradeAllOrNothing() throws Exception{
 ## 4. 스프링의 프록시 팩토리 빈
 
 #### 1) ProxyFactoryBean
+
 자바에는 JDK에서 제공하는 다이내믹 프록시 외에도 편리하게 프록시를 만들 수 있도록 지원해주는 다양한 기술이 존재합니다.
 
 스프링이 트랜잭션 기술과 메일 발송 기술에 적용했던 서비스 추상화를 프록시 기술에 동일하게 적용해 프록시 오브젝트를 생성해주는 기술을 `추상화한 팩토리 빈`을 제공합니다.
@@ -392,10 +398,12 @@ ProxyFactoryBean이 생성하는 프록시에서 사용할 부가기능은 Metho
 ##### Methodlnterceptor 와 InvocationHandler의 차이점
 
 **InvocationHandler**
+
 - InvocationHandler의 invoke() 메소드는 타깃 오브젝트에 대한 정보를 제공하지 않습니다.  
-따라서 타깃은 InvocationHandler를 구현한 클래스가 직접 알고 있어야 합니다.
+  따라서 타깃은 InvocationHandler를 구현한 클래스가 직접 알고 있어야 합니다.
 
 **Methodlnterceptor**
+
 - Methodlnterceptor의 invoke() 메소드는 ProxyFactoryBean으로부터 `타깃 오브젝트에 대한 정보`까지도 함께 제공받습니다.
 
 ##### ProxyFactoryBean 예제
@@ -409,7 +417,7 @@ public void proxyFactoryBean() {
     pfBean.addAdvice(new UpperCaseAdvice()); // 부가 기능 어드바이스 설정
 
     Hello proxiedHello = (Hello) pfBean.getObject(); // 생성된 프록시를 가져온다.
-    assertThat(proxiedHello.sayHi("woowon"), is("HI WOOWON")); 
+    assertThat(proxiedHello.sayHi("woowon"), is("HI WOOWON"));
 }
 
 static class UppercaseAdvice implements MethodInterceptor {
@@ -417,21 +425,24 @@ static class UppercaseAdvice implements MethodInterceptor {
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
         // MethodInvocation은 메소드 정보와 타깃 오브젝트를 모두 가지고 있다.
-        return invocation.proceed().toString().toUpperCase(); 
+        return invocation.proceed().toString().toUpperCase();
     }
 }
 // ...
 ```
 
 #### 2) 어드바이스 : 타깃이 필요 없는 순수한 부가기능
+
 스프링에서는 타깃 오브젝트에 적용하는 부가기능을 담은 오브젝트를 `어드바이스(advice)`라고 부릅니다.
 
-Methodlnterceptor에는 메소드 정보와 함께 타깃 오브젝트가 담긴 Methodlnvocation 오브젝트가 전달됩니다.  
+Methodlnterceptor에는 메소드 정보와 함께 타깃 오브젝트가 담긴 Methodlnvocation 오브젝트가 전달됩니다.
+
 > Methodlnvocation은 일종의 콜백 오브젝트로, proceed() 메소드를 실행하면 타깃 오브젝트의 메소드를 내부적으로 실행해주는 기능
 
 ProxyFactoryBean은 작은 단위의 `템플릿/콜백 구조`를 응용해서 적용했기 때문에 템플릿 역할을 하는 Methodlnvocation을 `싱글톤`으로 두고 `공유`할 수 있습니다.
 
-addAdvice() 메소드를 통해 ProxyFactoryBean에는 여러 개의 Methodlnterceptor를 추가할 수 있습니다.  
+addAdvice() 메소드를 통해 ProxyFactoryBean에는 여러 개의 Methodlnterceptor를 추가할 수 있습니다.
+
 > ProxyFactoryBean 하나만으로 여러 개의 부가 기능을 제공해주는 프록시를 만들 수 있다는 의미
 
 #### 3) 포인트컷 : 부가기능 적용 대상 메소드 선정 방법
@@ -443,9 +454,10 @@ addAdvice() 메소드를 통해 ProxyFactoryBean에는 여러 개의 Methodlnter
 ![AOP 7](./images/AOP-7.png)
 
 **기존 방식의 문제점**
+
 - 부가 기능을 가진 InvocationHandler가 타깃과 메소드 선정 알고리즘에 의존하고 있다는 점입니다.
 
------
+---
 
 만약 타깃이 다르고 메소드 선정 방식이 다른 경우, InvocationHandler 오브젝트를 여러 프록시가 공유할 수 없습니다.
 
@@ -480,6 +492,7 @@ public void proxyFactoryBean() {
 두 가지를 묶어서 등록하는 이유는 따로 등록하면 어떤 어드바이스에 대해 포인트컷을 적용할지 애매해지기 때문에 함께 묶어서 등록합니다.
 
 ##### 어드바이스와 포인트컷의 재사용
+
 ProxyFactoryBean은 스프링의 DI와 템플릿/콜백 패턴, 서비스 추상화 등의 기법이 모두 적용되어서 `독립적`이며 여러 프록시가 `공유`할 수 있는 `어드바이스`와 `포인트컷`으로 확장 기능을 분리할 수 있었다.
 
 ![AOP 9](./images/AOP-9.png)

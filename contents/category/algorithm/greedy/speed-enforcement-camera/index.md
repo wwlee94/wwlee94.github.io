@@ -1,5 +1,5 @@
 ---
-title: '[프로그래머스] 단속 카메라 - 그리디 알고리즘 / Python'
+title: '[프로그래머스] 그리디 - 단속 카메라 / Python'
 date: '2020-06-12'
 category: 'algorithm'
 description: ''

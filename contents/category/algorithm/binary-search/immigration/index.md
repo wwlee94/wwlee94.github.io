@@ -1,5 +1,5 @@
 ---
-title: '[프로그래머스] 입국심사 - 이진탐색 알고리즘 / Python'
+title: '[프로그래머스] 이진탐색 - 입국심사 / Python'
 date: '2020-06-17'
 category: 'algorithm'
 description: ''

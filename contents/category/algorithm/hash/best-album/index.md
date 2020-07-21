@@ -1,5 +1,5 @@
 ---
-title: '[프로그래머스] 베스트 앨범 - 해시 알고리즘 / Python'
+title: '[프로그래머스] 해시 - 베스트 앨범 / Python'
 date: '2020-06-28'
 category: 'algorithm'
 description: ''

@@ -1,5 +1,5 @@
 ---
-title: '[프로그래머스] 여행 경로 - DFS & BFS 알고리즘 / Python'
+title: '[프로그래머스] DFS & BFS - 여행 경로 / Python'
 date: '2020-06-25'
 category: 'algorithm'
 description: ''

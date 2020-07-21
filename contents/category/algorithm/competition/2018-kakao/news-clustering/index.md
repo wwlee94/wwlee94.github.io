@@ -1,5 +1,5 @@
 ---
-title: '[프로그래머스] 뉴스 클러스터링 - [1차] 2018 카카오 / Python'
+title: '[프로그래머스] [1차] 2018 카카오 - 뉴스 클러스터링 / Python'
 date: '2020-06-05'
 category: 'algorithm'
 description: ''

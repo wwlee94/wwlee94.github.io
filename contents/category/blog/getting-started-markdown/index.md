@@ -2,7 +2,7 @@
 title: '마크다운 (Markdown) 문법 알아보기'
 date: '2020-06-04'
 category: 'blog'
-description: '마크다운 문법에 대해서'
+description: ''
 emoji: '📋'
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: '[프로그래머스] 저울 - 그리디 알고리즘 / Python'
+title: '[프로그래머스] 그리디 - 저울 / Python'
 date: '2020-06-08'
 category: 'algorithm'
 description: ''

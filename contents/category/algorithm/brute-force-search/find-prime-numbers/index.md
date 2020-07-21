@@ -1,5 +1,5 @@
 ---
-title: '[프로그래머스] 소수 찾기 - 완전탐색 (브루트포스) 알고리즘 / Python'
+title: '[프로그래머스] 완전탐색 - 소수 찾기 / Python'
 date: '2020-07-14'
 category: 'algorithm'
 description: ''
