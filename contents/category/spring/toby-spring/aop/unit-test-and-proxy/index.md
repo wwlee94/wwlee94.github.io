@@ -1,5 +1,5 @@
 ---
-title: '[토비의 스프링] 6-1. AOP'
+title: '[토비의 스프링] 6-1. AOP - 단위 테스트와 프록시'
 date: '2020-07-11'
 category: 'spring'
 description: 'AOP, 트랜잭션, 프록시, 다이나믹 프록시'

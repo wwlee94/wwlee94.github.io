@@ -1,6 +1,6 @@
 ---
 title: '[프로그래머스] DP - 등굣길 / Python'
-date: '2020-07-16'
+date: '2020-07-18'
 category: 'algorithm'
 description: '태그(Tags) : 프로그래머스, 등굣길, pyhon, DP, Dynamic Programming, 동적 계획법'
 emoji: '🚌'

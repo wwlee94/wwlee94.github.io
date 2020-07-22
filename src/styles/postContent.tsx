@@ -112,7 +112,8 @@ const postContentStyle = css`
     }
   }
   strong {
-    font-weight: 700;
+    font-weight: 550;
+    font-size: 1.1em;
   }
   em {
     font-style: italic;
