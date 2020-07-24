@@ -1,5 +1,5 @@
 ---
-title: '[프로그래머스] DFS & BFS - 네트워크 / Python'
+title: '[프로그래머스] DFS & BFS - 네트워크 / Python, Java'
 date: '2020-06-18'
 category: 'algorithm'
 description: ''
@@ -51,6 +51,8 @@ answer = list(set(parent)) # 2
 
 ## 풀이 코드
 
+#### Python
+
 ```python:title=Python
 def solution(n, computers):
 
@@ -86,4 +88,45 @@ def solution(n, computers):
         answer.add(parent[i]);
 
     return len(answer)
+```
+
+#### Java
+
+```java:title=Java
+import java.util.*;
+import java.util.stream.*;
+class Solution {
+    public int solution(int n, int[][] computers) {
+        int[] parent = IntStream.range(0, n).toArray(); // IntStream to Array !
+
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                if (i!=j && computers[i][j]==1) union_find(parent, i, j);
+            }
+        }
+        
+        // Set 자료구조
+        Set<Integer> answer = new HashSet();
+        for(int node : parent) {
+            int x = get_parent(parent, node);
+            answer.add(x);
+        }
+        return answer.size();
+    }
+    
+    // [1] 특정 노드의 부모를 반환하는 함수
+    public int get_parent(int[] parent, int n){
+        if (parent[n] == n) return n;
+        parent[n] = get_parent(parent, parent[n]);
+        return parent[n];
+    }
+    
+    // [2] 두 개의 노드를 연결하는 함수
+    public void union_find(int[] parent, int a, int b){
+        a = get_parent(parent, a);
+        b = get_parent(parent, b);
+        if (a > b) parent[a] = b;
+        else parent[b] = a;
+    }
+}
 ```
