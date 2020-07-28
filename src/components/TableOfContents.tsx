@@ -44,8 +44,11 @@ const TableHeader = styled.h1`
 
 const TableContents = styled.div`
   margin-left: 10px;
+  display: block;
+  transition: all 0.125s ease-in 0s;
   
   a {
+    display: inline-block;
     color: rgb(134, 142, 150);
   };
 
@@ -58,19 +61,12 @@ const TableContents = styled.div`
     list-style: none;
     margin-left: 10px;
     margin-bottom: 0px;
-  };
-
-  ul > li {
     line-height: 1.5rem;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
   };
 
   ul > li a[href='${(props: TableContentsProps) => props.currentHeaderUrl}'] {
     color: var(--tableOfContentsFocusColor);
-    // font-size: 15px;
-    font-weight: 600;
+    transform: scale(1.05);
   };
 `;
 

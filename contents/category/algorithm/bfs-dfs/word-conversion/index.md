@@ -38,11 +38,9 @@ emoji: '🔄'
 
 1. 현재 노드에서 갈 수 있는 다른 경로 구하는 함수를 작성합니다.
 
-2. `1번 함수`를 사용해 각 노드 별 변환 될 수 있는 모든 노드 리스트를 저장합니다.
+3. 문제에서 주어지는 `첫 단어를 시작`으로 갈 수 있는 인접 `paths`를 구한 후 `BFS`로 인접한 노드를 방문합니다.
 
-3. 문제에서 주어지는 `첫 단어를 시작`으로 `BFS`로 인접한 노드를 방문합니다.
-
-4. 현재 단어와 target이 같으면 `현재 층`(level)을 반환합니다.
+3. 현재 단어와 target이 같으면 `현재 층`(level)을 반환합니다.
 
 **path에 담기는 정보 예시**
 
@@ -84,36 +82,22 @@ def solution(begin, target, words):
                 arr.append(word)
         return arr
 
-    # 2. path에 각 노드 별 변환 될 수 있는 모든 노드 리스트 저장
-    def init_path():
-        path = {}
-        words.append(begin) # 초기값도 추가
-
-        # path 초기화
-        for word in words:
-            res = get_path(word)
-            if word not in path.keys():
-                path[word] = res
-            else:
-                path[word].append(res)
-        return path
-
     def bfs():
         answer = []
         queue = [(begin, [begin])]
-        path = init_path()
 
-        # 3. 첫 단어를 시작으로 BFS로 인접한 노드를 방문합니다.
+        # 2. 첫 단어를 시작으로 BFS로 인접한 노드를 방문합니다.
         while queue:
             current, visited = queue.pop(0)
 
-            # 4. 현재 단어와 target이 같으면 정답에 도달 !
+            # 3. 현재 단어와 target이 같으면 정답에 도달 !
             if current == target:
                 answer = visited
                 break
 
             # 인접한 노드를 방문
-            for node in path[current]:
+            paths = get_path(current);
+            for node in paths:
                 if node not in visited:
                     queue.append((node, visited + [node]))
         return len(answer) - 1
