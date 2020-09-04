@@ -44,7 +44,7 @@ const TableHeader = styled.h1`
 
 const TableContents = styled.div`
   margin-left: 10px;
-  overflow-x: hidden;
+  overflow: hidden;
   transition: all 0.125s ease-in 0s;
   
   a {
@@ -54,7 +54,6 @@ const TableContents = styled.div`
 
   a:hover {
     color: var(--tableOfContentsFocusColor);
-    transform: scale(1.025);
   }
 
   ul {
@@ -66,7 +65,7 @@ const TableContents = styled.div`
 
   ul > li a[href='${(props: TableContentsProps) => props.currentHeaderUrl}'] {
     color: var(--tableOfContentsFocusColor);
-    transform: scale(1.05);
+    transform: scale(1.1);
   };
 `;
 

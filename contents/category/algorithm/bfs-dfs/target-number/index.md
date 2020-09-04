@@ -3,7 +3,7 @@ title: '[프로그래머스] DFS & BFS - 타겟 넘버 / Python'
 date: '2020-07-22'
 category: 'algorithm'
 description: ''
-emoji: '✈️'
+emoji: '🔢'
 ---
 
 [[info | LEVEL 3 - '타겟 넘버' 문제 보러 가기 !]]
@@ -33,7 +33,7 @@ n개의 음이 아닌 정수가 있습니다.
 
 #### 입출력 예시
 
-![예시](./images/problem-example.png)
+![예시](./images/example.png)
 
 ## 문제 접근 방식
 
