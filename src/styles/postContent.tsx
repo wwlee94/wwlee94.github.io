@@ -182,7 +182,7 @@ const postContentStyle = css`
     border-left: .25em solid #dfe2e5;
   }
   .gatsby-resp-image-wrapper {
-    margin: 1em 0;
+    margin: 2em 0;
     border: solid 1px #e5e8ea;
     box-shadow: 1px 1px 20px lightgrey;
     border-radius: 4px;

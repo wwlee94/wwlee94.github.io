@@ -3,7 +3,7 @@ title: '[프로그래머스] DP - 멀리 뛰기 / Python'
 date: '2020-08-15'
 category: 'algorithm'
 description: ''
-emoji: '?'
+emoji: '🏃🏻‍♂️'
 ---
 
 [[info | LEVEL 3 - '멀리 뛰기' 문제 보러 가기 !]]
