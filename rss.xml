@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Your Site's RSS Feed]]></title><description><![CDATA[스페셜리스트보다 제너럴리스트가 되고싶은
     백엔드 개발자의 기술 블로그입니다 :)
-    📚공부한 내용을 기록하는 블로그]]></description><link>https://wwlee94.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Sat, 05 Sep 2020 08:00:35 GMT</lastBuildDate><item><title><![CDATA[AWS EB에서 HTTPS 적용하기 + Route 53에 도메인 등록하기]]></title><description><![CDATA[이번 포스팅에서는 AWS Elastic Beanstalk에서 HTTPS를 적용하는 방법에 대해서 다룹니다. 간단히 HTTPS에 대해서 알아본 뒤, 무료로 도메인을 구매하는 법, 구매한 도메인을 Route 53에 등록하는법, AWS EB에 HTTPS…]]></description><link>https://wwlee94.github.io/category/blog/aws-eb-https/</link><guid isPermaLink="false">https://wwlee94.github.io/category/blog/aws-eb-https/</guid><pubDate>Sun, 23 Aug 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;이번 포스팅에서는 AWS Elastic Beanstalk에서 HTTPS를 적용하는 방법에 대해서 다룹니다.&lt;/p&gt;
+    📚공부한 내용을 기록하는 블로그]]></description><link>https://wwlee94.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Sun, 06 Sep 2020 05:51:14 GMT</lastBuildDate><item><title><![CDATA[AWS EB에서 HTTPS 적용하기 + Route 53에 도메인 등록하기]]></title><description><![CDATA[이번 포스팅에서는 AWS Elastic Beanstalk에서 HTTPS를 적용하는 방법에 대해서 다룹니다. 간단히 HTTPS에 대해서 알아본 뒤, 무료로 도메인을 구매하는 법, 구매한 도메인을 Route 53에 등록하는법, AWS EB에 HTTPS…]]></description><link>https://wwlee94.github.io/category/blog/aws-eb-https/</link><guid isPermaLink="false">https://wwlee94.github.io/category/blog/aws-eb-https/</guid><pubDate>Sun, 23 Aug 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;이번 포스팅에서는 AWS Elastic Beanstalk에서 HTTPS를 적용하는 방법에 대해서 다룹니다.&lt;/p&gt;
 &lt;p&gt;간단히 HTTPS에 대해서 알아본 뒤, 무료로 도메인을 구매하는 법, 구매한 도메인을 Route 53에 등록하는법, AWS EB에 HTTPS 프로토콜을 적용하는 방법을 순차적으로 다루겠습니다.&lt;/p&gt;
 &lt;h2 id=&quot;https란&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#https%EB%9E%80&quot; aria-label=&quot;https란 permalink&quot; class=&quot;anchor-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;HTTPS란?&lt;/h2&gt;
 &lt;p&gt;기존의 HTTP는 전송하는 데이터를 암호화하지 않고 평문으로 통신을 하기 때문에 도청, 변조 등의 보안에 매우 취약한 프로토콜입니다.&lt;br&gt;
@@ -15,16 +15,23 @@
 &lt;/ol&gt;
 &lt;p&gt;✔ Amazon 서비스에서 발급해주는 SSL 인증서는 무료인 대신에, 해당 도메인의 DNS 서버로 Route 53을 사용해야하며 Route 53을 사용하기 위해서는 도메인이 필요합니다.&lt;/p&gt;
 &lt;h3 id=&quot;1-dns-서비스에서-도메인-구매하기&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#1-dns-%EC%84%9C%EB%B9%84%EC%8A%A4%EC%97%90%EC%84%9C-%EB%8F%84%EB%A9%94%EC%9D%B8-%EA%B5%AC%EB%A7%A4%ED%95%98%EA%B8%B0&quot; aria-label=&quot;1 dns 서비스에서 도메인 구매하기 permalink&quot; class=&quot;anchor-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;1. DNS 서비스에서 도메인 구매하기&lt;/h3&gt;
-&lt;h4 id=&quot;dnsdomain-name-system란&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#dnsdomain-name-system%EB%9E%80&quot; aria-label=&quot;dnsdomain name system란 permalink&quot; class=&quot;anchor-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;DNS(Domain Name System)란?&lt;/h4&gt;
+&lt;h4 id=&quot;1-dnsdomain-name-system란&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#1-dnsdomain-name-system%EB%9E%80&quot; aria-label=&quot;1 dnsdomain name system란 permalink&quot; class=&quot;anchor-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;1) DNS(Domain Name System)란?&lt;/h4&gt;
 &lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;DNS&lt;/code&gt;는 도메인 이름을 네트워크 주소로 바꾸거나 그 반대의 변환을 수행해주는 시스템입니다.&lt;br&gt;
 즉, &lt;code class=&quot;language-text&quot;&gt;DNS&lt;/code&gt;는 요청 받은 도메인 이름을 조회해 해당 도메인 이름과 연결된 IP 주소를 알려줍니다.&lt;/p&gt;
-&lt;h4 id=&quot;도메인-구매하기&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#%EB%8F%84%EB%A9%94%EC%9D%B8-%EA%B5%AC%EB%A7%A4%ED%95%98%EA%B8%B0&quot; aria-label=&quot;도메인 구매하기 permalink&quot; class=&quot;anchor-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;도메인 구매하기&lt;/h4&gt;
+&lt;h4 id=&quot;2-도메인-구매하기&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#2-%EB%8F%84%EB%A9%94%EC%9D%B8-%EA%B5%AC%EB%A7%A4%ED%95%98%EA%B8%B0&quot; aria-label=&quot;2 도메인 구매하기 permalink&quot; class=&quot;anchor-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;2) 도메인 구매하기&lt;/h4&gt;
 &lt;p&gt;Route 53에서 인기있는 도메인(&lt;code class=&quot;language-text&quot;&gt;.com&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;.net&lt;/code&gt; 등등)을 구매해도 좋지만 금액을 주고 구매해야합니다.&lt;/p&gt;
 &lt;p&gt;&lt;span
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 200px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/2071964b82cf5682ad197d8f33c1758e/772e8/domain-prices.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 164.36170212765958%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAhCAYAAADZPosTAAAACXBIWXMAABYlAAAWJQFJUiTwAAACkklEQVRIx6WWh47iUAxF8/+fhYRAgED0XofeewfvHGvMZmeSwCxPspLnvNjXvrYTR77W/X5XeXc5u91O5vO5bLdb2Ww2slytPvcLWSz+ynK51DNBYuccDHW7XclkMpJKpeTj40NarZZEo1HJ5XKSzWYlHA7LbDZTh6tPh98Ffb1el+FwKM7xeFQFm9FoJCDe7/cynU7VI57RX6/Xf1LjFtb5fNZ3FSE3p9NJMI4x9ofD4SHoOecnAOKd9XotjuUPBHi5XC4/xE+P3G43mUwmmjaiccgBKN5ZgAEd4JzBYKAIv4dsV73f7XXP9bH/0tlZ3gel0+/3dQMBoA1Kvp8QNgsiHcLFWLFYlEajod7MoJdhr2V6ZZnYQWVenq0gR6RODaKAMRCWSiXNBd7S6bSUy2Vpt9uSSCSURa829TRIHqGfPKADsbUVKaG4rRoCDVKUFi4sg4yFIQzjCGQ8c7/slYYHQhbe6WfC5GV6mBRQBfF4XDqdju9U8kX4KiFPEaKgvSqVipIAQsgBZbPZ1CnEBGLh3M10IClMHMYQZWSThmJndFluvdD6howha0FrfHQwb8ZpVTdBnnXIokNsyIKSK6TwHKJIR7Va1XoEva/B35DyUsjuHEJEr9fTvqaQCTUUCiliSsfdKU9JgWWST0HTMeQJ3Xg81onMFadPDVrIKG3S4ATG3R+ioFr0JYW6QwkBfOny+fxjQHghertTXkaoOTydlZRkMqkPGFmgq9VqShL3LyF0swyLEMI9wjPEuuXXIWPEjDNkMcIhSui/SKE7qEMQRSIRJYnuIA3fh6vvJ8CPFNO5nwV9+X7kkBcLhYIWMA9isZgSww+T9e6zpQYJz36UmH1MZiYKf2GI7XHEmSCB0D9qBfmVsT25rwAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -39,6 +46,7 @@
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;저는 &lt;a href=&quot;https://my.freenom.com&quot;&gt;https://my.freenom.com&lt;/a&gt; 라는 곳에서 무료도 &lt;code class=&quot;language-text&quot;&gt;partying.cf&lt;/code&gt;라는 도메인을 발급 받았습니다.&lt;/p&gt;
 &lt;h3 id=&quot;2-route-53에-구매한-도메인-등록하기&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#2-route-53%EC%97%90-%EA%B5%AC%EB%A7%A4%ED%95%9C-%EB%8F%84%EB%A9%94%EC%9D%B8-%EB%93%B1%EB%A1%9D%ED%95%98%EA%B8%B0&quot; aria-label=&quot;2 route 53에 구매한 도메인 등록하기 permalink&quot; class=&quot;anchor-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;2. Route 53에 구매한 도메인 등록하기&lt;/h3&gt;
@@ -48,7 +56,14 @@
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/db619fce9290f91e0aad0dd95e954372/be061/route53-1.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 63.297872340425535%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAYAAACpUE5eAAAACXBIWXMAABYlAAAWJQFJUiTwAAACoklEQVQ4y32RW08TURDH9wsYjTFcVK4utGgNVIkJMfAA0UJIeFSqBCQgPNkAiUENCR+CPukXEF9EvDz5ZKKoKGLbpS3RYEHkIt1Lt93b2d1xzmkbwagn+e05szvz3//M4fiqytbWlnMPOju7ZroCgXBbsz/c6OHDfs+pcFN9ATz7GXz4fAMfbt4HjVt83pmLTb77Z7yee9zVawO370xNw+TdaRgZn4KzPaPg6x4CT/cI1F4ehLrAINR09EP1pRtQ0d4PZW3XoXQfJ9oHoL7zJtT1hKDjyvAGJ6ys3DIME3AZ30Tdmny6Sqaer5KJJ0kyNpcgE3NJMv44QcYQuo8+EsjQwxgZRtg+KyAxc3A2DvOfUhFOiEZD4FhU0AbXcXd3tmBrcwMsPQv4AMfUwLV+A0Q/CH1naTYVyKmKwMViQshxgQnicnd29+DL2jrsiTLISoYhyQqDnYtgrGRUULM5yGiG7aBAWhQFLhKJhGwW5gVpUmrjB0uWFYUhSTIK4A+oKCKKEi2GjKqCruug/9y0wVBpTsEhWnRd13bwkE6LIEoS6IbBsCzrAKZpgqZpYOA3w7RAz+VAi7y07a+LIMrYcjweD7nYMorZBB1SkWxOAxOLaZGu54XpXowJIaCiOyqsZrNgWITNEI0IXCKRCEF+2Zjo0huXNQsIjoEWUhHmClvDn+ZBB9vbO0yMjgO7YoISFUwmk0wQWybYkoszK5ApoPyxZ3DOGXcvLbroqPjNph2xS1lPpYoOCeJY6JIUsP6KxSB2MYfFzCFeUIybf/ZibC31HT5HV2BpOQpv3n34LwvvP8LbxaUDLOD7Zax/9XohwZWc5PnTjRf6jtc09B46VhE8UlodPFxS9U+OltcGMZdRXu0Nltd46bm3kvf1lVV5Ar8AmpgseqQ0OA0AAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -67,13 +82,21 @@
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;도메인 정보를 입력하고 ‘호스팅 영역 생성’ 버튼을 누릅니다.&lt;/p&gt;
 &lt;p&gt;&lt;span
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/0635c20856b1c800bc2672dedb3a5e93/be061/route53-2.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 63.297872340425535%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAYAAACpUE5eAAAACXBIWXMAABYlAAAWJQFJUiTwAAAChklEQVQ4y42SW08TQRTH9xOoMQGsIKVSyoIkFvESYxQDD3iJGKIhNIAEAxofKIjxxQ/hC31RH30RIxAwfgCN5Q4aKb0IRggxJNhuu91ud3Zndo4z06IpwYTJ/PKf2ZzznzlnR/K4nJdbm86/6rl7e6Sz7Wag8Vx9oF52B87IVQKvpzK/rww0MD1bU8Vw/6WBcbFOHrnkrXt5Sq5+JrW1dz1t7B6G03cGGH6ovfUQ5Ov3obb1EXhu9ENVSy84m+5BWXMPOK52Q8mVzgJKm3rAc43Ftfqhub1vS1paiQw8/7gFw2MhNDQetgbHI/jxRAQ/mYzhwYmo0IGxKH7wNoz7Rldx35tQAf3822jI7B2NwNSXzW/S+vqaH9hIJXaIjXQKxATAKI+RU7ABqAXU1AH2QHMQ7qFr6qoUi333W4TA9k6caLpBTQsDBxMbsG0DsSmwCYZpgpJSIamm94MglpNQFG4Y81OWEE8oxEAmRSwRYwy2MLOF8mFaFqjpNEPLawGEX0pJJlelaCwqSjYQIpZlUW5G8iaUnbRraOUN05pWwK4hZoZJbrjGbohZwo/tOPkVT1FFN1lgBhQlCYaBgEJuWOygAxnykvkd4imNJFSNqroBWiYjAjMZHRBCYLI2ZLPZgxtarKG/4wmspdNU13WqZ7OUl88xTaaY0KyBaEpV/wfhPRY/ZWPjpz9fEs69D1HlPhBmLHosdA/i2RiGEZIm338YCkfXIDi7IJieW/zH/BJ8np6D4LsXMD31mu2XYWZ+EWYXlguYYbFfV8LwKTgTlYrL3O5a74WuUldNx6Gict+Rkgrf4WJnIUUnGOVifdRx0nfcVSNwVMg+h0vm645yd13XMWd1yx8VDymTiSLgBwAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -92,13 +115,21 @@
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;Route 53에 도메인을 등록했으면 ‘편집’ 버튼을 누릅니다.&lt;/p&gt;
 &lt;p&gt;&lt;span
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/8ff979a30d36f3a4764a40a58655bff2/be061/route53-3.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 63.297872340425535%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAYAAACpUE5eAAAACXBIWXMAABYlAAAWJQFJUiTwAAACvUlEQVQ4y32R3U4TQRiG9waExCiCyo+62BaaIKAmauAAo0BIOFSqRDBUogcWODCiIdF7oEd6AQqJkhDiBRCNnqDQdrutJmKBqNDtbre7s3+zO58zyxKJGid58s73M2++meH4poaurosdz/v6+mf7e3uT3efak20hPtkRbk52RH7THjpF4ZOdET55NqAz4EI0PHvpTPRZazj0mLt+Y+TB9MxTePjoCYxPzUB08C60DsShZfAehAbGIULhr96GpiujUN9zC2q7b8KRfRzrGYHTfXegeTABl6/FNzkhm71vWTbQZX2TTWd6UcQzSzk88TqLE6+yeGohhycXRDwR6PhcBo+9pMwJeOxFBsdpHJ8X7dH5z7D4sZDihHQ6AZ7DDF0ghCBlB7TSNiBVAUtXwTV1wJQ9BccAF9G8KgGxEQ118JQtF+wSIK0icJmMkPAI+IZ0kZ2iBNuSDKqmQ0XXQdMRaCiA7k16m4qqQkWSABkmKJoB2kbGdb5nQVJUgUulUgnX9XYNMSaqbvgHDdMEnZrozJAaI8OgsQFKuezXEKuzmqYBsrDLZpJlOZiQjkhvS/0wkZEFZcsD1XKpUkwMCoXFMnJgs6js1mhur0bVZb8gMUNRFBOE2nue52J2Zc0CSXdAtYlvzKjQJ2Yxy28WyyAb2I9ZPsA3LDLDXC6XgN3lOnTCErL95j9hB0t0wvUf0t/1wNCfMJ/P+4b0yth2HIJMi5gOJuxZrEBt7BHb9QiybPJzRwpyQZ6p67nMQyqVBG6jUNibEFPY75D/US6X/5X3DU3TyHCLS28m1wtbsJbOwspqGlY+pSCVEWGVxmsBqykB1miO1ZfffYC0kIOUIPp9DNaT//IVlt++z3E1x3m+pe388NETkaEDh+pj1TWNsarDDbEqpgHV+/Rg3clYXVM4Rvt9DfZDDXx0uLYx1PsLvrgwbpi0A9AAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -117,6 +148,7 @@
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;생성된 레코드의 ‘Value’ 탭에는 4개의 도메인이 자동으로 생성됩니다.&lt;br&gt;
 해당 도메인이 제가 구입한 도메인(partying.cf)이 사용할 ‘네임서버’입니다.&lt;br&gt;
@@ -125,7 +157,14 @@ AWS Route 53에서 제공되는 네임서버(NS) 레코드를 도메인을 구�
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/826595ca1c3cd7a278e5ea88fccc4ca2/be061/route53-4.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 63.297872340425535%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAYAAACpUE5eAAAACXBIWXMAABYlAAAWJQFJUiTwAAACpElEQVQ4y32S604TQRSA9wEUMESwKDct9CIRuUhijGIgRg0RQzSERQgaQWOUlUj440v4g/pHXwC8oGB4AY1QpIgilLYgUAgKNrbstbs70znOLBTbEJ3kyzkzO/PNmZnlSosLzzbW1TzvuH61v7WpwVN7qsJT4bB7Kp0lnipXiafStRMdxzxVTrunmubVLvsuVZTTZc7+MyfLnh13Oh5zTc1tfbXtj+BE0wMovyaA+8pdcF6+De7Ge+BouAMuytELN+FIfQfYzrdD7rkbaRyu64DSS11Q0ihAfXPnGueb8Xc/+bAOfSNB/eHQvNn92o96hvyodziIet4EUO/bALr/yo+6XvhR5+Ac6hyYTaOLjQ3OGrcG52FkOjzDrSx9F5Cpw9rqCo5sbpC4KoOpyYB1FRLGNsTQgA6mQeg4WN8sMNCmyuIcFwotCLphwI+fm1iLx0lcN4D1WdxGBy0FNqbFdYiJUipYNxH8jkbnuGAwKDD7lqxgRYsTVdVAUVRrEctlRQHDMAEhlIYkyyBKUhJsYgzRWIwKQyGB0M768jL+tbFBFFUFnVaShFVoUkEikQBMYdEwTUvEpDtijKgjZgkXFgUwdFgKhXBkbZUAIZBshJBdEgwqYznb4N9CWiGTxCIRrEsSLRZvH4vGRGJHlCJlEf1POB8ICGxidEtCoqwQUZKJ9TgU0zTZBnswDINsiWIqmF2D9SjhcNh6FFlREQ3UTQg9krWQVsK67A72YCIzFeu3oUXMcsPvRnv8wUXwfpoC7+Rni3GWU8ZT8E5OwZjvK4yNDsDEy6fg9U3/nT/hgy/f/PD+43iAy823293lNW15Ra6Wfdn5fEZOIZ9JScZknnGwgN+fU8RnZR7gbdlZfF6xm7cVOXlbsZPmrpYCe1nboULHxT9Uqyp6pOg2qwAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -144,12 +183,20 @@ AWS Route 53에서 제공되는 네임서버(NS) 레코드를 도메인을 구�
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;&lt;span
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/56e93cb1ae395bdf57dc591d6d9612fe/be061/route53-5.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 60.63829787234043%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAACXBIWXMAABYlAAAWJQFJUiTwAAAB60lEQVQoz42Rz2sTQRTH92+pQjabbZuWgigIFvX/qWhRxIPmpDcxyoANgvdkcS+CgtI0aXZXTyE5tCY3T1rrbvZH9tfMPN9sVhnbUv3Ch7e78/i8mVmlXlOvXb2y8aq+uv5iWa8RtVIlF1SN1OrrRKti1TRSqepk8/pNcgPRtWWiajqprKySKn5XsWdtbeO5pq+8Xlq6uKk8e9q8Z34cwIe+BZ8dGwYDq8CyHbAtG6z9Puz3+vDJtgt6ez3odvcKdne70Mc1Z2DD4ZcJvNzZeaAcHBxucQBAEiwZkv+GITNWQiH3EC6tS8QIjEaj28p4PL4lXqIopEEYct/3wQ8CENWbzcD1Azj28DkIYRZGgD0QnkZIwXGcbWUymRRCDM0o4z/CBII4hSxNgVIKaZLAPIpgPo8giWPgjIEczrmgEA6Hw21lOp3+EWJ4jIIszyFHKGW428UuIpSmOIShUOZc4eIq/57uui4EeAVCJkhwoEwpPVvIFylEIqL5+9ERuJ4HMR73pOxfwpxLKTbIGJ97P3kaBhyFZ4JC0Z7Jwq1SmJbHprysOeP0/VefOt8iSvOMZtlpUCZISuEd8Zfvwjk5RgL4v6DwvtJqtS4ZhvG40+k8QhoyBvLONBpv3xiNk2sy7Xb7oWmaT5rN5uVf4yw5tE3gynMAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -168,6 +215,7 @@ AWS Route 53에서 제공되는 네임서버(NS) 레코드를 도메인을 구�
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;h3 id=&quot;3-aws-acm-공인인증서-발급-받기&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#3-aws-acm-%EA%B3%B5%EC%9D%B8%EC%9D%B8%EC%A6%9D%EC%84%9C-%EB%B0%9C%EA%B8%89-%EB%B0%9B%EA%B8%B0&quot; aria-label=&quot;3 aws acm 공인인증서 발급 받기 permalink&quot; class=&quot;anchor-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;3. AWS ACM 공인인증서 발급 받기&lt;/h3&gt;
 &lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;ACM&lt;/code&gt;은 AWS Certificate Manager의 줄임말로, AWS의 인증서 관리를 위한 서비스입니다.&lt;br&gt;
@@ -178,7 +226,14 @@ AWS Route 53에서 제공되는 네임서버(NS) 레코드를 도메인을 구�
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/d891686151cbeabcdd468772e983f6e3/be061/acm-1.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 60.63829787234043%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAACXBIWXMAABYlAAAWJQFJUiTwAAAB/ElEQVQoz52Qy2sTURTG5+/I06oB1100tGqaSBsbaHVV3CjoQtCFktEMsU1fCbW0uFWyE/w3CtadD8RiqkRDYmjXknQymck87r3zeWcmqYkOCj3Mj3vudw7fnHuEc5Fwcmpy/OXcXOZFMnmlHItdKAeDkXKAEwxFy6FQhBN180BfPyEQdmtjZ84/HzsbexUKR1PCrdt3nxS3drC0tonl9adYKmxAyq8iXygix09RWsMjaQUiz+8/lEa490BCNlfg/etY3XyGGzfvrAjf682sRoGWRox2j1ptjRAHxQL5qYPsflNJo0WJBZAuBdGYh8p+510CHTz2K18fC7VaTTQtAlmWqa7rtsVzDwuOrukmDJOAUgbGbB8YKGPEMaxUKpLQbP4QnYuiKLTX02xVVaGoGtSeDtM0YBoGN7RgEQbYNv98GDZsNBquIQ/+cNhOwnu85I8Y6AM8zRFt1/DLwcGooe2F1+4ziaP/rfHlUm/Cj/uf/Q2HmwcnfCf2appJyaEC7L39JAn1el3sFwlfsM148j+Gg7kCs7wn8x0eHR1m+z80+3s8DYZjUK1Wc8K79x/yzqUtd3AsKzju/ANelztddBR1hFZbdid6vfdmWZiaTscz1xe3EzPzxYlLM6V4Il2KX571ZYJzMZUpTc/Ol3j/Ccn0wkbq6rWd8Xhi8hdk6A01DxiNAgAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -197,6 +252,7 @@ AWS Route 53에서 제공되는 네임서버(NS) 레코드를 도메인을 구�
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;다음 화면으로 넘어가면 도메인 이름을 추가하는 창이 나타납니다.&lt;/p&gt;
 &lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;partying.cf&lt;/code&gt;&lt;/p&gt;
@@ -211,7 +267,14 @@ AWS Route 53에서 제공되는 네임서버(NS) 레코드를 도메인을 구�
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/0232c7b5565c3f7dfd0a2dfeae244ad2/be061/acm-2.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 60.63829787234043%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAACXBIWXMAABYlAAAWJQFJUiTwAAACJUlEQVQoz52SX2vTYBTG8zF0XdeiG3itsLKpXSdbWWHqleCFCLvwbmBH3fp3a41MJnip9E7wg6iX6l073Lxoha4FsbZJk7ZJmrxJHs+bdlvdFMEXfpznnCRPzjmJcHnKH5mfu/ZmZSX2OhK5VZyeuVK8ODHlMeGj6OMxQLn/HBcI32SgGAxOvwpemnk76Q8sCg/XHqXE3T1kdp4hm3+ObK6AdHoHmW0RqUweyTSR2kYimcP64y2sx8egPLGVRSpdQH73Je4/WMsJtVot7jgONF0fALCYC2Ywl5nOMA4I3XI8rVvHOEyjqDEwC2CmC4OexZeDg4TwrVrdcGwbuq7bVHPbvQHqrS4a7R4asoG6bOK7YuJnz/Jo9dlIM9I2JN1BW3MYN9zfL28KlUplgyeu63qGUkfBj5aEbl+HSiicnubpvmGiR4OcoBnoEhQ9w1KptClUqUMMj2eoaxoa9TokqQ2l04GqKNC0PgYDA3wSjm2zs3iG5XL5vCGja81mk0w0WJZFS2X416Hp/m5oUweyLENVVXBzDjc+1uOYlg1mO9zx1HBsh4y+tssZprRUe5jTSzx9wljNdR1XGzBLskY7PDqqxUcdmqMu/wf+y+Hr4eET4eOnz0meyIqKjtJFR+2exrNQXVF7ULv935Bkxevo3fsPGWF+IRqK3b23F15afTp7Y0kMhaNi6ObyH5klri/GxIXlVZHuH0I6Er1diETvvLgaCs/9AozACYd0G5W9AAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -230,13 +293,21 @@ AWS Route 53에서 제공되는 네임서버(NS) 레코드를 도메인을 구�
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;저는 &lt;code class=&quot;language-text&quot;&gt;Freenom&lt;/code&gt;이라는 사이트에서 도메인을 직접 구매했고 수정할 권한이 있기에 &lt;code class=&quot;language-text&quot;&gt;DNS 검증&lt;/code&gt;을 선택해 진행하였습니다.&lt;/p&gt;
 &lt;p&gt;&lt;span
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/5fe5e8e1ff05f5ca39db3a361d4740dd/be061/acm-3.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 60.63829787234043%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAACXBIWXMAABYlAAAWJQFJUiTwAAAByUlEQVQoz52SSy8DURTH52tolaJiT9KmHn0IpYnHSmIhEgsbG4o+jZaRCokl6U7ig2CJZRuPRSupdYOZTs2jt3OPe6/Sh1c4yW/OPf9753/OnQzX1Wbx9Dv7jsfH/Ucez3DKZutJtZjaGCbzG+bW9pTJZCGaheV3aE33Oqy2Q2tn90mrpd3LzS8sRoTkHsTiO7CR2AV+U4BoLAFRXoBwNAGhSByCYR4CIR6WlkOfWCV6OLoF8eQBzM4t8Fw+n18xAKCk6hpJZU3TkKqqiKz/gkqA65ubNe4+lw0gVIaXF6VCNFwsylAoFEAURZAkCRRFAdKgAdIUNJprGjWFTCYT5LLZbIAWGOMKpg8DM6P3l+sN6VpRddARhqZghul0OsjlcrlAVWSGhmGALMuN01Rhmo6ANiUT0CEYqFL53pAe+DXqzGjIJQWpZJmmV/7K8Hea/XFtwrpviMh1scGujWvZaKpxY7zpRvnD8OEhv1JtpNMp/wn95eDu9nadu7i8CtPiSZTgWSzCs/QDZF+UZJCKpQYen0Q20enZeYzrd/sc/umZPdfIxLZ9cERwuHyCY2j0S+yEAa9fcI9OCOT8Bx7f5JZ3bGq/1+FyvgIfnQ2QhHcUzgAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -255,13 +326,21 @@ AWS Route 53에서 제공되는 네임서버(NS) 레코드를 도메인을 구�
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;최종적으로 검토 화면이 나타나면 입력된 내용을 확인 한 뒤 ‘확인 및 요청’ 버튼을 누릅니다.&lt;/p&gt;
 &lt;p&gt;&lt;span
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/ed3cd6886e099aafcb29493ea3d4640f/be061/acm-4.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 60.63829787234043%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAACXBIWXMAABYlAAAWJQFJUiTwAAAByklEQVQoz5WQS0sbURTH52s0mgc2gmsLDsaaRDGSQEpXBRdFcNGNmxprnk5iHLFV6LIlu0K/h+KyukyqqCSFBLoqQSeTZF6Zucdzr5OHGEM98OPc8/rfey730uUM+nyvfoTDke/B4GLBOzlVcIy5Cg6H694jY+NuFr9wONH3oTGteTzeb56JyZ/jTvcCt7r2ISXuf4FMdg+2dz7DdnYXkukspAQREukcJFI5iCcFiCUEWP+YeMRmXMD+POT2v8LK+zWBq1ZrGyYAtLSOhs6wLKuD/rmoCJxfXHzi/lTKMRVTsqJTXVKv10GSJFBVFTRN6/kuLEYG86qiUFEolUpxrlwux2hAiGUSAkTXddZsGAbDNOk9o40QwgSLxWKcq1QqMTuPgihrWb1GWZaZuD00iuGCdK7ZbEK73QZFUdg6/yEG9r8Pf2G3ia5KRQdfPML6gv0/JB0cJgzSlQbSyz2JSWp/68Y/yYLz3yhYq1U37Ft0e+1noyg6+5vrq8st7tfpWZIGN1IDbiUZbhsjwLokN6Ehtx4gYY3a0fFJhvMFlvnI23cH/qXo7szrJZH3L4v8fGgoM8jcQkQMhKIi9t+DZ4zzgdCbw2neP3sHO6QOBSp1SAEAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -280,6 +359,7 @@ AWS Route 53에서 제공되는 네임서버(NS) 레코드를 도메인을 구�
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;이제 도메인 검증할 준비가 완료되었습니다.&lt;/p&gt;
 &lt;p&gt;아직 해당 도메인을 검증할 방법이 없기 때문에 검증 상태가 &lt;code class=&quot;language-text&quot;&gt;검증 보류&lt;/code&gt;로 나타납니다.&lt;br&gt;
@@ -289,7 +369,14 @@ AWS Route 53에서 제공되는 네임서버(NS) 레코드를 도메인을 구�
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/f86c24230aa9f3767640b72229b2248a/be061/acm-5.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 60.63829787234043%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAACXBIWXMAABYlAAAWJQFJUiTwAAACOElEQVQoz62SS08TURTH56vQaREk6lLd1Q0u5aNI1EiMC2WlCzeomU1jYkAXph1iTIQgAhZJw6oPTXi0pEHpa6bzfs/cucdzp4SiZelNfjn33rnnP/9z7+Em+FQ2m73xZubOzOvp6dvCtStXhUuZcWGckT4F5xk+I/CpNMIL/BifxBTGTDojTE1cfjU5OfV2LJW+xb1bWpqrVStQKpWgXC7DxvYufFzbhtWN77C2OWRlvQifv2zB6tfiGWxvfWsHNou78GP/CHK53GOu2+nchcHwkTACiNwYooAOCOHvOVwABfCYQL1ev8cdHhzMsgXBEccxVZQ+yFIPVEUBpS+DaejgOjbYlnmGoSnJPsMyDRaZMFQqlQdco9GYPXVIEGqaJmiaCo7jgGVZYNn2ICI2zhnsu+sHEEURhGEIfhAkgrVabVTQx4OtjgS9ngSyLGGyloj1+33QdT1ZSzK6V1TQdAMMw2DfRwUpHQgeNbvw6ds+/Nz7BTaWow8ShqBDw7TA83zwAgJ4TZhLE8FqtTrq0HNd/KsOvo8JnncxrgMRifF0nAji9Y8KosMouUPbpfXmCT3+3aLtdptKkkRVVaXdbpdi2cm61e7SniRTSdEoXgNF5+H5kpO2wacPmMvmsURWdhpk7/CE4IsSwzQJPhBxXTcBHRIHaw2jiPUFdgYlWLJ/6vA+h73zEP7TQMFHHHb3dVEUnxUKhafIvCgW5peXRYxD2H4+n0/iv7Czi+8/PJl7sfh8YeHlzT/QWS/QbtVSeAAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -308,6 +395,7 @@ AWS Route 53에서 제공되는 네임서버(NS) 레코드를 도메인을 구�
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;실제 검증이 되기 까지는 5분 이내로 걸립니다.&lt;br&gt;
 검증이 완료 되고 다음과 같이 &lt;code class=&quot;language-text&quot;&gt;발급 완료&lt;/code&gt; 상태로 변하면 성공입니다 !&lt;/p&gt;
@@ -315,7 +403,14 @@ AWS Route 53에서 제공되는 네임서버(NS) 레코드를 도메인을 구�
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/3fd7631a0694f547292f6b8e58f14e5c/be061/acm-6.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 60.63829787234043%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAACXBIWXMAABYlAAAWJQFJUiTwAAAB/0lEQVQoz52STW8SQRzG92MIUmxTbeJVkxJRKZgWS1L1ZDwYk168aKJtBVxLX9eXVM8abiZ+DuPLTU0aKsTgAQJtpJSFpewC7tvs8jizRCrWeuCf/PL8Z3bml9nd4Ua9Q0G//+zr6enIq2DwUvLU2Omk+7g36XJ7u+kaSh6jsHS5D+PxnEiODJ98OTI69sbjHQ5xt2Zv8+tPN5BYeYLE2jPwj1YQ55fBJwTEaR+NL2F+gcdcdBF378f7uHMvhoVYgq5fxfLjF7hxc3aJKxSLc+iWTjHbmkE00yKGDdIy7C56N5u6RfkjTRC946AxwWYq/YDL5XLzbGDbttWhtVlQ8PabhI9ZCa2fOqj/ANOCTmG9kxSD2Gi2VcIcW1tfYz0hLUdYrtaR295F4cceSqUS6pIEUaygRqnu7UKsVCDVaiiXy6iKotMXiwViEYJUKhXj8vl8n7BjW3CwCFRVhUUsEIqhtqE1G9A0HYZhQNd1Ok9gUmRZdk6YyWQOCzFA0W1HC5lzABxhOp0++IZskv6Yjs3e+ijsbv5ddJ/ZE+7sbP++NgY75YCwK4fv2WyU+/T5y0M22JcVNOQmGsp/oM9lpQWl2e6jvi87J3r3/sMi558I+yLXrm8EJmfWxy9MCr5AWPBdnPon45TzoYgwMTUj0PU9guEra6HLV5+f8QXO/QJ5nQkCa+ljLwAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -334,6 +429,7 @@ AWS Route 53에서 제공되는 네임서버(NS) 레코드를 도메인을 구�
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;추가적으로 Route 53으로 가보면 CNAME이 자동으로 생성된 화면을 볼 수 있습니다.&lt;/p&gt;
 &lt;h3 id=&quot;4-aws-elastic-beanstalk에-acm-인증서-등록하기&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#4-aws-elastic-beanstalk%EC%97%90-acm-%EC%9D%B8%EC%A6%9D%EC%84%9C-%EB%93%B1%EB%A1%9D%ED%95%98%EA%B8%B0&quot; aria-label=&quot;4 aws elastic beanstalk에 acm 인증서 등록하기 permalink&quot; class=&quot;anchor-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;4. AWS Elastic Beanstalk에 ACM 인증서 등록하기&lt;/h3&gt;
@@ -345,7 +441,14 @@ AWS Route 53에서 제공되는 네임서버(NS) 레코드를 도메인을 구�
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/17ae511a418d985410defe2051c61c7e/be061/aws-eb-1.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 63.297872340425535%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAYAAACpUE5eAAAACXBIWXMAABYlAAAWJQFJUiTwAAACsklEQVQ4y3WS2U4UQRSG+wXcFQGZFQhCNN4Yb9TgncEXkDEkmrhGoEe2kGD0JeBK38IYr0yMBKKI6DjMakzYgjAD9Dpd3V3VXcdT1QG80Eq+qapTp/7+65xROhOx69euXn7d13drurf3xkxPz8WZtljygHNtYk5J4nEkkT4knpI5qWT7dLq961Uq3Tml3L5zd2Jy6gWMTDyHscmXkB2ZhOHsGKg4D2UnQM2Ow+DQKAzi/OjpCDx4oiJZyf3Hqtyr6jiM4t17Dwc3lHKlOuwQDzyfemHI6bZB2G/NZluayepGg+2YDquZhNVsynRCmSFhErE3vUDgNyiHXU3PK+VyWYVoBJyHfLO+ByvbGtQtD2qGA3umDSZ+0CI+EJ+B41FoCNxo1m0HNLMRuIyDbhhFpVKpqFyoRYPbtg2242GiBb7viziEYQABY2CZJlDqQyhiQRQzDQMYY4FwpGkaCpYKKoQUL4V4zjhlVNrNr76HXWsD9gfFy7X6DriedxAjhMDH2Tn8aBgJ6npRKRdQMJAikSCNBInrAMM4R/scf/4FcV3Y2q6BT+mhYKValTXEhABdck3TwcCnoTg2ygcPHf0XPBdlIcQNGJZAlw7/agoGeaPROLjgogOGJRDi/wVfhLmBeIkULBaLKnBR+JAJwVq9zk3T4vgv4uhUri0rwsT9fkyAXeUOIaJM8sl7oinra2v7DhkSYpd5EDDReO55rui6cM2xARwdc8dx5BpdcTFEnnidEMDzgvLm7btnq+ub8GO5BLl8ET7MzsP850XILRfgy1IOFr5+h4XFb7CUy8scQb5QhnyxDIVSFZZLFbn/+WsFZuc+VZSmto6O7ktXBlqT3f1HTscyx88mM8eaEjinMidb0plTre2SE82pzNEzcRlrTXVLmhNdkpbk+f5Yx4UBXN/8A9IkRIr18dNYAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -364,6 +467,7 @@ AWS Route 53에서 제공되는 네임서버(NS) 레코드를 도메인을 구�
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;드래그하면서 내리면 ‘로드밸런서’ 탭이 나타납니다.&lt;/p&gt;
 &lt;p&gt;‘편집’을 눌러서 이동합니다.&lt;/p&gt;
@@ -371,7 +475,14 @@ AWS Route 53에서 제공되는 네임서버(NS) 레코드를 도메인을 구�
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/03cee8e18b16a4fc2a539ad4b325174c/be061/aws-eb-2.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 63.297872340425535%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAYAAACpUE5eAAAACXBIWXMAABYlAAAWJQFJUiTwAAACtElEQVQ4y2VSW08TURDePwAxXghir1BQCMYX4ouKj+IvkBoSXkQjt5a7wYT4H+iT/gtjfNFEA6loSCCUblsiamm5bFt2t9vurXs545xTCo2e5MvszM5855uZw4X83gf37w28Gxp6vDo4+DDW13c7dsMTiHk8/pjHG2Dw+oLMp9bXBK+vnhf0d652dvW8DXZ2L3NPno4uLC2vwMzCa5hbWoHo7CuIROchgnYisgBTkXkYn5yFiegivJicg2cvo+cYG5+B54jpyCLMLr2B0bGJPJfO7E1puglmrWYSAEsuK7aiKDYAnKOMPo2TpphcrtiabtiW7VC/hgBRkhNcOp2ehvpxEOT4RIAkn4J8/hBKpRIYhgmFQhH293/B6akIuq6z5OPjExBFEQghjVqQy2Wey2Qy0y692nEc13UJLcoe5BihIBRAUSpgWRbgbwbMYYRHSHgiCOwbSRmhJEk8KkwxhZjo2LZNaPG/B+P/xSiZbhjQ1B1IsowKzwhpkBHazhkJqsF2HJSP6i9iZwppJ0UciaqqFwoZIbbckI2MRJVEqKlVMCoKs7ZWBVVRoIqFqqqx9imoOjoCo24vCJuXgpSkkM/hEgrg0uXRgbsOHGWz8Afn2nwKxSLOWABZlhHl+lIoIc/z9RkSYlv4ciqSSGqotGbZBNslLl4iCgIpFEvENE2MuXivQzRNI5VKBVGlc2eEoohLyR0cNBTajNfQcXAWIaaBFp8eQeF4ESWhk2nAJW6zzwgNQ09y7z98jGZzh7Czm4LtBA9f1+Lw6fMXWFv/BlvbCYzzEN/YhPX4d5azk0xBIpmGH5tbzN/lM8zu/fwNa/GNDNfmCYV679wd6Qj0Drdc9YYvtQfDrW3+cMs13/n3lY6ucJu3J9yKscvXg+GOYG/Y293PbHvgFrXDvlD/SLv/5qO/dc1FBVmu9mAAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -390,6 +501,7 @@ AWS Route 53에서 제공되는 네임서버(NS) 레코드를 도메인을 구�
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;로드밸런서 기본 설정으로는 HTTP 포트인 80만 등록되어 있을 것입니다.&lt;br&gt;
 ‘리스너 추가’ 버튼을 눌러 이동합니다.&lt;/p&gt;
@@ -397,7 +509,14 @@ AWS Route 53에서 제공되는 네임서버(NS) 레코드를 도메인을 구�
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/4aa59d5804384ff390516308309bf75b/be061/aws-eb-3.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 63.297872340425535%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAYAAACpUE5eAAAACXBIWXMAABYlAAAWJQFJUiTwAAACg0lEQVQ4y3VSXU8TQRTdP2CUxCAf/dq2hg9JfDG+qPgo/gKpIeHBj4hIKWLTgAn+CPqk/8IYf4DRoBEiFJaWxBioiBpsS7s7s9Od7VzvnW5BHpzk5Ny5mT33nJk1ktHwjevXrrwaG7u9PDp6Mz88PJIPhWKIqEY/1uGImQ+HY/kIciRqnuIQ9s1YYjmeGHhpxi8uGnfuTmZzi0swl30O87klyMwvQDqThTTyk0xO11PTczCVfgYPH8/BvUezGvc7PDULM+ksPM29gMkH09+NYmlnhnEBoumJllLe3sEvubt/IMsHv2UZuVKtSsZdyVxXOpxLh51Gu+82hSehWqsVjGKxmIb28lutljo8/AOVShWOjo7aqNfBtm1wHAdsQlB39o1GAzhjPihF5y2jVCqlWwrVcEnfV64Q4HkeSOlTDwTupZRAfdfFGnvEruvquo4DGz9/+MqxyaGFDre1Q3RHmoqmMs61aLPZBIcxXZOAFkFx28Yz2Nc1d4G7wicNLVgKBCkyZlZ4Z2i9roV0NGQ7YMb4cVSOQ4UQwSDhY0ioaUGMTGpKKR25SW6CmARySR8RkwCxdu4wfS3ktlKtaYe1duSTRyFBOkguBAkEYuSGhpCgCIQ7QziyQ4/SiWxZVucOpSelwibdo8LJmvGwhq6dNjN2wpy7yJyuC51WLaO8t9dxKEmX0v8PtP5lAv1q9JokgK63jNdv3mZ2y/uwsbUNa+ubsPqlAOsF6xTWsPfh4yriM6x8WtP7wlbxGBub27Dz9Ru8e79SMrpDyeTQ5asTfbGh8TPnw6lzF2IaZ7ujGlR39ZjH+65eMxVKXEr1x4dTvbHBVK85mOozh8YjyZGJnujArb+dykSwa2uXHQAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -416,6 +535,7 @@ AWS Route 53에서 제공되는 네임서버(NS) 레코드를 도메인을 구�
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;입력하는 모달창이 나타나는데 다음과 같이 입력합니다.&lt;/p&gt;
 &lt;ul&gt;
@@ -428,7 +548,14 @@ AWS Route 53에서 제공되는 네임서버(NS) 레코드를 도메인을 구�
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/b949ac7d2f1a113cca5acec4aa35a609/be061/aws-eb-4.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 63.297872340425535%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAYAAACpUE5eAAAACXBIWXMAABYlAAAWJQFJUiTwAAACBUlEQVQ4y4WRsW7TUBSG/SRJSdOKoRILGzC0C6JP0Eq8AhFLGJhqhydoMsEKrFUcVChTKUPGBEJFVYYMGZI4Tkns2L72vb6Hc67tYKURWPp0j8/5/fs/tra9UXz08MH9N/tP9uu7u3uNnZ17jUKx1ChuIMUV1vQKhTuNzVK5Xt66+7q0uf1Sqx8fVy8uvsDZ2WfFx9NP0Gp9ANMkWmA2W9BsmkltJnWek5MmnKL2/PwrvH33fqBdX/96BnhJKRkSxXHMEyTHe46jJXS/2lN9gJA8PM/7rnU6nQrnHBzHEfP5XM5mM8gYDkfIEEajEc3pAVgsFqpGrYJ0eAryQN2l1u12K5iIhMJ1XYlABhmQkMBkoDZBwjBUc2WOJ4UR6GFZ1r8NZ5ggM4yiSBnRRTWlzGlFnDeU8q8hCZUY3z69uYG5Ws9RSQLGVNL/GH5bm5DWoYS0NhkxFioEpcWkZLhItbTySkK51tCeTsHz/eW6hPqlPAY3l/CWoRCCBjxdWUE1mkk0kxHn6mRCSm9wJf3BT+n4TLqpTv0U9BiPx5dar9er0IcOgoD7vh8jMoMxtqxxjmcgvflvBdXZDD+LIA/btn9o7Xb7OTZhbFkwmUxS7JTJEssiUGNPE6hv2wp6lr51v9+/0qrVF+Va7dVTXTcOjo70w1voKbkeag91w0jOhAPDqJHH4z+7sW6/ZyVoyQAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -447,6 +574,7 @@ AWS Route 53에서 제공되는 네임서버(NS) 레코드를 도메인을 구�
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;다음과 같이 443 포트가 생성 대기 중이라고 뜨면 됩니다.&lt;br&gt;
 아래로 드래그해서 ‘적용’ 버튼을 누릅니다.&lt;/p&gt;
@@ -454,7 +582,14 @@ AWS Route 53에서 제공되는 네임서버(NS) 레코드를 도메인을 구�
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/b33ce2fa17390f88f8e99df07075df70/be061/aws-eb-5.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 63.297872340425535%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAYAAACpUE5eAAAACXBIWXMAABYlAAAWJQFJUiTwAAACp0lEQVQ4y4VS204TURSdD1DxioCdTi8QBDS+GF9UfBS/QMaQ8OAlIlIK2DRigh9Bn/QvjPEDTLwEW0tLS0viA1QCGGmnnZ65t2e79xlG4pOT7Ky9T/dZe619Kg0q8u1bN6+/nZi4tzo+ficzOnolEwpFMBQRlzCXw9GMLEcyYcSwEv0HQ3gejcRXY/HhN9HY0LJ0/8F0Kr28AgupV7CUXoHk0ktIJFOQQHyeTIt8ZnYBZhIv4MmzBXj4dF7EowBn5mEukYLF9GuYfjz7U6pUt+YM0wbbce0u5+7O3oG3vbvn1fZ+eTXEeqPhGablGZblMURmmH6YPvrnpmO7LjQ0rShVKpUE+F+n2+3y34eHUK83oNlsgobRbLWg3WbAGENsixA58890vQ2maXaIAPvLUrVaTXQ5suHndTrctCxwcBqWAF0A20b1tiMQfwfP8/6Ghb0tXYdWS++gGtA0rYwKN4VCVCcIbccBx3HBdm3Yb+6CYRiCTEdlhmGK2rJs4JwL9Q72a8z2FRJh9YiQLOMUjjsTU5nJ4KCxD4ZpAkMSsk02iZiQSNGqILQcRxA2BCFapgInkmvOmCGU0AUXlZItukg15UFNSl3XA+rXdZ20BJaPHwX3wmkiEQZ7olrsldaAuYv7pTzoIfWa1jxWWC6Xgx16LhKiZY6WOb4mBuNoT6BO9VFOiMo4knFUTA/ZwXfFf0e9LNV2dgKFHvFyNE8b+H/4ffxoV0SA5CXp3fsPye3aLhQ2NiG3vgHZ7wXI5YuQL5QgXyzBt9w6rGUp8vD5axbWcn5OvcXSpuilO5WtH/Dx05eq1BsaHBy5dmNqIDIyefK8rJ6+GFHP9EXVHsSeXkU92x8TeOKcrJ66EMZzRR2Ijaih+JjaH7ksUI6PTSpDV6f6lOG7fwAVbUQsWLqr7wAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -473,6 +608,7 @@ AWS Route 53에서 제공되는 네임서버(NS) 레코드를 도메인을 구�
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;리스너 설정이 반영되어 적용 중인 모습입니다.&lt;br&gt;
 상태가 ‘확인’으로 변하면 설정 적용이 잘 되었다는 의미입니다 !&lt;/p&gt;
@@ -480,7 +616,14 @@ AWS Route 53에서 제공되는 네임서버(NS) 레코드를 도메인을 구�
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/73fe3d6187bd4987142b46af4ece0b9d/be061/aws-eb-6.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 63.297872340425535%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAYAAACpUE5eAAAACXBIWXMAABYlAAAWJQFJUiTwAAAClklEQVQ4y4WR308TQRDH+4xiooIa6A9aSghE44vxRQ2+GfwHpIaEFw1G8GqFpglG/SPgSf8LY3w00QBCAUGgXpFoBAFpC70ed7d7d3u34+y2gEiim3xuZjYz35uZDbRFQjeuX7vyqrv79mhX182xzs5LY8FQywHNQWGjknAYicTQxmo2KnOiLa2jsdb2l9FY20jgzt2+dGbkGaTST2Eo8xySTzKgJIdASWVgMJlGfxgGBlMwgLb/YQruPVCQZJV+RcaKMoy1L6Dv/sDPgJpfeWQRG2zHtX3O3S3NZJu7e2xbM9iObrHdPYsVdcIKhsMqxGXaX1QoYxpljuH4sFPWFgOqqipQPR4eXjQcWC2aoG5ooG5W4OuWBhuaBQXLgxLxj7FDBdwzUWBX03KBfD6vcM6lmu/7fKukwbdfGhR1CiWdQNkgsEccMGwXTJuBQd0j4AQix7M9FCyXUVDNYYco6PtSUKvoUKoYoBMXiO2ATSl4jAFjrvSZ6x7EnsdkbNvUEyNqosM/R2aMcUQGhcI2mKYpfY6I+0KxhMUO7B/btiE7Mytrxae8P7Is4lwKujVBXddlwb8OIQRUdQVc1z0UVNX8kUcxsCtCKAhhTATHcWq4x6z4IRVQeiiYy+EOuQe4PyY6xMXySkXnmMQty5JWgN0gtAqtWnGPohxX49n4k7J4lPW1tf0Oxay+SKitjeM7Hfj/QXZIKVkOvH7z9vGP9U34vPQFFhZz8O79OExMzcDC0hJMZedgfDILk9OzMD07D1MznyTZuYUqeDePNYvLKqysfocPEx/zgXPBeLzj8tXeppaOnvqGcOJU4yEnG0KSE2eDibozzYm6002JeowbQ22ShuZ44nykPdEU7egJxy/2Xoi03/oNxVlDm5ESMFgAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -499,6 +642,7 @@ AWS Route 53에서 제공되는 네임서버(NS) 레코드를 도메인을 구�
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;h2 id=&quot;참고&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#%EC%B0%B8%EA%B3%A0&quot; aria-label=&quot;참고 permalink&quot; class=&quot;anchor-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;참고&lt;/h2&gt;
 &lt;p&gt;Route 53을 A 레코드(별칭)을 이용하여 AWS EB로 배포한 인스턴스와 연결 시켜줄 수 있습니다.&lt;/p&gt;
@@ -506,7 +650,14 @@ AWS Route 53에서 제공되는 네임서버(NS) 레코드를 도메인을 구�
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/a964b880f92b007882c97189cd12dadd/be061/aws-eb-7.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 63.297872340425535%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAYAAACpUE5eAAAACXBIWXMAABYlAAAWJQFJUiTwAAACVElEQVQ4y42ST08TQRTA95PYVqDxghePxng0TYhnmvgVbDyIB42xXfwEpSe9GaOi0AqKBmL8c+oRaiFRDnBQwu52292d2f8zO883wxYhSvTwy3sz++a3b15GK5cKV65evvT4+szMQqVSaU1PX2wVCqVWqTTxV4rF863CueJvsHZqYmqhXL7waGKyfFdrNptzHz99hrfv1mHt/QZ0VtZgqb0Cy51V5I2Kcr3UXlUsvurA88XlY168bMNrrFv/8AWePH32Q/u+u3uTAQCNWEzCNKURZ37MWRBnjITsKE8yjGdDIpbEHMD16Fdtc3OzxhgDz/M4IlzXBddx5BoODw9VHkUhhGEIQRCo6FOK392TcOkwDGNH6/V6Nc4z8AjhhBCBEf/kKUaOC9QPwEeRg7mPuTwYJ4msPwlnnINpWbkwy4BQyvGDwChzFPlgmJaSxnGCnUWQoChFYRTFRyLZKaH/FlJEXk8Kfx4cwGjkQJqmSialQRCqn0ppHs8Wjq8hOxzYQ8RWOK6HnUVKLONY9t9CWWgYJtjDkZqnnGOEV4/wSYR4ZZJf+Q/h1tZWTS5wk+VChUuocIgvOOcKrBFJHInE2hehNxQe9cWJei7HYZrmjtbv92sC32EQhgy7yBAhwbWIk1QkaSJwbiJOmQipI4LtDRGYe8KPE6zzRV7PMyHAtu1trdvt3vLxbRmmiS0PwBocYUos6zQDG0w3AGvogIXrca08K2e+t7//Tbs9d2dSn394o97QZx/UG9VjGo1q/RQ67ter9fv3qnUZdV3t5cw29HnpuPYLQVJp5VU+FuwAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -525,6 +676,7 @@ AWS Route 53에서 제공되는 네임서버(NS) 레코드를 도메인을 구�
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;h2 id=&quot;결과&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#%EA%B2%B0%EA%B3%BC&quot; aria-label=&quot;결과 permalink&quot; class=&quot;anchor-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;결과&lt;/h2&gt;
 &lt;p&gt;등록한 도메인으로 &lt;code class=&quot;language-text&quot;&gt;HTTPS&lt;/code&gt;로 접속해보면 잘 적용이 된 것을 볼 수 있습니다.&lt;/p&gt;
@@ -532,7 +684,14 @@ AWS Route 53에서 제공되는 네임서버(NS) 레코드를 도메인을 구�
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 744px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/ff6c62c29bf786c184ee90cc96c14bc1/cab8c/result.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 32.97872340425532%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAHCAYAAAAIy204AAAACXBIWXMAABYlAAAWJQFJUiTwAAABcklEQVQoz3WObU/aUBiG+0eWaZapzIUJFGEOJ7ZVE2MGLWXYluGSSeK+gvwaES3wvwiBQAIzIfCNl1w7PY5lS7aTXLme5z7PeVE+hN8ST4TYiu4QjapomoGmG+jGiax1/USyzo+PNUlaWpf5m90w2zu7vN4KoXixEOcXG2ymX3B4+BHH9fh2fU2tVqNSqXArXK1WJeVyGdd18DxP4FIqfeHm+w3hdxHCezFebrxCSaV1cZHBUUrDsnIUi0Uc5/lQ3s5jZi1yIn+uTTkTZNlMVmKalvilTjJ5wMH7FMrXqytyOQs7b4sXSxQKBWnTNDk1zvh0kcHMWFx+dnAvPWzLJhFPEt1TUSNxYhGVfTVBUmRBrvi+T0Cz2ZS0Wi1Ju93Gf/RpNB4EDep3de7r95L6L//uxd4apdvtMplM6PV69Pt9xuMxw+GQwWDAdDqVns1mdDodRqMRT08/WK1W/G8p8/mcxWJB4DXr/k8HLJfLv+p/8RO3jWj1TsnaagAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -548,6 +707,7 @@ AWS Route 53에서 제공되는 네임서버(NS) 레코드를 도메인을 구�
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;h2 id=&quot;마무리&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#%EB%A7%88%EB%AC%B4%EB%A6%AC&quot; aria-label=&quot;마무리 permalink&quot; class=&quot;anchor-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;마무리&lt;/h2&gt;
 &lt;p&gt;이상으로 AWS EB로 배포했던 서비스에 HTTPS를 적용하는 방법을 알아보았습니다.&lt;/p&gt;
@@ -705,7 +865,14 @@ AWS Route 53에서 제공되는 네임서버(NS) 레코드를 도메인을 구�
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/eb16a6bae513c51242058317e961e45c/709cb/image-1.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 39.8936170212766%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAYAAAD5nd/tAAAACXBIWXMAABYlAAAWJQFJUiTwAAABJUlEQVQoz11SC8+CMAzc//9xH4aEGCAC8pA3REF5qafXOLJ8S452a9fedajX64X/eL/fGMcBcRzDOhwQRREejwe4dJww87VV/JhLJ0/ThK7r4Lru17ZYlgXP5xPbtu2Xdb7ZRDGp73s0TYOiKAT0eda2LdI0RVVVsmfRdV2/7EcMwyB7NjDZKjIJwxCO4wgbz/OQJLEwZOEgCJFlmfjX6xXncwTbtuH7/jcWSDNTmWI3dmeAqOt6Z8xCSZL8mOcyAiLP8x3Mm+dZQLXqfr+LBF2YAcpi8uVy+dlMHogxzYaFXNcTdcfjEafTCbfbDYq6WYwbzoyyiLIspQjl8RILkIGeG5uTOUdDAjyXGZqvzEQGaeu6kt/Fsv6ke9s2EtPy6Juz0/4H1Ktj26Zt1SoAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -722,6 +889,7 @@ AWS Route 53에서 제공되는 네임서버(NS) 레코드를 도메인을 구�
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;아래 코드는 위임 구조를 이용한 OxmSqlService 코드입니다.&lt;/p&gt;
@@ -854,7 +1022,14 @@ AWS Route 53에서 제공되는 네임서버(NS) 레코드를 도메인을 구�
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/1a4b78d16a86db7aabbb14b14c6a00a0/218a4/image-2.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 40.42553191489361%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAYAAAD5nd/tAAAACXBIWXMAABYlAAAWJQFJUiTwAAABFElEQVQoz21Q2YqDQBDM/3+Z4NsGjLo6hujGI97BO1q71TAmLDY0Le10Xadt2/DZrHVdZW7bimmaMAwD5nmWPd/oedQn/lyWRZpHBOCPrusQxzF834dpmgjDUHaakGSHgG3b4nKxYds2lFKIogh1XcvxOI7ynec5ns9WCLXCo94Bo+gHj8dDDu/3u4DQJmeapkiSBFmW7QqPlGnlYpk2+76X7rpelJHoer3CdV0YhoEgCFBVFfT7z5her9ce1YnIylc4f50lL8/z/kC+BYAKmR3jYJ5N0wgB35HMsiy4jgvH4U69AWmH1nhAVjKyNJgGYCycnueLWpIwJt4XRfG2rEvnoXfMjqAkC8MbyrIUazrL/8XbX/mIZWNPdfaLAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -871,6 +1046,7 @@ AWS Route 53에서 제공되는 네임서버(NS) 레코드를 도메인을 구�
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;이렇게 인터페이스 분리 원칙이 주는 장점은 2가지가 있습니다.&lt;/p&gt;
 &lt;ol&gt;
@@ -900,7 +1076,14 @@ AWS Route 53에서 제공되는 네임서버(NS) 레코드를 도메인을 구�
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/4f43e78194028765896b75161d41b9d3/bb587/image-3.jpg&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 47.340425531914896%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAJABQDASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAAAwABBf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhADEAAAAelgoPHH/8QAFxAAAwEAAAAAAAAAAAAAAAAAAAECEP/aAAgBAQABBQJkvGRn/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPwE//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPwE//8QAFBABAAAAAAAAAAAAAAAAAAAAIP/aAAgBAQAGPwJf/8QAGRABAAMBAQAAAAAAAAAAAAAAAQAQMVGh/9oACAEBAAE/IWDQPX2bmK//2gAMAwEAAgADAAAAEMDP/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPxA//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPxA//8QAHhABAAECBwAAAAAAAAAAAAAAAQARYRAhMXGhscH/2gAIAQEAAT8QcI8xQQSt1ipm1tGpt7O3D//Z&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -919,6 +1102,7 @@ AWS Route 53에서 제공되는 네임서버(NS) 레코드를 도메인을 구�
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;중요한 것은 클라이언트가 정말 필요한 기능을 가진 인터페이스를 통해 오브젝트에 접근하도록 만들었는가입니다.&lt;/p&gt;
 &lt;hr&gt;
@@ -945,9 +1129,16 @@ AWS Route 53에서 제공되는 네임서버(NS) 레코드를 도메인을 구�
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 450px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/8e006973f776514d5d161e762f68f1e4/fc2a6/example.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
-    style=&quot;padding-bottom: 46.27659574468085%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMAABYlAAAWJQFJUiTwAAABoElEQVQoz5VRSU/CYBTsrzAi+1qWgi1LaWlZyw5KXKPxZERCgorKQSEELxz04G8e3/c1cFAuHibT9zKZN99UiOptJIwupGLPhtmDqDURVhuI5G3+D4R88xyz1ScW62/cjGe4my6QsU4QzFrcMKI2bf4N9e/MDUWthWz9FEp1gKjeQtzogKXm6Tga27RMu0my6wjTCsGMBWesAIeowx034UmYfHYT+5IlG6kyXDEDjoi2nT1SkbQ2XHEDXtqHc3UI3lQJunWG0dMCk9cVXt7XuH+cY3A1gita4OhfDjGZfeBt9YXr2ymcYgFa7RTj6RLj5yWGD3OI6ToC6RqEQLoKP7kntQ4SaouzlG9DzNS5mZuShZUaZKMPo3GBWK4JD73EnyxznWz0kCD2UtIQ9S745QriapuE1E/aQjRLXSgW7VqQzSMc0DMlvQuvVMJeMEdHDILO9WKmgf2Quj0cytKTfWSY1HtQigPOqUKfYLNSPOaGjMNyjSdjSZzUN0vFwMzYzhMzbUNWJEu5C77DCoLUCzsaUKr8m/XEeKPZ7BjY3/8BI+or2PMN6m4AAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    style=&quot;padding-bottom: 46.27659574468085%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMAABYlAAAWJQFJUiTwAAABiElEQVQoz51RSU/CUBjsj/AgqGUpLUtbkKW0ZSlL2SFeMCbGeDAhRkNUiARBTEgwxsQ/PX7vAWL0pId5nfctM/NSIWK3oOY70Is9aIUuh2I2IGfr/4KQa53hafmO+eoD54MR7qZLxPJthKjJhP8CLhgmknBYug4vRinxz4Qho7bj3+s/0rE9QUpXIapFjmCizOHXHQTi66+PEEpWf3G/XoJ0XKG50manxI0FMe7Advu4fXjGcPyCx9kKw9EC3f4VxFgBHtnC6cUN7idLTOavuByMsefPIOOcYLp4w/VwisFwBiXpIpiqQmCHjxYVcpbJkYHxgObgMJLjoj61gJjR4CISJT+K5vkOmw2nXD7P7qGMC8GfKEG3O9CsNpRUHarZQtRoIp7rEnrwKhbnUqKCfdnkBswoll3PeRWbG4hcsLYRtDqI211K0YRGgprZ5ned4CER1pfpSetkRRyEbUQzDagkun2FSD2eUDbqCCQrCDLQ84NbTmB1Ke1+9RmXaGZbCyTLuxqB/elPjvorUJ4Xy3oAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
   &lt;img
         class=&quot;gatsby-resp-image-image&quot;
@@ -961,6 +1152,7 @@ AWS Route 53에서 제공되는 네임서버(NS) 레코드를 도메인을 구�
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;h2 id=&quot;문제-접근-방식&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#%EB%AC%B8%EC%A0%9C-%EC%A0%91%EA%B7%BC-%EB%B0%A9%EC%8B%9D&quot; aria-label=&quot;문제 접근 방식 permalink&quot; class=&quot;anchor-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;문제 접근 방식&lt;/h2&gt;
 &lt;p&gt;더하고, 뺀다는 의미는 &lt;code class=&quot;language-text&quot;&gt;-&lt;/code&gt; 부호를 붙이냐 마느냐의 의미입니다.&lt;/p&gt;
@@ -1050,7 +1242,14 @@ AWS Route 53에서 제공되는 네임서버(NS) 레코드를 도메인을 구�
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/e880356e2a184732cfa020bc6bb10662/8d919/aop-1.jpg&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 25.531914893617024%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAFABQDASIAAhEBAxEB/8QAFwABAAMAAAAAAAAAAAAAAAAAAAECBf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhADEAAAAdqQuD//xAAXEAADAQAAAAAAAAAAAAAAAAAAARAR/9oACAEBAAEFAtFP/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPwE//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPwE//8QAFBABAAAAAAAAAAAAAAAAAAAAEP/aAAgBAQAGPwJ//8QAGBABAQEBAQAAAAAAAAAAAAAAAQARIUH/2gAIAQEAAT8hVdmQZ7f/2gAMAwEAAgADAAAAEAPP/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPxA//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPxA//8QAGBABAAMBAAAAAAAAAAAAAAAAAQARITH/2gAIAQEAAT8QFZu52BYKYb2IKtP/2Q==&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -1068,6 +1267,7 @@ AWS Route 53에서 제공되는 네임서버(NS) 레코드를 도메인을 구�
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;[1], [3]&lt;/code&gt;은 클라이언트로부터 메소드가 호출되면 프록시를 통해 타깃에게 전달되므로 트랜잭션 경계설정 기능이 부여됩니다.&lt;/li&gt;
@@ -1118,7 +1318,14 @@ AWS Route 53에서 제공되는 네임서버(NS) 레코드를 도메인을 구�
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/0b63478162367e0be2ad687d650bfc15/d53ff/aop-2.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 22.340425531914892%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAECAYAAACOXx+WAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAv0lEQVQY012QWQuDQAyE/f//TLxeBMUD8Va2rgd4oOi0E2gfOhCSZT8mQwx8dJ4nsixDURTo+x7TNElvmgZ1XUtVVSX/Siksy4LneXDfN/5l7PsuMA04E+bsOA4sy4LruvA8D3Ecy1Iaruv6M1DqJYvatsW2bTDGcUQQBAJ+dRyHvPWgJT1F+LouqTzPUZalmDA9Ozn+GYTneUaappKAabXW0gkPw4Cu6xCGIaIoQpIkME0Ttm3D930x5okonuANxRcsUoIEqFoAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -1135,6 +1342,7 @@ AWS Route 53에서 제공되는 네임서버(NS) 레코드를 도메인을 구�
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;@Transactional&lt;/code&gt; 방식을 이용하면 포인트컷과 트랜잭션 속성을 &lt;code class=&quot;language-text&quot;&gt;애노테이션 하나로 지정&lt;/code&gt;할 수 있습니다.&lt;br&gt;
 그리고 트랜잭션 속성은 타입 레벨에 일괄적으로 부여할 수도 있지만 메소드 단위로 세분화해서 트랜잭션 속성을 다르게 지정할 수도 있기 때문에 매우 &lt;code class=&quot;language-text&quot;&gt;세밀한 트랜잭션 속성 제어&lt;/code&gt;가 가능해집니다.&lt;/p&gt;
@@ -1304,7 +1512,14 @@ AWS Route 53에서 제공되는 네임서버(NS) 레코드를 도메인을 구�
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 530px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/e8fea94c57e007a38998f66eec6454dc/b6a9b/problem-image.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 75.53191489361703%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAYAAADkmO9VAAAACXBIWXMAABYlAAAWJQFJUiTwAAACNklEQVQ4y51TO28TQRC+X0eBUAo6inQgKJGgIoIGgaBAthCPhLwslKAETCIRxEMookBCCjRRYqFEJD7bJ9/e0/f22T7bHztL1r6EFMA0c/vdzO58880oTdOE77qwS0/hvnkF/fMHaDpDGATwPA8B94wxNJtNhGEoMPJ01nVd/CfM931YlgXFMW1ky4+RLk4gnTqPoLwKP+sjb0mSiMS80aVxHB/DoiiCwkpF4PUEoE4Cm2fhP7kGRzdFwKDfHyVTFWT9I4wqko8MBgPh6axYlTLWFiexsXodC++e4XBrGlEQ/n+F9R9vceHyRdwr3sCj9eeofCvxXtjodDriIvK2bYs+drtdgZE3DEP0TGIU5zgOlIa6h2qtCs/Y48/uwNX38fPgUFCiAKLaaDSgquoII1+r1VCv18V/wlqtlhBJcVvesbI73Uwk5K3dbguKJ+lRZXmjFihEZ9zsIQ+KxYt5AegyqiCPyZHKY0IUGSiNeiIV/dcKhSiapo0SKIAqpp5JjDwJQIOcx6hfjLA4QsjPCadrmQZXmTdWzpncChJA0pRbIeMkRo9qDs8ZAtUXMwgcC8wPT6f8V6IkbfQ+LvOlmAWbLQAvi0j2t8eiyGkn2qeJ8semWAzVq+dQuX0J39ce4uDKGZgrBb7LR8nS0jTFyappHMZVD39joY/1+QeYuXsTC3emMHf/Fna+fuKrx6e91+uJi4gu9TGPkZfDS99EP8symFyAzfISNuansVIs4P3SHHa3vuAXeSFh6/DSX9YAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -1320,6 +1535,7 @@ AWS Route 53에서 제공되는 네임서버(NS) 레코드를 도메인을 구�
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;가장 왼쪽 위, 즉 집이 있는 곳의 좌표는 (1, 1)로 나타내고 가장 오른쪽 아래, 즉 학교가 있는 곳의 좌표는 (m, n)으로 나타냅니다.&lt;/p&gt;
 &lt;p&gt;격자의 크기 m, n과 물이 잠긴 지역의 좌표를 담은 2차원 배열 puddles이 매개변수로 주어집니다.&lt;br&gt;
@@ -1340,7 +1556,14 @@ AWS Route 53에서 제공되는 네임서버(NS) 레코드를 도메인을 구�
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 520px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/6b8b8bf4352d78f6eccf0279cdd63c15/69902/example.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 42.5531914893617%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMAABYlAAAWJQFJUiTwAAABbUlEQVQoz6VS2U7CUBDtZ5go0IJAoWyWrdBCWcpeMWBCDC7RuEQixmjE+EJ4M/GrjzMXMai88XAyc+bOmTsz90oxq4dEuQ+2mtlDMNfcCtJs/oHZ4hPD8wnGN08I5VtbQVINcqgyk7DRRjDbRCDj/LqVuT/tQNFrAqtztopep7P6T0wKHtShZhrwaSUBf6ICNU08VoZM4BhzLd+GXuoLMPdGLaFLmS7iRkfElGQFkt0aoTO4xG6oCG+EkvQGHPdU+LJWxl64iOH4HrcPb5g+z/H4skB3eIWdQB713hnupu+4nryiQRo5bkPyqKYQ+6KljeBO/PGKKO75zvOu2ZWeregwUXCRLLrwhE2RxOKMPRC+TOB40RnBap1At45QO7yAErNpogJy1WOEaSIuxvkKrUsKJKsIpGpiXwyFCoZ0Z8lpBB91Fsm2EDO6tLMm7bJDOcs47593vtL6U1V6lA1/aT/b+PfKDI6v/4C/eYwvPRkooN2uELcAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -1356,12 +1579,20 @@ AWS Route 53에서 제공되는 네임서버(NS) 레코드를 도메인을 구�
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;&lt;span
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 532px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/dfc3eb6efbb6d95c6bfb794d6cbe7921/89a37/example-2.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 75.53191489361703%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAYAAADkmO9VAAAACXBIWXMAABYlAAAWJQFJUiTwAAADbUlEQVQ4y02Ty28bZRTF/a+xBcEKsesGdcMCsUBigUBiAQUJURUpQpRUMVIpKE3bIKVVU6CJSeMmJLHjPPAjdjN27Bl7PPa8XxlP/Ov1JEJ8i7l3jmbud+459+YMc4zvB4zv38Vef8awuIZmmviTBCeOs6jbNgPLknxyhU2yd8N1s9xNErwowhYsZ5kOyeIdovl3iD57F/tuHveoCuUK7B/A4THnxS2iF0U4OL7CjvAK60Sbm1CR77a3YTQiOD8nN/rtR1h8G5RrsP4WztxHVP/5i7NXO7QbW5y1dqhV1qjuP6crefVog7Hawu2peJoKYchFuw27uxnbnFVbZjl/jSf3Pyb/dJ765vdsVjtsdGw2lBHFM4s/qj0eH3Uo9z2CxKM1bOCFEYG0nx3fF/YHhGlKTj15ynvX3+fGzU+49eBnSi9u09N0xm7E0PIxJXZUHaXbZ71u4jg29fYBg/6A4XBILKwCTSPe2sIKAinYOaF52sFoPmI62mLYq9PtKExCh9AdZ1HXzgRrU6gO6PVVDpu7dNodut0uludiKgpOoYA+M8VxnEvawb48psTJlO7AoizyPKykrNah1fcJfI99LSY8j1H0Gp4n7Quj7MxqSMvRxQU50xxlWGqJUxcenh/xzUqfxXLKvZ2Yx8cpN1YMxqZNqSuF44RGt8Je9SWlWhHFaIHtMi2X8GV8hKF1eYu3J4+YSTJB0cSIBjwShn+/go7uE4U+FS0iTqdXpBypY9EUtjgelEqEM4aaWO8HCX6/QODq6MMRWu+M8yjAtBwpFGDoGpqqUmwaDEZWhmmqhnJ6wnZtg7DTxX22ylhkyKlqD9eP8dR1PFtjMBBHRWRPxLYtE1e2YSb+7JKNel/0NQh9F0VmT7U97CSlvbSAK8UM15+1bF+1XM5CPJlJEvH/44cpUZTSEnUKpzHbYtjvlSH8eY+L5TyDn76D5R+IZWL+M+ViXMiKhuMjLG0HoiapV8uiNyzjDETjuCW+CRafYLbWUD58k8OvP2B36Rat629gPsmTs+0rU1KJSZvYbuDosq9pT36UlZp0Ccb/4o+Os/wSk7nTtnk4f5PbX33OwpefcufbL2gdvCRnGKKJzNNsXMJ4yli2QxuYRJJ7YtYMG45kuA07y2dYlECvp/P8wS+sLMyzNDfH6q95GpU9XgOfp0FHRfQwGwAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -1377,6 +1608,7 @@ AWS Route 53에서 제공되는 네임서버(NS) 레코드를 도메인을 구�
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;h2 id=&quot;문제-접근-방식&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#%EB%AC%B8%EC%A0%9C-%EC%A0%91%EA%B7%BC-%EB%B0%A9%EC%8B%9D&quot; aria-label=&quot;문제 접근 방식 permalink&quot; class=&quot;anchor-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;문제 접근 방식&lt;/h2&gt;
 &lt;p&gt;이번 &lt;code class=&quot;language-text&quot;&gt;등굣길&lt;/code&gt; 문제의 해결법 핵심은 아래와 같습니다.&lt;/p&gt;
@@ -1617,7 +1849,14 @@ public, protected, private 등이 올 수 있습니다.&lt;br&gt;
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 250px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/51f9beb5b42aaf4bbf784b27e5bfbc86/63868/example.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 81.38297872340425%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAQCAYAAAAWGF8bAAAACXBIWXMAABYlAAAWJQFJUiTwAAAChElEQVQ4y41U/U/aUBTlf9gmE6VQoAX84EOktFAEShEYOpximIpOTGa2uGxxix9xLpmb02T7Zcn+4LN7H1QElswfTt9979x33j33tXUp2jLUTBWhdAUhinnOcSBlw+Gc8SFw+RcsrLx8jaOTr/j28w9OLm+x8eoIxxc3qGx04UuUENZrQvR/EIJyqgyr2cHu21MSvUKVRAqrHbT238NsbIMPdKp8kKCwS5Pgog0WD9AYJMssxEkRoy4qdCxxHDb60GtDHOe7FAqCSQvSbB6ecBaeSBZPVR2TqkGjAbeSwXQ0BzlWgH++gKlIDu5QppcTNgR8c0sILpQHFUq0EMvUUG7soFTfQmO9i/beO9Sae2hsHEAvvsCUmoUvasKw1rHWPkSTUKxtwaY9atyCP1aEqrMgPbxUnVlex6fzK5xd3uD04hrfb3/j/MstTj//wHb3AyZDOmQ6eLPzRqxfXv3C8dk1Dg4/ImWuwksc2xeW5XgRHsXAY3+KsIhHvhQmAmlMyGk8IXgUHb4Zk5CHO6iJHHdAEzHDS20I0NtwZ5l7E4qXEM+uIJFbxcwirc0uiYoYHEskKFEvo8QpCbJIruR+Dh8kDwlSw9VEGXazC/v5PuYyddqcF0ID5DFNl1Zs7CJjtURPHY4F7yoUlqmhouz5ooAU7dkbRm9NoQsIxkpj/FiFfINcAfeLxUc39A4xBTfKMyeP9jCctFEmu5W1AxTq25jT6vBS4n1bLKSVWphlLmL+27LatyxRcq7SRuHZDpK5FWp2YaxKbziHrL0pLo3F/TM9MV90xDJP+G33kiX+KiRO4tslUQe9+dLdeJ/jeSBpDQQVgfFfFK8NUB2M2vII19+rVfEX93IQS2RFoUAAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -1632,6 +1871,7 @@ public, protected, private 등이 올 수 있습니다.&lt;br&gt;
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;h2 id=&quot;문제-접근-방식&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#%EB%AC%B8%EC%A0%9C-%EC%A0%91%EA%B7%BC-%EB%B0%A9%EC%8B%9D&quot; aria-label=&quot;문제 접근 방식 permalink&quot; class=&quot;anchor-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;문제 접근 방식&lt;/h2&gt;
 &lt;p&gt;주어진 숫자에 대해서 한자리수, 두자리수, … &lt;code class=&quot;language-text&quot;&gt;최대 7자리수&lt;/code&gt;를 선택해 만들 수 있는 소수가 몇개인지 판별하는 알고리즘 문제입니다.&lt;/p&gt;
@@ -1820,7 +2060,14 @@ UserService 클래스에서는 비즈니스 로직만 담는 것이 이상적인
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/6fea5fb6c8dd964e659fa5ce9db808c6/7ae9c/AOP-1.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 32.4468085106383%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAGCAYAAADDl76dAAAACXBIWXMAABYlAAAWJQFJUiTwAAAA0ElEQVQY002RiQqAQAhE9///MSKikz267zKesJEwtKgzjmacczLPs9R1LW3byjRN0nWdPM8jxH3f0ve9oigKBfUQgsSIvYSJzVmWSZ7nMo6jEoZhkH3fdYi1VoXTNJUkSTQfgtf8siwKjPA13vvPXQSC53mqyHEcOhBCVVVSluW3BT3XdX3AjOEB8Q9EyEPgHIBmhnMi3tERvVFYHbL/HxRwxI1wi3tWc85qDQFq/81wGweZvzMEIVCAxA9gzaZpdAiC27apE0SoI8q96V/XVV7LYs2Bg+RoMwAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -1837,6 +2084,7 @@ UserService 클래스에서는 비즈니스 로직만 담는 것이 이상적인
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;h4 id=&quot;2-분리된-트랜잭션-기능&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#2-%EB%B6%84%EB%A6%AC%EB%90%9C-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98-%EA%B8%B0%EB%8A%A5&quot; aria-label=&quot;2 분리된 트랜잭션 기능 permalink&quot; class=&quot;anchor-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;2) 분리된 트랜잭션 기능&lt;/h4&gt;
 &lt;p&gt;&lt;strong&gt;UserService 인터페이스&lt;/strong&gt;&lt;/p&gt;
@@ -1905,7 +2153,14 @@ UserService 클래스에서는 비즈니스 로직만 담는 것이 이상적인
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/17a7b72c61740780287de25d4bfdc4c3/c1b63/AOP-2.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 32.4468085106383%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAGCAYAAADDl76dAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAzklEQVQY03WQWQqEQAxEvf/VxCuI2O477oqamRdpcT4mUCR0J1WpONd1yb/Y912MMV9EmvM8lyiKJAgCSdNUyrLUmvdpmnTGOc9ThmGQvu8V8zxLXdeKOI4lDEMdyLJMiqLQDJjZtk2JmAEPYVVVkiSJqtIIieu64nme1vxBbkKjeVkWOY5DHVCP46hQQiy/QdBMY9u2D+EteIuyKWiaRi0j0nXdLyGbvrMNLHErXJCx7/u+CmGdd86DfeYcS/IPNqzIuq5qDyHOgxv7T/8Ha3TMDo2oxl4AAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -1923,6 +2178,7 @@ UserService 클래스에서는 비즈니스 로직만 담는 것이 이상적인
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;하지만, 위의 그림처럼 여러 의존 관계를 가진 객체들이 존재하기에 원하는 대로 쪼갤 수 없는 경우가 있습니다.&lt;/p&gt;
 &lt;p&gt;UserServiceTest는 오직 UserService의 기능만을 테스트하기 위한 테스트입니다.&lt;br&gt;
@@ -1933,7 +2189,14 @@ UserService 클래스에서는 비즈니스 로직만 담는 것이 이상적인
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/a3f73f24511e235fa358fbe75264404e/8ae78/AOP-3.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 32.4468085106383%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAGCAYAAADDl76dAAAACXBIWXMAABYlAAAWJQFJUiTwAAAA7klEQVQY011R2Q6DMAzj/78OIR4RRzlbbiiHxJHNRpumIUUJqWs7qXPftyCu62Je11WWZWFmbRexs2W9bZtM08Q8z7P0fc//fd955zgOcc7zJNknrLUEoB7HUbTWkue5xHEsURSx7rpOyrJkryiKrwmEU9e1pGnKAAjZdV3xfV88z5MgCAiEE7gahoFCxhiKISdJQhESgh1ABBoAV1VFZQTAEIKzLMt4hssgQq9pmjcu5/gklL/vcQMB+64fMRCGYcgRIYAeiCGAM2QIkPB3f3gULFaplPtSSnFEjKu1EawH7rr+cQhXOG/bln081guKr8csafvRzgAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -1950,6 +2213,7 @@ UserService 클래스에서는 비즈니스 로직만 담는 것이 이상적인
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;UserDao 목 오브젝트&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&quot;gatsby-code-title&quot;&gt;Java&lt;/div&gt;
@@ -2027,7 +2291,14 @@ UserService 클래스에서는 비즈니스 로직만 담는 것이 이상적인
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/a22edb4252fe9629154cf8aef27eb824/f53a0/AOP-4.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 17.02127659574468%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAADCAYAAACTWi8uAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAkUlEQVQI1zVO2wqFIBDs/z/RDMqkHtLCW0WGc5qFszAoszuXLqUE5xy01liWBSEEwX3fH+9hjBGM44i+7+G9x/M8ohmGAdZaebmnriulgHNdF2qteN8XDGmtiWhdV0zTJIHzPGPbNhzHIRx3Sikx5J/3HV1pep6nIMYo5pyc8xdQZf9vRo435BjOgH3fpQyL/AAKjuL/C+OYqAAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -2044,6 +2315,7 @@ UserService 클래스에서는 비즈니스 로직만 담는 것이 이상적인
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;프록시 : 마치 자신이 클라이언트가 사용하려고 하는 실제 대상인 것처럼 위장해서 클라이언트의 요청을 받아주는 것을 대리자, 대리인과 같은 역할 (UserServiceTx)&lt;/li&gt;
@@ -2061,7 +2333,14 @@ UserService 클래스에서는 비즈니스 로직만 담는 것이 이상적인
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/3d7dff582febf0c1d47de073d28c2fe6/cd36b/AOP-5.jpg&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 21.808510638297875%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAEABQDASIAAhEBAxEB/8QAFwABAAMAAAAAAAAAAAAAAAAAAAECBf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhADEAAAAdu4SD//xAAWEAADAAAAAAAAAAAAAAAAAAAAEBH/2gAIAQEAAQUCIv/EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8BP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8BP//EABQQAQAAAAAAAAAAAAAAAAAAABD/2gAIAQEABj8Cf//EABgQAQEAAwAAAAAAAAAAAAAAAAEAESGB/9oACAEBAAE/IV3i6gv/2gAMAwEAAgADAAAAEAAP/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPxA//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPxA//8QAGxAAAgMAAwAAAAAAAAAAAAAAAREAITFRYZH/2gAIAQEAAT8QLlRPcRm/UQ7O8z//2Q==&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -2080,6 +2359,7 @@ UserService 클래스에서는 비즈니스 로직만 담는 것이 이상적인
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;자바 IO 패키지의 &lt;code class=&quot;language-text&quot;&gt;InputStream&lt;/code&gt;과 &lt;code class=&quot;language-text&quot;&gt;OutputStream&lt;/code&gt; 이 데코레이터 패턴의 대표적인 예입니다.&lt;/p&gt;
 &lt;div class=&quot;gatsby-code-title&quot;&gt;Java&lt;/div&gt;
@@ -2115,7 +2395,14 @@ UserService 클래스에서는 비즈니스 로직만 담는 것이 이상적인
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/b53eaeba6b0999cd826d08f6cac257a2/709cb/AOP-6.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 25%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAFCAYAAABFA8wzAAAACXBIWXMAABYlAAAWJQFJUiTwAAAA00lEQVQY0z2QBwqEQAxFvf8RLaNiGRvqrA1r1peFDQScJP/lR89aK3EcS5IkEoahtG0r933L8zyy77sYYySKIu0FQSDDMGiPHMdRyrLUOvq6rsUrikJFeZ5roaoqBRLHcbxvK33fa7IMCLFtm6BFx7Ku66RpG/EA4HJZFk2GtNk0+u3cqOJ5nnURjoCgwxVvesQ0TT+HFDnFOacQ0trqFWbqEOcsBQwsyzJJ01RPZRbQeZ4K9miY2KhtwIiv6/qfjNt1XXWYcz/vUoIZ4Pxf3/f/rr/B0neRUH74YQAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -2132,6 +2419,7 @@ UserService 클래스에서는 비즈니스 로직만 담는 것이 이상적인
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;동작 과정을 요약하면 다음과 같습니다.&lt;/p&gt;
 &lt;ol&gt;
@@ -2255,7 +2543,14 @@ UserService 클래스에서는 비즈니스 로직만 담는 것이 이상적인
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/aaf27703d67b778e992d168b0aa4d297/dd104/AOP-7.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 25%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAFCAYAAABFA8wzAAAACXBIWXMAABYlAAAWJQFJUiTwAAAArklEQVQY06WPzQ6DIBCEff9nM540losejERREPw/SKbONm16bjeZTHYZPpak73vUdY2macS11riuCzHGn5TM84xt29C2LcZxBPt/SoDcMs9zVFUF5xy6rpMZ3RhzP2RhrZUZneJPlmURDcMgS63r+gJ67/F2hqdpkp5wQqg0TaGU+mQIZO44jrt3OM8TIQQkPNz3Xeh8hZDv4pZKPVCWJbIsQ1EUkmMRxruEcUZ/ApVAftyhzyJTAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -2272,6 +2567,7 @@ UserService 클래스에서는 비즈니스 로직만 담는 것이 이상적인
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;기존 방식의 문제점&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
@@ -2285,7 +2581,14 @@ UserService 클래스에서는 비즈니스 로직만 담는 것이 이상적인
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/63379b1a87a5c574d66bd727bbf7b57e/bb2fd/AOP-8.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 27.659574468085108%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAGCAYAAADDl76dAAAACXBIWXMAABYlAAAWJQFJUiTwAAAA+ElEQVQY011R2YqEQAzs//8wXwQfRBR1vcb7PnBWQbR2KqAw21DEdFcqlai6rkPf9+i6HsMw4jgOwXmeWNcV+74/2LbtKyfnuq4nEirLcoRhCN//QVXVIlLXNZqmgeM4iKJI7uI4hqZpki/L8uGW2H438HwJTtME13Xheb4QmRPzPIvo65V8mvmwLAumacIwDARBgDRNxeXt8IZiUVVV4o7fJNNxURQiouu6xFvQ8zwBm3A1/4+6LfNwnxRNkkSEWURx3mdZBtu2JdIARdu2lakYWTcMAxT3s65veSCZu6IQC/jG0Ukcx/FZCX8iJ2DjsixlfDbO8xx/ga7B4l1jV8UAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -2302,6 +2605,7 @@ UserService 클래스에서는 비즈니스 로직만 담는 것이 이상적인
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;div class=&quot;gatsby-code-title&quot;&gt;Java&lt;/div&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;java&quot;&gt;&lt;pre style=&quot;counter-reset: linenumber NaN&quot; class=&quot;language-java line-numbers&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;&lt;span class=&quot;token annotation punctuation&quot;&gt;@Test&lt;/span&gt;
@@ -2331,7 +2635,14 @@ UserService 클래스에서는 비즈니스 로직만 담는 것이 이상적인
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/0148a6e32b3962ce1a73a2165bfe1aad/c6ff8/AOP-9.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 44.148936170212764%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMAABYlAAAWJQFJUiTwAAABS0lEQVQoz1WSCY+CQAyF/f8/z42JCwEV5XA4BC9uu3ydndWdpCnTdl5fX1nN8yzY6/WS5/MpxuRSFIVcr1d5PB4aw/h29/v9vvj2179z4KxkOYBxLpeL7Pd78T1fuq7TAh5UVaXxw+Egu91O4tNJkiTRexRFEsex5Hku4zjKqut66XtrTdPo4zAIJU1T/XYMeISdFrDz+ayTZFmmdcYYJaOAnudJGIbi+76s11/aiQIKy7JUQBrBiBigAGEW2GidAg4L4KeGt9tNARmFRpvNRmMUH49HZUfOgeOJWdDKMgQIQA6LSNNMgmVkksjA2G3bag6meIwm3DGWQ2wYhjdDtxSnFUm3sLqulbmTgxH5pp6GgNV1YwE/GdIJg5EFKf4eb7ffC/NAt834jIzubgcsaZqm/xriCeLRDjaIz38JKEzmeRJ3uJOnKRKB8QP5vKwQonL6ywAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -2348,6 +2659,7 @@ UserService 클래스에서는 비즈니스 로직만 담는 것이 이상적인
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[[프로그래머스] DP - 타일 장식물 / Python]]></title><description><![CDATA[LEVEL 3 - ‘타일 장식물’ 문제 보러 가기 ! https://programmers.co.kr/learn/courses/30/lessons/43104 문제 설명 타일 장식물은 정사각형 타일을 붙여 만든 형태였는데, 한 변이…]]></description><link>https://wwlee94.github.io/category/algorithm/dp/tile-decorations/</link><guid isPermaLink="false">https://wwlee94.github.io/category/algorithm/dp/tile-decorations/</guid><pubDate>Thu, 09 Jul 2020 00:00:00 GMT</pubDate><content:encoded>&lt;div class=&quot;custom-block info&quot;&gt;&lt;div class=&quot;custom-block-heading&quot;&gt;LEVEL 3 - ‘타일 장식물’ 문제 보러 가기 !&lt;/div&gt;&lt;div class=&quot;custom-block-body&quot;&gt;&lt;p&gt;&lt;a href=&quot;https://programmers.co.kr/learn/courses/30/lessons/43104&quot;&gt;https://programmers.co.kr/learn/courses/30/lessons/43104&lt;/a&gt;&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;h2 id=&quot;문제-설명&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#%EB%AC%B8%EC%A0%9C-%EC%84%A4%EB%AA%85&quot; aria-label=&quot;문제 설명 permalink&quot; class=&quot;anchor-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;문제 설명&lt;/h2&gt;
 &lt;p&gt;타일 장식물은 정사각형 타일을 붙여 만든 형태였는데, 한 변이 1인 정사각형 타일부터 시작하여 마치 앵무조개의 나선 모양처럼 점점 큰 타일을 붙인 형태였다.&lt;br&gt;
@@ -2356,7 +2668,14 @@ UserService 클래스에서는 비즈니스 로직만 담는 것이 이상적인
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 183px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/bb161006c789df83330b65b11de47a55/e6f05/problem-image.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 154.6448087431694%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAfCAYAAADnTu3OAAAACXBIWXMAABYlAAAWJQFJUiTwAAADCklEQVRIx52ViXLaMBCGef/X6nTSMJNJ4gaCsTHY5gw+wIAvyfq78oUxdkOrmR2JtfSx/66OgcgyZMdjr4nS5Jj5B3DPByPLGv7cDgeIJMEg832kwyH4dgtm27lxactlPo5NC9HcRLywcDHmMJ7fEM8XCEvL59Pa9P0dbDoloOchM020GyNLyDiZaPj0rV/Pkf5UFL0MjOl6AeSzWTGDc8gUJCkDY4QSIjfpk31K/pn1VfvjKAJL0hzKd7t7oFyYEigTRUxCwkqTTX6b2fv6t2VZ8Fw3H4erNXgbmCSsnixa0Aqo21+ljyBhCJayErhBomllDg0jzw+XMsum079FJKkJl8DFykFncx3EEigIyCjCtNBcL3ZJSpIkN8CMUjIcm9DXHiYkXVvuoS8d6LsjdEVFOFEJ6HuIp3pezQJ4BbQlc55B0VZY0FZ6UVfYOEdEcYILE/BNGxd1WkQYqlpeelmUuhDNcQ4UBOQYTpYYqTqeRxbtBo7ofEJISrK9g1SjonDXQ6QbeKTR5sEvdU0yd/g5thGRY+/s4V7C4gTpOZBy9f4GQQWQx6f3CAYBElo0VjTYnyMoygyHrQNGa+LgBG7MkKmUw8vxhM2PJwh1gmQ0Qjoe95r8fnxVEI3GcF9eEf0eIR5PcpD/9Iy9PsfACSKou6CW9L/NvSRY7A4YuEEIbeXW26JZiE7L7nvZvOMZ1sbDwD9FmC6LzZp9B+uxAniBWQHVDuBdE42+MW4CrW0OlJKdzsuga3M/BJyt3buFj4x7gXPSnh+tLOsENCNtp6Ajh1dgWt42bZi8dYIg+DZCs4rQKIHybHZJs+ndUBTlZmv9VbLRkNyMsnltyYuh9kN0S24D5Ud5RTF+n8ubHPZU+Q5YvSUS2C7QP1W5CRQd0JtCoV9yL7B+h0v5QuDbaHsltxdVhWpG2wW/Ac5bObwuui6WkVbgrkLVkj26vvQHri+ZtCwHcyQEruC83BHO4YwFHeFBRI+7oi0xNTdQF2uosu+y8ls173OxwdjY4MPYQrUdfMzW+PLP+AP7Dma1yy3ghwAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -2370,6 +2689,7 @@ UserService 클래스에서는 비즈니스 로직만 담는 것이 이상적인
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;그림에서 타일에 적힌 수는 각 타일의 한 변의 길이를 나타낸다. 타일 장식물을 구성하는 정사각형 타일 한 변의 길이를 안쪽 타일부터 시작하여 차례로 적으면 다음과 같다.&lt;/p&gt;
 &lt;p&gt;[1, 1, 2, 3, 5, 8, …]&lt;/p&gt;
@@ -2525,7 +2845,14 @@ UserService 클래스에서는 비즈니스 로직만 담는 것이 이상적인
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/f10652b3c229435bd35cfda0818c6809/38af3/problem-image.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 32.97872340425532%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAHCAYAAAAIy204AAAACXBIWXMAABYlAAAWJQFJUiTwAAABOElEQVQoz1VR226CUBA8f1JrelGLGuQiIGAVkItiq1apton//xXbnQVsfDjJZM/s7syscrOKnPRE/vpM9uqLpqujPGA3O9GsOJOVAFfCAfbyiuvfd/xpepQ5ahRuaTTfCrnvFaT5G3rz1zRgPFnupPFlmpIR/WMrOciyvpsLXwN/VlCwuZB6dTLq8YcZH6ijL6lrxtQ1YupMllI3or3UtWBz40DEeP5BD/qi5ps132b1qu/l0vi+/ZWC3ViACqh2WMnjJOIhpVgE1hefFO2usuAWEfdG+yupXqMQ/ntuJrbxUIcKC6p4+5AVWo3CMUeE4XA3aPnc63EkClaGQclB1/lgOB4wGnGMJysRVTgGsMkxQNGzvbrj44AKJAQclj8iHUqdtLaBJWF5kWYcBBxgRIEDtPz2wuD8Ae9C9XUjaKFNAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -2542,6 +2869,7 @@ UserService 클래스에서는 비즈니스 로직만 담는 것이 이상적인
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;직사각형의 가로의 길이 n이 매개변수로 주어질 때, 이 직사각형을 채우는 방법의 수를 return 하는 solution 함수를 완성해주세요.&lt;/p&gt;
 &lt;h4 id=&quot;제한-사항&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#%EC%A0%9C%ED%95%9C-%EC%82%AC%ED%95%AD&quot; aria-label=&quot;제한 사항 permalink&quot; class=&quot;anchor-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;제한 사항&lt;/h4&gt;
@@ -2560,7 +2888,14 @@ UserService 클래스에서는 비즈니스 로직만 담는 것이 이상적인
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/63ca7994f85b526df8f5ecb535ee1aa2/42d54/example-1.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 32.97872340425532%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAHCAYAAAAIy204AAAACXBIWXMAABYlAAAWJQFJUiTwAAABL0lEQVQoz3WRz0rEMBDG+zCieBdRH0q8C4ogngRdV0FUEJb1LN2Dosh62V1bt0kma9Omf0D0RT6TdKvdgoePJJPJzG/yedOIgaSEoD/V53a8KW4kJcEfBrh+krh8YAjjEt5kPIYkAcEYBK/FQYK71UoSgey+kcMYR0oRdi4GWD0irByEOPMDeDNDURQFsixDPlemNVQcI00SJxICiUqqu3mO1hm+ihR7vSE2uwU2TmJcPXJ4lsAWqB/rNIVtMvB9sCjCexjirt9HGASuUKKUy1OmwWemsHv7gvWOxtrxzI3tCEtDmDcIHYEpvBjLF+8N4XepDeErts4N4amqCCejkRuJm/9pSrTObUXGzISm2O76WD4UWNoP0Ll/g2ddrlyjX/fa63+x2uWbZ+nogo8CPxFK0xOWAW2/AAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -2577,6 +2912,7 @@ UserService 클래스에서는 비즈니스 로직만 담는 것이 이상적인
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;채울 수 있는 가로의 길이는 1밖에 없으므로 1가지 경우만 나옵니다.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;두번째 케이스(N-2)는 다음과 같습니다.&lt;/strong&gt;&lt;/p&gt;
@@ -2584,7 +2920,14 @@ UserService 클래스에서는 비즈니스 로직만 담는 것이 이상적인
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/0e2d9eb5de0f043d5841b53b6496a2ce/92bb4/example-2.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 22.872340425531917%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAFCAYAAABFA8wzAAAACXBIWXMAABYlAAAWJQFJUiTwAAABJklEQVQY00WQu07DMBSG8zQIiRdgYoGNgTwAEzsvgQSIpQWBxGVBzCxFPEGlUErj2EZOkxCkhqVN4ziXFvYfxyli+HSOfL7fOjpWpgrIojTkZQVV1Yb8j7JGtfxBufxezRaGol60np7LokKm85kqYbmuC845OONgjMGjDKHguHl+hX31ht3uC57IFz6jMQjxWpe3LtMZwRkO7wewbwX270awAt9HGASgngePECNNJzE6PYKNU4a1IxcPToLkY6y9EL4QxiPuCIHOJXGEvW4f68cUmycOLLLakFJqaDaMfI7L3gA7nSG2zhw8DieIA9FuyFqXNejef2c4uO5j+9yDfaE/nKYZZvMGiVkmkWY5Upnr/p/mTrm+U/M+lwrzXJnaejpnemXqL8FnVwf+VqV1AAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -2603,6 +2946,7 @@ UserService 클래스에서는 비즈니스 로직만 담는 것이 이상적인
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;하지만 여기서 왼쪽 케이스는 위의 첫번째 케이스에 포함되는 모양입니다.&lt;/p&gt;
 &lt;p&gt;따라서, 왼쪽 케이스는 개수에 포함하지 않습니다.&lt;/p&gt;
@@ -2889,7 +3233,14 @@ JPA나 하이버네이트로 UserDao의 구현 방식을 변경하려고 하면 
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/2b0e6eead0d8de6fb10314f6a56a58e4/b2cef/transaction-abstraction.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 63.297872340425535%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAYAAACpUE5eAAAACXBIWXMAAA7DAAAOwwHHb6hkAAACa0lEQVQ4y2VS2W7TUBD1r4KKyvKGBKgt8IgAiQeQUEGikLaIQinwgCpekIoKqIikpSp1XOIkzh47thNn8Xa9HOZepwviSkdnZs6c8Z2bSDhz0iknU26OPTwslJH7XcfyYR1P9zXBfhwLfeK6KKkq6o0G2p0OtFoNErjI2AlSgUhMtychPqk6vtRMbGkmPld72KaYsUTozPNgtFoY9HpwTBOWrtNA26ZPTYDxGCmBx+lwgKRbBTgMDdAriNuqYJ6n3QoSoy48CMPTCwUBDRwO/1/ZriDceoDw2yLC70/A8qtgu6+IV7La9iPix0DsY+KHYl2dbjmhG0up44hBaZJk4AOtKtjXRRrymoa8BCvQsMJalvP4J31gZ4nvDNfz0aa1DcOg5Sb/3vD00BuFtE5AWjASHLvOmZzA3DM7nR4p6Q8QkT+OYnoOjkgw478VIYxSAT9MTuKIazymvkD0R4ioOSJBUneOIO81UdytQyYU9zKWCzUovxpUr4lYJlZIO8xrgnmde4pTj/BRn9Q7qqPT7KPbsNCqWeg0bIoz6K0+5ZaIuXZcMzsO/V0GIud6m2tNW3gljOitvCDD2AfcYAqPcJz7U81HbDsITQuR3aeam+lc8zKf5EUjDAMDo7CHvmeIeBj04LEhXDYQ8SjINMfXsa/8wEFxDwdKHk1TxZhZ6LuZn/dKa3+u4rk8g1xxlvgCVpTLWJLPY7l4CW9K1/Ds8JzQcvJFrCpX8EKZwUZ5Du/K89P6rPDzfg7pY/UO3qrUoC5gQ53H+/JtrJdu4APxpnaXhl6n+gINuClq65RvavcJ90R/5psj3y3R8xdbwbJLqGukUQAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -2906,6 +3257,7 @@ JPA나 하이버네이트로 UserDao의 구현 방식을 변경하려고 하면 
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;출처 : &lt;a href=&quot;https://yangbongsoo.gitbooks.io&quot;&gt;https://yangbongsoo.gitbooks.io&lt;/a&gt;&lt;/p&gt;
 &lt;h4 id=&quot;트랜잭션-서비스-추상화-적용&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98-%EC%84%9C%EB%B9%84%EC%8A%A4-%EC%B6%94%EC%83%81%ED%99%94-%EC%A0%81%EC%9A%A9&quot; aria-label=&quot;트랜잭션 서비스 추상화 적용 permalink&quot; class=&quot;anchor-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;트랜잭션 서비스 추상화 적용&lt;/h4&gt;
@@ -3010,7 +3362,14 @@ JPA나 하이버네이트로 UserDao의 구현 방식을 변경하려고 하면 
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/edc7bac8cfa06e0f2289847ddb81ed08/d53ff/diagram.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 43.61702127659575%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMAABYlAAAWJQFJUiTwAAABrklEQVQoz31Sa1PaUBDN/zEvwiM1kSTEkCdINEBwRASmFmtDA9XgtNPxr5/uvdhxUMcPO3vn3nPP7p6zQq1Ww2ehquq7rCgKj4+wwv5R5gB28TZeP2hQZBlty0LSHyCKE3QcB7Ztw6FsmuaesOsHCKMYPmWbwAxgvWRd1yHLMv4XlWQFXhBhejNDRKQe+0vEca8Pp+NCJZwwynOk2Rh+lMA59eB6XXSDEH4Y8aqtlg79iwHDcqG1DJxfZHh+/oviZ4nN9hceqgpPv/8gn0wgSRKEzabA426H+2KNdVmi3G7xWO1Q7Z5wlk1wbHkwiaxtdzh5GPfwvXzAtx8lRpdXyMY5prM53cdcEmG5ukexrbAiwF2xwfV8gdl8icXXW/j9IY2pciAbWRSP4NIU0+UK/SyHSyMHSQ/J4ByOe8qlEdJhjmxyjXR0Ccfz0Q1jBNRFSLoYxjHXhRlS0zTINJJDGt7crXG1uEWSZkjOUqTDMZeKE9brdTSbTTQaLBoHoWn1A6dV6rJ1YiEaXCAmU1hhZgwL86S9d/mjVXm7Ngdn6kISRTJApA2Q9lvwsgns/R+Rjz2siy0c+gAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -3027,6 +3386,7 @@ JPA나 하이버네이트로 UserDao의 구현 방식을 변경하려고 하면 
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;h2 id=&quot;1-하위-엔티티를-조회하지-않는-경우&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#1-%ED%95%98%EC%9C%84-%EC%97%94%ED%8B%B0%ED%8B%B0%EB%A5%BC-%EC%A1%B0%ED%9A%8C%ED%95%98%EC%A7%80-%EC%95%8A%EB%8A%94-%EA%B2%BD%EC%9A%B0&quot; aria-label=&quot;1 하위 엔티티를 조회하지 않는 경우 permalink&quot; class=&quot;anchor-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;1. 하위 엔티티를 조회하지 않는 경우&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;Album의 Song에 접근하지 않은 경우&lt;/strong&gt;&lt;/p&gt;
@@ -3041,7 +3401,14 @@ JPA나 하이버네이트로 UserDao의 구현 방식을 변경하려고 하면 
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/5ededfa60eaa01b673c0709e2d89c049/f238d/lazy-1.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 2.6595744680851063%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAABCAYAAADeko4lAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAP0lEQVQI1x2J2wkAQQgDrygXdVd8gP23lEM/AjOTz8zw3sM5B92NcXffTb/3QlWRmevTiQgRgaqCiCzPx8z4AUogIfEqUBzIAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -3060,6 +3427,7 @@ JPA나 하이버네이트로 UserDao의 구현 방식을 변경하려고 하면 
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;h4 id=&quot;eager-방식-결과&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#eager-%EB%B0%A9%EC%8B%9D-%EA%B2%B0%EA%B3%BC&quot; aria-label=&quot;eager 방식 결과 permalink&quot; class=&quot;anchor-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;EAGER 방식 결과&lt;/h4&gt;
 &lt;p&gt;&lt;strong&gt;N+1 발생 !&lt;/strong&gt;&lt;/p&gt;
@@ -3069,7 +3437,14 @@ JPA나 하이버네이트로 UserDao의 구현 방식을 변경하려고 하면 
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/ed00f430126589211d379f6a7759143d/5b2ff/eager-1.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 21.27659574468085%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAECAYAAACOXx+WAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAc0lEQVQY01WPSQ7AMAgD+VRO2bf/P4lqkFy1h8jjYAixtZaPMbz37l8+54TKt9ZC55zBtdao4TlwSskNo4a9dwwVo3iaNZBGuJQSrBxK3QANZSs8wXvvL6ijLANhesijPGzaTgGKYn0LD2tTfM75fYB76QPtVIs53/n24QAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -3088,6 +3463,7 @@ JPA나 하이버네이트로 UserDao의 구현 방식을 변경하려고 하면 
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;h2 id=&quot;2-하위-엔티티를-조회하는-경우&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#2-%ED%95%98%EC%9C%84-%EC%97%94%ED%8B%B0%ED%8B%B0%EB%A5%BC-%EC%A1%B0%ED%9A%8C%ED%95%98%EB%8A%94-%EA%B2%BD%EC%9A%B0&quot; aria-label=&quot;2 하위 엔티티를 조회하는 경우 permalink&quot; class=&quot;anchor-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;2. 하위 엔티티를 조회하는 경우&lt;/h2&gt;
 &lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;LAZY&lt;/code&gt; 로딩을 하기 위해서는 해당 &lt;code class=&quot;language-text&quot;&gt;Entity&lt;/code&gt;가 영속 상태여야 합니다.&lt;br&gt;
@@ -3097,7 +3473,14 @@ JPA나 하이버네이트로 UserDao의 구현 방식을 변경하려고 하면 
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/922868e893bb9f17fc4d75c22953f61c/42267/proxy-error.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 19.148936170212767%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAECAYAAACOXx+WAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAvUlEQVQY012PSQ7CMBAE85woG2CP42wOiEVCCiFh+f9XmraxOHAo9chjlXqSm9LwzPqb151iKpxMj9E4jMKUDpfaYmoaHLg7bLZoqwpSljBEE1UUEL4lqxa8xQThPUqfIlikxl1sYNYGqzE4OYdhGND3PQbSWYsNZUWe/0gWSrxwik2nKHx5uHswz22LI/GS/Tii46zYtKQsTVNkWfYjCF//QrYOLblbOF957sULYzvH9Ni6huafiqd6Wc6GH7bvhF799gj8AAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -3116,6 +3499,7 @@ JPA나 하이버네이트로 UserDao의 구현 방식을 변경하려고 하면 
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Album의 Song에 접근하는 경우&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&quot;gatsby-code-title&quot;&gt;Java&lt;/div&gt;
@@ -3134,7 +3518,14 @@ JPA나 하이버네이트로 UserDao의 구현 방식을 변경하려고 하면 
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/a862e7a46a9b1e5d0c728276a25b79ec/a7115/lazy-2.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 40.95744680851064%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAYAAAD5nd/tAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAz0lEQVQoz2WRWQ6DQAxDuRI7Yh1A4v43CnqWXKXth5VlEo+TVOd5RikljuOI67pi3/dYlkUxFqzrGvM8y9+2TT4gD8jx1jRNVJBBBMF93ypo2zaGYfiyXdcJfd8rphmfd/JYYhFmlQBSlPIzoNBkJoCUeBzHjyUvQgABY0zTpCZbF2bSTPinkDFR6P15JI9qgjyyCf1hVlpBwpi/No+eD4APmfeaFWpklKES+zyPfF+aIgj4HbAGYJXO5RVJoXfIAUjWda0GLumLGo6pscpsXx14CZCWTADAAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -3153,6 +3544,7 @@ JPA나 하이버네이트로 UserDao의 구현 방식을 변경하려고 하면 
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;h4 id=&quot;eager-방식-결과-1&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#eager-%EB%B0%A9%EC%8B%9D-%EA%B2%B0%EA%B3%BC-1&quot; aria-label=&quot;eager 방식 결과 1 permalink&quot; class=&quot;anchor-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;EAGER 방식 결과&lt;/h4&gt;
 &lt;p&gt;&lt;strong&gt;N+1 발생 !&lt;/strong&gt;&lt;/p&gt;
@@ -3161,7 +3553,14 @@ JPA나 하이버네이트로 UserDao의 구현 방식을 변경하려고 하면 
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/988b3b4ebe7eff963353b86df5d09744/a7115/eager-2.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 38.82978723404255%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAYAAAD5nd/tAAAACXBIWXMAABYlAAAWJQFJUiTwAAAA0UlEQVQoz42QR46GUAyD33XobQGid+5/ooy+SEb/LKYsLJsQJ34J8zzbOI62bZsty2LTNLmmjuafetZ1dR6GwXEch3360WHfd2+8rssbpGnQPy07z9MZI/w8j/eg5QlqkFma+qdZyZUaaAE1eYK2s4EiA0hKjQVi1XUK+L7vb+np8ydT5KPveyvL0oqisKqqXKdpakmSvPwXgm7Utq0PyvPcIR3HsUVR5PwfBB2f2F3X+eCmaTyhuK7rFyTF+GNC3q6bMYwBJMuy7AVDBEy/DfwCSPIIOm/eojAAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -3180,6 +3579,7 @@ JPA나 하이버네이트로 UserDao의 구현 방식을 변경하려고 하면 
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;h2 id=&quot;n1-문제-해결-방법&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#n1-%EB%AC%B8%EC%A0%9C-%ED%95%B4%EA%B2%B0-%EB%B0%A9%EB%B2%95&quot; aria-label=&quot;n1 문제 해결 방법 permalink&quot; class=&quot;anchor-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;N+1 문제 해결 방법&lt;/h2&gt;
 &lt;h4 id=&quot;1-패치-조인fetch-join&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#1-%ED%8C%A8%EC%B9%98-%EC%A1%B0%EC%9D%B8fetch-join&quot; aria-label=&quot;1 패치 조인fetch join permalink&quot; class=&quot;anchor-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;1. 패치 조인(Fetch Join)&lt;/h4&gt;
@@ -3200,7 +3600,14 @@ JPA나 하이버네이트로 UserDao의 구현 방식을 변경하려고 하면 
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/f70753372a0f56ab5dbfeab63a3093e6/00e09/fetch-join.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 31.914893617021278%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAGCAYAAADDl76dAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAwElEQVQY022QVwpDMQwEfZ3Xe+/t/kfaMAKHR8jHspYtjWS5eZ61bZtwtK6rjuPQNE12T7wsiznxOI7a913XdVlMLnXneaptW7m6ri2BxzcAIIne329936tpGpVl+XU4uCPxeR7reN+3wSnI81xFUVgSyrJMURQpjmOFYaggCP7KAWJsYHSvqkppmipJEnNAOCBfBBDR4Fc2IVN5dV1nu8D5Bg1w/yV/hwD8gp1fKPvBaTAMgxUyHZN6MeX7/A/4Ac75wp74czEiAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -3219,6 +3626,7 @@ JPA나 하이버네이트로 UserDao의 구현 방식을 변경하려고 하면 
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;결과를 보면 쿼리는 &lt;code class=&quot;language-text&quot;&gt;1번&lt;/code&gt; 발생했고 미리 &lt;code class=&quot;language-text&quot;&gt;Album&lt;/code&gt;과 &lt;code class=&quot;language-text&quot;&gt;Song&lt;/code&gt;을 조인해서 가져오는 것을 확인 할 수 있습니다.&lt;/p&gt;
 &lt;p&gt;하지만, 패치 조인에는 단점 2가지가 있습니다.&lt;/p&gt;
@@ -3243,7 +3651,14 @@ JPA나 하이버네이트로 UserDao의 구현 방식을 변경하려고 하면 
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/d53bc563989b95a8061d693eaa089613/497e9/batch-size.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 10.638297872340425%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAACCAYAAABYBvyLAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAWElEQVQI102MSwoAIQxDvZYo4hcV9f7HiSTgMItHk7SNaa2hlIKUEnrvn661ipyzeDknc+rn/zeGhXNOlZ1zpMkYQ6y1sPfWnjk9f2KMKgwhwDkHay2897iKbke8Sdu2xgAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -3262,6 +3677,7 @@ JPA나 하이버네이트로 UserDao의 구현 방식을 변경하려고 하면 
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;h4 id=&quot;또-다른-방식의-해결-방법&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#%EB%98%90-%EB%8B%A4%EB%A5%B8-%EB%B0%A9%EC%8B%9D%EC%9D%98-%ED%95%B4%EA%B2%B0-%EB%B0%A9%EB%B2%95&quot; aria-label=&quot;또 다른 방식의 해결 방법 permalink&quot; class=&quot;anchor-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;또 다른 방식의 해결 방법?&lt;/h4&gt;
 &lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;@EntityGraph&lt;/code&gt; 를 사용해 &lt;code class=&quot;language-text&quot;&gt;N+1 문제&lt;/code&gt;를 해결하는 방식도 존재합니다만 이번 포스팅에서는 다루지 않습니다 !&lt;/p&gt;
@@ -3296,7 +3712,14 @@ JPA나 하이버네이트로 UserDao의 구현 방식을 변경하려고 하면 
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/84346395a7d2f7a34bb2803f09ad8d8d/4352a/example.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 18.617021276595747%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAECAYAAACOXx+WAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAxUlEQVQY03WOyQ6CQBBE+RGXoCAwjIioOKzKrogHxYsn//8nymaiJ+Oh8rqrq5NS8tsLPO6g7Srofv1Xqldg/iejbgrMtqWclUP7BBdnjKwYU55iYic/VJ0DRPkA8xuMWYwJT6T/zfj5HW58JT+FIrIeq+CCxbqEualgbRsYNDOi6VWS8+URIu+xjq4wyLP9E+VqSc3J4IYdHNFCdwso5v4ERg2/4uEFJjXhUQfrs2teCWNXy/vg2UELRhq4IF+nIsPdoL83sfaDqVPVKAIAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -3314,6 +3737,7 @@ JPA나 하이버네이트로 UserDao의 구현 방식을 변경하려고 하면 
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;h2 id=&quot;문제-접근-방식&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#%EB%AC%B8%EC%A0%9C-%EC%A0%91%EA%B7%BC-%EB%B0%A9%EC%8B%9D&quot; aria-label=&quot;문제 접근 방식 permalink&quot; class=&quot;anchor-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;문제 접근 방식&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;문제의 조건에 맞도록 원하는 구조를 생성한 뒤 정렬을 잘 사용하는 것이 포인트 !&lt;/strong&gt;&lt;br&gt;
@@ -3435,7 +3859,14 @@ JPA나 하이버네이트로 UserDao의 구현 방식을 변경하려고 하면 
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 647px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/03a6a1240709efaf7c6591ec9414bf67/ca12d/exception-relation.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 91.48936170212767%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAASCAYAAABb0P4QAAAACXBIWXMAAAsSAAALEgHS3X78AAAC10lEQVQ4y41Ua0/aYBTmv85kfl0WEyVxWeJE4yIqyzIv27Jk39ynZdnMlLkhOPDGRQwwi1CuBYpQ2tLS0vbZ23KxdNHsTU/fC6fPeZ5zDq8LZBiGYU7Q+xKkGx80eg1SdhXRvRmwCQ+M4ivI1x4o3BUG/jruGy47oKGrUG5PoLXDUG/DKKS+gSsHYHCnUJtBaHIddv8HAK23NWskeF8b/CgIInR9eKZP+t0LaEazS5bzb2CUXqOV8uLP0XPQkUXopU0oN6tQudRY8n0sHZL7llStdQyFDaFTPkSXCQxS0Az8n+QRQ9M0TYNK5Cp9IpN8w4uKtR9Zn+jWSQ6MIeiYiC2Ay9AHydEJmMDzkKUu5K5ozaIoQCKzabLcBS/wkGRpkB6b7EnA4UIhh2KvhwcHce6b9O1HDvmu0sYGmLU1lHd2UNzeRpWsKz4feiyLket5IYjd2BY+/PBh/dML7J68JfttlFv5MdsxYM7tRn52FqWVFVS8XtBkT8/PQ67VxoBH1B62fi9i83AJ3s/P8C70ElvHi8ixmQlAk61LUhSkKQqZbBYZKgu2zY3U/auYVEp1SHZKd/VI3hiGQb1eR42w4jgOo0L1ZBmiIKAripCICWTd6XRIkSSrYKaZZ6qqWCxNcz1Ug66qQrPtzZbRnU2tD83Zh6azOXqNBtqRCPhEApVgEK1oFPzFBfhkcvyR0u8hXozg9DqIQGIfgfg+zqgQEuWTO4aGNuDSDoeRm5pCec6N6vIyqh4P6Olp0AsL47y2RBbrv9xY+voU7o+PMfP+ETxfnmA9MGcDHMpQSHNnfh4iuX+AK78fyQM/aoShVK1ieDdY/+UkFYP/+Dsi8RAuqSii6TPkGMoBOHiQKxWRIpW/zudB0TRYUgjDEbjONBCPJkDnCmg1ObRvubvLYeKSJdIz6TRiFyTq+TkuE5co0AU0SaPb/SqVMuLxOGKxGOhCAY1GHQppwb9LSEYfJbYdRwAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -3451,6 +3882,7 @@ JPA나 하이버네이트로 UserDao의 구현 방식을 변경하려고 하면 
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;h2 id=&quot;예외-처리-방법&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#%EC%98%88%EC%99%B8-%EC%B2%98%EB%A6%AC-%EB%B0%A9%EB%B2%95&quot; aria-label=&quot;예외 처리 방법 permalink&quot; class=&quot;anchor-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;예외 처리 방법&lt;/h2&gt;
 &lt;h4 id=&quot;1-예외-복구&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#1-%EC%98%88%EC%99%B8-%EB%B3%B5%EA%B5%AC&quot; aria-label=&quot;1 예외 복구 permalink&quot; class=&quot;anchor-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;1. 예외 복구&lt;/h4&gt;
@@ -4600,7 +5032,14 @@ answer &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span clas
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/09f4fa8e4805c17ddd997e92a410f389/6da96/result.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 76.59574468085107%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAYAAADkmO9VAAAACXBIWXMAABYlAAAWJQFJUiTwAAACH0lEQVQ4y4VT2XLaQBDUZwShA2GwDTKg1clhbIEQxICNBRgflTjX/39DZ3ZXEFDZlYeu6Z3SdPUcUtg4g5uswUYZgvQJzf4c9TDFeTilWEQqY3T8PoXikCAjwXa8gkPxojfDORVITApIRbwIE8m706NvJRTupOZPUPMSgoxnLoGNYQVLWP6ccCdi1Z2IWIkyWN4MVSdGlY1OoFRaN9AvBzAahOY1aoyK2jFMewjVf0bZ2wiUou/QnAVU4l96f4gvYVz2RM0xFKsTC8IFOGrkotoZoXJ1g7L/BM1bU9xAjb5Bd+ZSvPsDGlvCbPYPdXsoVvv2oC4EyWG1vRfckcBaQA1foXfuBC/1fwuHZqMP4/+CCQnGB4cHQe6w8xVlNyOH79JhLnjScmUvaB855C23/rWseRnK4Rt0thDtl3q/iH/Ssj28hz1cokH31xgsaOOJ3HpA8Mf5W6LO3yJP3ItlPpicQDlzx2KrArSgupfKkyGuh1sY/gp6sIEWvUDrvsFkM+j+I7T+O0wnpU6GhFvREYdsOT8ZsylnaLVohvxsgmc5Q5dmGLxQXEGjOaq0LJVGUDwZeTb5DA9nwwpn4z4KCOFgJxdDebX7E8bViExcf7Jl++Mta9yV+0B8m/OVcMfvUYoUBGXLH5+NbDMTxfwOOdfYvcx7W+ithOoGpy3z/4+LcnC3/E/ZL4UvxPQW+XIeoEc78TbZVHCes/hS8nqOvy6s3Pfe3eqSAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -4617,6 +5056,7 @@ answer &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span clas
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;마지막 효율성 테스트는 1초를 넘었는데도 통과가 되네요 🤔&lt;/p&gt;
@@ -4742,7 +5182,14 @@ model User &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/19cde4ff3bb19808d8a43a1209fac263/82c1e/prisma-test.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 18.617021276595747%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAECAYAAACOXx+WAAAACXBIWXMAABYlAAAWJQFJUiTwAAAA0UlEQVQY02WO3XLCIBSE8y7+1L+OCAmEQEISNMbU6rR64fT932N7cjpTL7zY4Zxll49kbT/gTw+0/Td02SMPA0QeIbKAd2GxIaWmhtQVRFpiqzxkVrGvyN9Kx55I/5SI5g4VLuj6K/bHC75uP4iHM1zoYIoIbRuUNYH8Hn48XYQPR4aEOMDQ7mgvqg5Vc0KibITxB+iiZVKWN0jzmoPatvygMoHlqMR3BBp/PM5SB1jqc48gyXC+oSbS8Hnn0ORNYL5SmC3li6aL3f/8zCjyn5lfhF+FQfMJzGoAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -4760,6 +5207,7 @@ model User &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;h5 id=&quot;2-typeorm-코드&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#2-typeorm-%EC%BD%94%EB%93%9C&quot; aria-label=&quot;2 typeorm 코드 permalink&quot; class=&quot;anchor-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;2. TypeORM 코드&lt;/h5&gt;
 &lt;div class=&quot;gatsby-code-title&quot;&gt;TypeORM&lt;/div&gt;
@@ -4776,7 +5224,14 @@ model User &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/744da7732dd0d8cd396c9022d78405f5/5faa8/typeorm-test.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 15.425531914893616%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAADCAYAAACTWi8uAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAsUlEQVQI1z2MWw6CMBRE2YyPoPEBbXhoQVopKIiiMX64/3UcaxP9mNwzk5sTRHLPJrcUpxfq0BKlmqU4kKkamVY+6d4QZ4ZtasiKBplpvye5Rrh9kxh2hSVOSoKvZHi82dV3KnulbO7Up5F+eBKpjlxfsO0VpTu2rq+Km/+rjj3NeUSZHln2tI5LfSawDobxhXWSzknWUU64SpgtBJNQuCuZhfG/TxfC89TxfCl9ftuXPyDKZlM66uWDAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -4794,6 +5249,7 @@ model User &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;h2 id=&quot;결론&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#%EA%B2%B0%EB%A1%A0&quot; aria-label=&quot;결론 permalink&quot; class=&quot;anchor-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;결론&lt;/h2&gt;
 &lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;Prisma&lt;/code&gt; (180-240ms), &lt;code class=&quot;language-text&quot;&gt;TypeORM&lt;/code&gt; (90-120ms) 여러번 실행해보니 대략적인 결과가 나왔습니다.&lt;/p&gt;
@@ -5033,7 +5489,14 @@ model User &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/91758221954673565daf5787b0691a16/6f464/configuration-1.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 51.06382978723405%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAABYlAAAWJQFJUiTwAAABMUlEQVQoz51SCW6DMBDk/0/sEXJAOQw2YNxyT3ccSIPSSm1XGu3hZbyeJZimCedLhNdDiKfnF1RVDdqyLP9CQMKiKJFmGeq6AfPv7NeEwzDiEIY4ns5oGot5njEMg8c4jt6z9pOR5D4O2MxnllrLpAWyXMm0OTKCcXqdvOu6L/S9930/PE5I5rZtEcdvSNJUCFLJLZzUOLEVT1RVJXkj5LWv0zvnHqb1hJUchuERSSKE+h2l9Gm3oJYPjTGwVkitvRE1a0xobWDkMspDC8jKJ5PwEsXQpoYqDZJM+WY+XanCIxcJuED6XF1j1tm3ezIJqQuNmnLT2zJ4M8HahnGcdvm2tBshR49EQyVLoY5m/Rf/YrsJnRPdSu211EbEF83a1nntNq225RA8t+vSPmTb94SfYbAJD5YzH9gAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -5051,6 +5514,7 @@ model User &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;저는 모든 레퍼지토리에 대해서 연동할 필요는 없으므로 &lt;code class=&quot;language-text&quot;&gt;블로그&lt;/code&gt;를 위한 깃 레퍼지토리만 허용 해주었습니다.&lt;/p&gt;
 &lt;h3 id=&quot;2-blog-post-️-issue-mapping-방식-선택&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#2-blog-post-%EF%B8%8F-issue-mapping-%EB%B0%A9%EC%8B%9D-%EC%84%A0%ED%83%9D&quot; aria-label=&quot;2 blog post ️ issue mapping 방식 선택 permalink&quot; class=&quot;anchor-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;2. Blog Post ↔️ Issue Mapping 방식 선택&lt;/h3&gt;
@@ -5060,7 +5524,14 @@ model User &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/65e0a2e8469b7d51ec8c2ef6f428b614/0d390/configuration-3.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 76.06382978723406%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAYAAADkmO9VAAAACXBIWXMAABYlAAAWJQFJUiTwAAAB2UlEQVQ4y22UiXKDMAxE+f8/bJs2CTfhvjEBtlqDIWTCzEby/SzJsaZpgu048IMQcZwgCCM4jgvHdcGx929Zlo9tWsrioiAIEEaRlu8HenPaNMuQ5wWSJEWSpmjb9rT4kyz5Ra8mtF2Pvu/FdujEdmKbpoFSCvM8f6T9RG/RKboZX5crbrc7fi6/uPz+aX19X4T6gaKskBclMqElcZbn0j78pmkxG8I1BguyLEdVN5pEqRFqHDEMShNXdY1axriQqoW8aWnXNn2u2wkHuZYtiQjCUJLhwfN8bXllnszJ5trTNK/+3p5OidGEnPSQDFO8YvSId8WSECMzJ0kzLfoMx/P5PMdQbYS+ZNvWJePhbjsoq3WyCYGx47j1yTr6JmE7Ia8QxwfFqzU0lG6LMimndCOsqvq8oSEkkSe1R0tKWyyLm2Ov6tSMVi0Sd5Ie1Mtrlhlgnp5uFCZOOyXHpArYF6UVgqQWP9eFn2393JjfTuh6nsjXT4+Wp/MqwxvhqAatYRjQi9h3enpsMLCaZsvyY8swn5teNK4JODYfdT/r1Gx4iiFprjdbdN/1d71JPN09+MlbgnhVvhKTLEKxHC2DWsjTYk2VkrVc++X+3LiAfwyGctdw+KwU7vMPt/2DlnVkI60AAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -5078,6 +5549,7 @@ model User &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;매핑 종류는 총 6가지로 각자 원하는 블로그 구조에 맞게 선택하여 진행하면 됩니다.&lt;/p&gt;
 &lt;p&gt;저는 1번 &lt;code class=&quot;language-text&quot;&gt;Pathname&lt;/code&gt;을 선택했습니다.&lt;/p&gt;
@@ -5095,7 +5567,14 @@ Ex) posts/{포스팅 이름}&lt;/li&gt;
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/33453699fa792e72af3dfde6956399ae/d7ceb/configuration-4.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 98.40425531914893%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAABYlAAAWJQFJUiTwAAACU0lEQVQ4y6VUbXKbMBT0YXuhHqKn6M9eoB3/yCT2JAZjAzYgEAjEl7dvhaHORydpqplFQkir3feeWFnbIowi7IMD8qLAR9vlcnk1Zr9q2xan0xlRHCNJUxRaI1MKishzh1yQZQqFHJimGSpjXhEthHxwcXw6IYpiaF2ChzRN42CtdWjmXua6rnOb38KKzEWh8bTzcD4nz6z8a1sUUtVJyDKVOyRiS+WFU651gaoyKAXG1CjL6hm4V5clalG+ELZigZu0LKBat8gt1Ohag2EY3sU4jhNhLy/HY4i6rvG/bSLse5cMl0XJMDNJlQTLSOtbxeX0zc1JL47SakReMUlXhcwY6/AgKpkUKq3rxsVkGdfTeM7y/K2RGjbtCGOHP4SDeFeSCCaFi9l4CGPyQaOvLWdZ5kgJWmKQPx1DXr3Hpx12nudq0fP3S3FPluvFMvu52BfrAlYIRVyvnsQwjNz1Y7YjiWdwOOAYhgiCqff3ezee7nwg74HE/DjNy9pcanZ2tRqGUbJVOuiyhtIcG+RaalIbqKISlKKohZXD68bCUKk4I6xlvC/ohYdcK75okZzmGv6jwt0mxPohwK97Hw+7CFsvRpxq2UyyzvUvUcthRNcPU5Zt20t8OvjbAvfbED/vJJbHRJS0EsveqaCaeeNLzKQ9CVkenKiMFcIcvpdhFyTYeJGorpbFbym7VVjJ4V03TJaVVH2YnKVsjFNjr6r+pugWhlalboFewBhKqklKXNxYgnvF+A6YCBb2+tDiyzeFH5tm+tt8/mcw9V7S4uv3BOugwW+mtxEK4io7rAAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -5113,6 +5592,7 @@ Ex) posts/{포스팅 이름}&lt;/li&gt;
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;각자 원하는 &lt;code class=&quot;language-text&quot;&gt;Label (깃 이슈 라벨)&lt;/code&gt; 명칭과 &lt;code class=&quot;language-text&quot;&gt;Theme (테마)&lt;/code&gt;을 선택하고 &lt;code class=&quot;language-text&quot;&gt;Copy&lt;/code&gt; 버튼을 클릭하여 댓글이 들어가길 원하는 위치에 붙여 넣어 주면 됩니다.&lt;/p&gt;
 &lt;h3 id=&quot;만약-react를-사용한다면&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#%EB%A7%8C%EC%95%BD-react%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%9C%EB%8B%A4%EB%A9%B4&quot; aria-label=&quot;만약 react를 사용한다면 permalink&quot; class=&quot;anchor-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;만약 React를 사용한다면?&lt;/h3&gt;
@@ -5164,7 +5644,14 @@ Utterances&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;displayN
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/e5ab450603ab0454d2067d2c70e1ad76/50e7d/utterances-result.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 31.382978723404253%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAGCAYAAADDl76dAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAu0lEQVQY051Ruw7CMAzM//8MMwMjf8ACEgwIpA6obd5pnPSIk3aEIk46JbJP9tkWMRKCnyClQj+MMMZiLH+pVI3FGMGY5/knitulw/n0gA8BWhsMo4LSFmGiEouVrjT0odB/YMmxZirmRE4ZTC7onIcuDllAlBCJ6rtF1q1agQU5l8K52f4XdeR1dt4VLZ1at8atnaWcMHiJl+3hY2gOOcEH4INoY2CshbWuruBbMYangMP9iN11j6fu8AYpMtX986KD8gAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -5183,6 +5670,7 @@ Utterances&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;displayN
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;궁금한 사항이 있으시면 댓글로 남겨주세요 !&lt;br&gt;
 긴 글 봐주셔서 감사합니다 🙇🏻‍♂️&lt;/p&gt;
@@ -5405,7 +5893,14 @@ NAVER : &lt;a href=&quot;https://naver.com&quot;&gt;https://naver.com&lt;/a&gt;&
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 414px; &quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/21ba7bfb42b32ecefdb8a33672128dc4/b910a/rocket.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 102.1276595744681%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAABYlAAAWJQFJUiTwAAAEUUlEQVQ4y11Vi1NUVRjfP6NJkwJG5bG8FxCX57LLvvfu3uURFUZUM7FpKWUMg0wJZUlKNZo4YTqGUmSjRDno2IRJWAPjgKM5UxkBuzzWXWR1d8EEfn3nXC61nplvzrnf+Z3f+X7fd865ipWVFTBjbXl5mZvcvP45DAyNoOdiP3ov9ePqtVH45u6uzS8x/OpamUchky39j2hweASuxveQbqyEyiAgWWNGjNqE+EIbcmzP4vW39+PXkRtreDkITsjJliRHeGER9fvaELPVhFi1Hiq9gCSdCKXGxsmUWhFxBTbEbtUjTWdF04FP8XDpYQSpQh4E7gdR4dqNdSotVEYnCh2lUNucFJ0dSTkaxGfmIUUjILHYgTS9E5lGEetVxdi2cw8WFh+skSqwKtnVsBdRWVqklJQiRedAitaBZFrUYrfhB7seFwUd6s1mxGocSKJNEqln2M25WuxuaY2U3NXTh4T8EmSaSgloR3yRnfdKIv1WNGPo+TIMV5fjS8EAZbGdR5lExnCFjjJspPT0XrosSWbhGp57BRvzLEiiHDGibJODL0qn/H1jKMLPfX0YPH8eJ7W53BdP0SlZKmjDLRYn5dsE8eWdkuT+q0NEZuZkSiLhhGaRR5JAvnMOE664ajDgehGdVioUpSFZK+EYvsDOvkVsLrBiePQmFG2ffYENmSx3Tg5QrkpJpv4JtRmHrCbcfMaK35424wOjHvFaKzL0khJGHFdIvc6JJ7focehEFxR1za2IytYjx1IKjShKALZjvgWWl3bhStcp3Gp8A7fqXBg4042Sba/SsbJA63Sidkc5NhUwQpGr3L5nHxS1DS0EMHCnLJmNo3P0ONZ9Dkc+bMOFN134vrYKHYfb0d75FTZk6ZBKithpSOS5FLGJAnihrgmK/Uc+p+Oi45LZZMKqsbG2vAZRBQJ6m50422TH+jw7dBU1pELgZJlGBxIoPSkkOTrHgANHT0Dx59g4VKYKyptAEYq0M1VX75BIi2yIyRNxsLkSre9UIjrXwX1MSQZhcm2Uy2J2e6xQ26vgnpqWzuGx01/jKZKYoBGhtjqRL1CBtFKRHkstROX2eliqd+Dx9CKKiIiEMl7tLJOTH/BYtRFdZ7+Tr94K7t0L4N2P2zlpHEmMoequy9Agy1KJhvc/woTbg99vj6FubysyjBX8ymUbrUjVCSTViINHjyMUvM9fHoX0KCzAd8eLjlPdPNnVuxpx+PhpXB78BeFQEOFwGIuE+efBIi78+BM+6TiJqtfeQpqhHJ1neuD3+bBADwuPUH6+5ucDmPP7cG30Osb+HsdiOIg7Xi/Gx8fhdrvh8UxhctINr3cWCxTNH7f/wsj1G3xNIBD47y7LhKz56fGcnZnB1NQUJiYm4fZ4+JiZZ3XMfGxumsYzhL07Px/5wMofcgsGQ5gmIItKiswTYbKfkYVCoQiyCMmP/gqCBPZRbmZmZ/liyWbh8/s5ESvmo+tY/y9rqDyAHzoRLAAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -5421,6 +5916,7 @@ NAVER : &lt;a href=&quot;https://naver.com&quot;&gt;https://naver.com&lt;/a&gt;&
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;h2 id=&quot;추천-해줄-마크다운-툴&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#%EC%B6%94%EC%B2%9C-%ED%95%B4%EC%A4%84-%EB%A7%88%ED%81%AC%EB%8B%A4%EC%9A%B4-%ED%88%B4&quot; aria-label=&quot;추천 해줄 마크다운 툴 permalink&quot; class=&quot;anchor-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;추천 해줄 마크다운 툴&lt;/h2&gt;
 &lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;Mac&lt;/code&gt;과 &lt;code class=&quot;language-text&quot;&gt;Window&lt;/code&gt; 또는 &lt;code class=&quot;language-text&quot;&gt;웹 플랫폼&lt;/code&gt;에서도 사용이 가능한 &lt;code class=&quot;language-text&quot;&gt;Notion&lt;/code&gt;을 사용해보시는 것을 추천드립니다.&lt;/p&gt;
