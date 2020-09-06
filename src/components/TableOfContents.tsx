@@ -9,7 +9,6 @@ const TableIndex = styled.div`
   justify-content: left;
   width: ${props => props.theme.sizes.tableOfContentWidth};
   padding: 1.5em;
-  font-size: 20px;
   background: none;
   border-radius: 4px;
   @media screen and (max-width: ${props => props.theme.responsive.large}) {
@@ -27,7 +26,6 @@ const TableWrapper = styled.div`
   width: 100%;
   max-height: calc(100vh - 150px);
   word-break: break-word;
-  font-size: 14px;
   color: black;
   overflow: auto;
   border-left: 1.5px solid rgb(233, 236, 239);
@@ -43,12 +41,12 @@ const TableHeader = styled.h1`
 `;
 
 const TableContents = styled.div`
-  margin-left: 10px;
-  overflow: hidden;
+  margin: 0 10px;
+  font-size: 14px;
   transition: all 0.125s ease-in 0s;
   
   a {
-    display: inline-block;
+    display: block;
     color: rgb(134, 142, 150);
   };
 
@@ -65,7 +63,7 @@ const TableContents = styled.div`
 
   ul > li a[href='${(props: TableContentsProps) => props.currentHeaderUrl}'] {
     color: var(--tableOfContentsFocusColor);
-    transform: scale(1.1);
+    transform: scale(1.05);
   };
 `;
 
