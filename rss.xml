@@ -1,6 +1,168 @@
 <?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Your Site's RSS Feed]]></title><description><![CDATA[스페셜리스트보다 제너럴리스트가 되고싶은
     백엔드 개발자의 기술 블로그입니다 :)
-    📚공부한 내용을 기록하는 블로그]]></description><link>https://wwlee94.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Mon, 14 Sep 2020 05:20:12 GMT</lastBuildDate><item><title><![CDATA[AWS EB에서 HTTPS 적용하기 + Route 53에 도메인 등록하기]]></title><description><![CDATA[이번 포스팅에서는 AWS Elastic Beanstalk에서 HTTPS를 적용하는 방법에 대해서 다룹니다. 간단히 HTTPS에 대해서 알아본 뒤, 무료로 도메인을 구매하는 법, 구매한 도메인을 Route 53에 등록하는법, AWS EB에 HTTPS…]]></description><link>https://wwlee94.github.io/category/blog/aws-eb-https/</link><guid isPermaLink="false">https://wwlee94.github.io/category/blog/aws-eb-https/</guid><pubDate>Sun, 23 Aug 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;이번 포스팅에서는 AWS Elastic Beanstalk에서 HTTPS를 적용하는 방법에 대해서 다룹니다.&lt;/p&gt;
+    📚공부한 내용을 기록하는 블로그]]></description><link>https://wwlee94.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Mon, 14 Sep 2020 09:39:07 GMT</lastBuildDate><item><title><![CDATA[왜 리다이렉트시 HTTP 메소드들은 GET 메서드로 리다이렉션 될까?]]></title><description><![CDATA[개요 최근 저는 루비콘 멘토링 프로젝트 라는 곳에서 2기 멘토링에 참여하여 프로젝트를 진행하고 있습니다 ! 프로젝트는  기반으로 API…]]></description><link>https://wwlee94.github.io/category/blog/http-post-redirect-to-get/</link><guid isPermaLink="false">https://wwlee94.github.io/category/blog/http-post-redirect-to-get/</guid><pubDate>Thu, 27 Aug 2020 00:00:00 GMT</pubDate><content:encoded>&lt;h2 id=&quot;개요&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#%EA%B0%9C%EC%9A%94&quot; aria-label=&quot;개요 permalink&quot; class=&quot;anchor-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;개요&lt;/h2&gt;
+&lt;p&gt;최근 저는 &lt;a href=&quot;https://lubycon.io/magazines&quot;&gt;루비콘 멘토링 프로젝트&lt;/a&gt; 라는 곳에서 2기 멘토링에 참여하여 프로젝트를 진행하고 있습니다 !&lt;/p&gt;
+&lt;p&gt;프로젝트는 &lt;code class=&quot;language-text&quot;&gt;Spring&lt;/code&gt; 기반으로 API를 구축한 뒤 &lt;code class=&quot;language-text&quot;&gt;Github CI/CD&lt;/code&gt; 기능을 이용해 빌드 및 &lt;code class=&quot;language-text&quot;&gt;AWS EB&lt;/code&gt; 배포 자동화를 구축하였는데요.&lt;/p&gt;
+&lt;p&gt;서버는 &lt;code class=&quot;language-text&quot;&gt;Application&lt;/code&gt; 레벨의 로드밸런서를 이용하여 &lt;code class=&quot;language-text&quot;&gt;HTTPS&lt;/code&gt;를 적용하였고 &lt;code class=&quot;language-text&quot;&gt;HTTP&lt;/code&gt; 프로토콜로 접근하게 되면 &lt;code class=&quot;language-text&quot;&gt;HTTPS&lt;/code&gt;로 리다이렉트하는 방식으로 서버를 구축해두었습니다.&lt;/p&gt;
+&lt;p&gt;이후, 배포한 서버에 간단한 API 테스팅을 진행해 보았는데 다음과 같은 이슈가 발생하였습니다.&lt;/p&gt;
+&lt;h4 id=&quot;이슈-발생&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#%EC%9D%B4%EC%8A%88-%EB%B0%9C%EC%83%9D&quot; aria-label=&quot;이슈 발생 permalink&quot; class=&quot;anchor-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;이슈 발생&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;HTTP POST 메서드를 호출하면 리다이렉트 이후 HTTPS GET 메서드로 &lt;code class=&quot;language-text&quot;&gt;변환되어 호출&lt;/code&gt;되는 이슈&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;1. 정상 GET 메서드 호출&lt;/strong&gt;
+&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/2209efd3771739ecb1c98ada5d83b015/a6ec4/issue-1.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 73.93617021276594%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAYAAADkmO9VAAAACXBIWXMAABYlAAAWJQFJUiTwAAACIklEQVQ4y51S247TMBDNdyCE6NImsZM4jp1LY6fJFrqrSu0bb3wBEk+88Q/8DL/BVx1m3GTbXSFW4uHIHnt8fM7MRLZScI3B1NXwVsH3Fs55OrPwnYbzDq5r0VFsjMH9/YTz+YzT6YRx2sPvRng/EOiNc4iapsanj3s8ECqVo8gFtK6g8owgUFUVSqWQUyylRFEUdK9R6RIqvUOZvodRAqYs4V1PhHWD7XaLumlg6/qyWouSHpVEXFIi7/WMsFcFZFlj9fgN704/sBq/oLPlReG2d/DDgK7rMI4jjscjDocD+r4PCQzeX2OPwW1h/ANWX3/hzfffePv5JybfYkt30aNrMbQWimyxvTQTZC8Pytgeg8/5Po5jJEmCmLDZbLD+sEK8voNM1jAygZYpotpUcGSZCbhGQorLKsQTIe/5LE3TAI7ZPn+yxIqEaEKU8iUrm5MXsBLuKqtjZbd37GCgMrVtG/KkzKBzCUtNjJL5h6ffU0G4KlnULljypJjP+XNCHECEQ9dAlypYNpWBKCQyGhHudJZloVbxXDdWwzZzXSApiFzJsHb0xtPo2IxquO+pKdRBJmA0ZIOtcte5TjxSbW3RGx1IF6VJmlzLkMQwNJeW+hHJvAgkbh6L3W4XSKZpQkMzGWaPVOkiDwoXpAkTXVaOBZWGHUVhDOZxWJpxC767IHnetPSaf/suuu3q3/Cy8y+n4eV59K/E14j+m/A13L7/A33azd/fpdQVAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;이슈-1&quot;
+        title=&quot;이슈-1&quot;
+        src=&quot;/static/2209efd3771739ecb1c98ada5d83b015/1d69c/issue-1.png&quot;
+        srcset=&quot;/static/2209efd3771739ecb1c98ada5d83b015/4dcb9/issue-1.png 188w,
+/static/2209efd3771739ecb1c98ada5d83b015/5ff7e/issue-1.png 375w,
+/static/2209efd3771739ecb1c98ada5d83b015/1d69c/issue-1.png 750w,
+/static/2209efd3771739ecb1c98ada5d83b015/78797/issue-1.png 1125w,
+/static/2209efd3771739ecb1c98ada5d83b015/a6ec4/issue-1.png 1438w&quot;
+        sizes=&quot;(max-width: 750px) 100vw, 750px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2. GET 메서드로 변형된 POST 호출&lt;/strong&gt;
+&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/c44a90a5332c733466da4f7111dbe824/e515d/issue-2.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 74.46808510638299%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAYAAADkmO9VAAAACXBIWXMAABYlAAAWJQFJUiTwAAACMUlEQVQ4y41Sy27bMBDUb/RQOG0skZREkXpTzzpWgBqugR77Fe2pxwL9rH5AP2y6S1upkyZIDwNqqd3Z4ewGprRoO4fOOUyVxtLluOsd5tpidIRpxNDWqKsKRVFgv9/jdDrhePyE+cMdhmnGME4YhhH9MCBoXYvlfsGyLMgShVhG0EmCREk6FYwxyHSKhO7iOIamb2MsrNHQ0QZGbFBohdIadF1HhE3jP+q6Rkkq6rpBWZaweQ5rCURorfXfub87k6nc4eb4HW9PP3A7fUFX5XCOCIdpwjzPaNsWu90Oh8PBq+Umfd//g64fMHYNsvGI26+/8Obbb2w+/8RubNEy4cehJfYC2UWJSOipWiPLMn8yWFmapoiiCEIIOgXCcIvt+xtE23dIxBZFLGAIQV2QVFKndUYeKSgCe6WU8qRMxN8MKaUH/+fm3IxjRTH7b6g24ET2izuvBQyOK/KUC1mZL6RcvmeiiWyqyHchqAENzKYxypQII8GJ8QORkn+VMMGq9lqlYpUqfogFISSeiGoD3jFLI+fn8Z5JWgFWwJNmsjAMEbFvBCGFX6MkTyFIjWToGC1hyBRy8j+4Hx0GmigT8BMbWiMmdrToPAxehbYq4XLjh+FVqbMqsb6EmpW5RUH5QZxqT7KuyTiOnmyidWrII0MeGlJvaKHZvxWSnigvJ8c8GPYyEJdVWIfyqIhiHsgZT4YmxePzUhNcT/U5PJ38dfzcffBS0mskLxK+lvw/uCb8A7GLze3A+VhzAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;이슈-2&quot;
+        title=&quot;이슈-2&quot;
+        src=&quot;/static/c44a90a5332c733466da4f7111dbe824/1d69c/issue-2.png&quot;
+        srcset=&quot;/static/c44a90a5332c733466da4f7111dbe824/4dcb9/issue-2.png 188w,
+/static/c44a90a5332c733466da4f7111dbe824/5ff7e/issue-2.png 375w,
+/static/c44a90a5332c733466da4f7111dbe824/1d69c/issue-2.png 750w,
+/static/c44a90a5332c733466da4f7111dbe824/78797/issue-2.png 1125w,
+/static/c44a90a5332c733466da4f7111dbe824/e515d/issue-2.png 1430w&quot;
+        sizes=&quot;(max-width: 750px) 100vw, 750px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;3. 첫 호출 시 HTTPS POST로 호출하면 정상 호출&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;API 서버의 &lt;code class=&quot;language-text&quot;&gt;/&lt;/code&gt; POST는 없으니 에러 메시지는 정상 호출 ✔️
+&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/9bcc973b4628e910f9903fd3c276d997/e515d/issue-3.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 74.46808510638299%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAYAAADkmO9VAAAACXBIWXMAABYlAAAWJQFJUiTwAAACU0lEQVQ4y41Ty27bMBDUb/RQJG1kkZREiqIelETb8Quw4RrosV/Rnnos0M/qB/TDprtS5MRJUfQwIHdJzQ53VlFRWfi+Q991GJoCq6FGCEuEpsTO59gte2xbh7au4VyF3XaLy+WC8/kT1o9bhNUaYbkavxlCQOQ7j/1hj/1+D6Mz5FkKYwyyVCKTCUyeI08VMsqnaQpNcVFY2EJDJ3coxB2cVqhsgb7vibBtx03TNKhIRV03455XW5aw1k4roZxjIlNlh/vzd7y//MDD6gv6ukTXEWFYrbBer+G9x2azwfF4xOl0wuFwGAsNw3CDfghY9i3M8oyHr7/w7ttv3H3+ic3SwzPhMXhidzBFMVYXmYTW+gasLKenJkkCIQStAotFjPjjPZL4AzIRw6UCBSFqHEkldVob6pGCInCvlFIjGRPxniGlHMHnXJzPOVYUm0wRoULEF7k/XHn+gMFxTT3lD1nZSEjgPBNxm2rqtRBUIMtg8xRVToQJJZRKr0RKPithElbzfDaD8i9UC8KCeBLKR8GTm2Q5j4pzDlJPT61o5pgsjuNpXOiOsERg0wl0b0IKTwhGwVH/o0PoEMjNqqrQ0BMb36IkYnaYC/TkrG9o2Mk4IaktihQpeVU2Kqc2VKWFI0RZrse5s6Ube9lUDmwUO5uRIbwao2F1PvX5DaZ+8/P5lREn+e8o6hbt4wEDKdl39JuZHDUNcE5qFmRK8mSaeKFs2k95No5bE3GF2f7JXXl1XCn5xvmX8euzjNyO5mCGfKp4m5M3+7+RzWv0r6r/o+z1nT9KMs7ZX7pEogAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;이슈-3&quot;
+        title=&quot;이슈-3&quot;
+        src=&quot;/static/9bcc973b4628e910f9903fd3c276d997/1d69c/issue-3.png&quot;
+        srcset=&quot;/static/9bcc973b4628e910f9903fd3c276d997/4dcb9/issue-3.png 188w,
+/static/9bcc973b4628e910f9903fd3c276d997/5ff7e/issue-3.png 375w,
+/static/9bcc973b4628e910f9903fd3c276d997/1d69c/issue-3.png 750w,
+/static/9bcc973b4628e910f9903fd3c276d997/78797/issue-3.png 1125w,
+/static/9bcc973b4628e910f9903fd3c276d997/e515d/issue-3.png 1430w&quot;
+        sizes=&quot;(max-width: 750px) 100vw, 750px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;리다이렉트시-메서드가-변경되는-이유&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#%EB%A6%AC%EB%8B%A4%EC%9D%B4%EB%A0%89%ED%8A%B8%EC%8B%9C-%EB%A9%94%EC%84%9C%EB%93%9C%EA%B0%80-%EB%B3%80%EA%B2%BD%EB%90%98%EB%8A%94-%EC%9D%B4%EC%9C%A0&quot; aria-label=&quot;리다이렉트시 메서드가 변경되는 이유 permalink&quot; class=&quot;anchor-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;리다이렉트시 메서드가 변경되는 이유&lt;/h4&gt;
+&lt;p&gt;스프링의 Default 리다이렉트 HTTP 상태 코드는 &lt;code class=&quot;language-text&quot;&gt;302&lt;/code&gt;이고 AWS ALB의 Default 리다이렉트 HTTP 상태 코드도 &lt;code class=&quot;language-text&quot;&gt;302&lt;/code&gt; 입니다.&lt;/p&gt;
+&lt;p&gt;애초에 &lt;code class=&quot;language-text&quot;&gt;302&lt;/code&gt; 코드는 &lt;code class=&quot;language-text&quot;&gt;GET&lt;/code&gt; 또는 &lt;code class=&quot;language-text&quot;&gt;HEAD&lt;/code&gt; 이외의 요청에 대해서 사용자가 요청 조건을 변경 할 수 있기에 사용자를 확인할 수 없는 경우 리디렉션 된 요청에서 메서드를 변경할 수 없도록 지정한다는 &lt;a href=&quot;https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.3.3&quot;&gt;RFC2616 HTTP 스펙&lt;/a&gt;이 있는 것으로 확인했습니다.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;또한, &lt;code class=&quot;language-text&quot;&gt;Stackoverflow&lt;/code&gt;에서 다음과 같은 의견도 존재했습니다. (한 사람의 의견임)&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/05e60cd41d9a686782bb4bacecfdbbc9/58354/reason-1.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 12.234042553191488%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAACCAYAAABYBvyLAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAZ0lEQVQI1y2NQQ7FIAhEe/8LVr8FQW0T3bueD7SLlwBvMhxzTtRaoaporeEiAhm99/dmuBcRqHlnjBE5ZrYsR66UC2stHPfzIOUMMnmmFMILzsJBJkEVDf/7XLNnvnuhPxAr9HnvjT/N/5DHueo56QAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;이유-1&quot;
+        title=&quot;이유-1&quot;
+        src=&quot;/static/05e60cd41d9a686782bb4bacecfdbbc9/1d69c/reason-1.png&quot;
+        srcset=&quot;/static/05e60cd41d9a686782bb4bacecfdbbc9/4dcb9/reason-1.png 188w,
+/static/05e60cd41d9a686782bb4bacecfdbbc9/5ff7e/reason-1.png 375w,
+/static/05e60cd41d9a686782bb4bacecfdbbc9/1d69c/reason-1.png 750w,
+/static/05e60cd41d9a686782bb4bacecfdbbc9/78797/reason-1.png 1125w,
+/static/05e60cd41d9a686782bb4bacecfdbbc9/58354/reason-1.png 1396w&quot;
+        sizes=&quot;(max-width: 750px) 100vw, 750px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;링크 : &lt;a href=&quot;https://stackoverflow.com/questions/59719772/redirection-of-http-to-https-in-the-aws-application-load-balancer-converts-post&quot;&gt;https://stackoverflow.com/questions/59719772/redirection-of-http-to-https-in-the-aws-application-load-balancer-converts-post&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;HTTP POST 요청을 HTTPS로 리디렉션하는 것은 의미가 없는 행동이며 리디렉션이 발생할 때 헤더와 게시물 본문이 이미 암호화되지 않은 상태로 인터넷을 통해 전송 되었기 때문에 의미가 없다라는 의견입니다.&lt;/p&gt;
+&lt;h4 id=&quot;그럼에도-동일한-http-메서드로-요청하려면&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#%EA%B7%B8%EB%9F%BC%EC%97%90%EB%8F%84-%EB%8F%99%EC%9D%BC%ED%95%9C-http-%EB%A9%94%EC%84%9C%EB%93%9C%EB%A1%9C-%EC%9A%94%EC%B2%AD%ED%95%98%EB%A0%A4%EB%A9%B4&quot; aria-label=&quot;그럼에도 동일한 http 메서드로 요청하려면 permalink&quot; class=&quot;anchor-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;그럼에도 동일한 HTTP 메서드로 요청하려면?&lt;/h4&gt;
+&lt;p&gt;그렇다면 만약 리다이렉트 되더라도 기존의 메서드 그대로 사용하려면 어떻게 해야할까?&lt;/p&gt;
+&lt;p&gt;답은 &lt;code class=&quot;language-text&quot;&gt;307&lt;/code&gt; HTTP 상태 코드를 이용하는 것입니다.&lt;/p&gt;
+&lt;p&gt;그럼 현재 서버들은 왜 &lt;code class=&quot;language-text&quot;&gt;307&lt;/code&gt; 대신 &lt;code class=&quot;language-text&quot;&gt;302&lt;/code&gt;를 계속 사용하고 있을 까?&lt;br&gt;
+그 이유는 현재의 최신 브라우저들은 &lt;code class=&quot;language-text&quot;&gt;307&lt;/code&gt; HTTP 상태 코드를 처리할 수 있지만, 오래된 브라우저들은 &lt;code class=&quot;language-text&quot;&gt;307&lt;/code&gt; 코드를 처리할 수 없기 때문에 호환성 때문에 계속 &lt;code class=&quot;language-text&quot;&gt;302&lt;/code&gt; 를 사용한다고 합니다.&lt;/p&gt;
+&lt;h4 id=&quot;aws-alb에서-리다이렉트-코드를-변경할-수-있을까&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#aws-alb%EC%97%90%EC%84%9C-%EB%A6%AC%EB%8B%A4%EC%9D%B4%EB%A0%89%ED%8A%B8-%EC%BD%94%EB%93%9C%EB%A5%BC-%EB%B3%80%EA%B2%BD%ED%95%A0-%EC%88%98-%EC%9E%88%EC%9D%84%EA%B9%8C&quot; aria-label=&quot;aws alb에서 리다이렉트 코드를 변경할 수 있을까 permalink&quot; class=&quot;anchor-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;AWS ALB에서 리다이렉트 코드를 변경할 수 있을까?&lt;/h4&gt;
+&lt;p&gt;아쉽지만.. 😭&lt;/p&gt;
+&lt;p&gt;AWS ALB에서는 &lt;code class=&quot;language-text&quot;&gt;307&lt;/code&gt; HTTP 상태 코드를 지원하지 않는 것을 확인했습니다.&lt;/p&gt;
+&lt;p&gt;링크 : &lt;a href=&quot;https://stackoverflow.com/questions/56893149/amazon-alb-redirect-changes-http-method-to-get&quot;&gt;Amazon ALB - Redirect changes http method to GET&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;마무리&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#%EB%A7%88%EB%AC%B4%EB%A6%AC&quot; aria-label=&quot;마무리 permalink&quot; class=&quot;anchor-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;마무리&lt;/h2&gt;
+&lt;p&gt;저는 위의 이슈가 서버 구조를 잘못 짰거나 코드에 문제가 있다고 생각했지만, 애초에 RFC 스펙에서 설계하고 예상된 동작임을 확인했습니다.&lt;/p&gt;
+&lt;p&gt;제가 공유한 내용들이 도움이 됬기를 바라면서 이만 마치겠습니다 :)&lt;/p&gt;
+&lt;h2 id=&quot;참고-사이트&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#%EC%B0%B8%EA%B3%A0-%EC%82%AC%EC%9D%B4%ED%8A%B8&quot; aria-label=&quot;참고 사이트 permalink&quot; class=&quot;anchor-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;참고 사이트&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&quot;https://stackoverflow.com/questions/17605915/what-is-the-correct-behavior-expected-of-an-http-post-302-redirect-to-get&quot;&gt;What is the correct behavior expected of an HTTP POST =&gt; 302 redirect to GET?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://softwareengineering.stackexchange.com/questions/99894/why-doesnt-http-have-post-redirect&quot;&gt;Why doesn’t HTTP have POST redirect?&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;</content:encoded></item><item><title><![CDATA[AWS EB에서 HTTPS 적용하기 + Route 53에 도메인 등록하기]]></title><description><![CDATA[이번 포스팅에서는 AWS Elastic Beanstalk에서 HTTPS를 적용하는 방법에 대해서 다룹니다. 간단히 HTTPS에 대해서 알아본 뒤, 무료로 도메인을 구매하는 법, 구매한 도메인을 Route 53에 등록하는법, AWS EB에 HTTPS…]]></description><link>https://wwlee94.github.io/category/blog/aws-eb-https/</link><guid isPermaLink="false">https://wwlee94.github.io/category/blog/aws-eb-https/</guid><pubDate>Sun, 23 Aug 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;이번 포스팅에서는 AWS Elastic Beanstalk에서 HTTPS를 적용하는 방법에 대해서 다룹니다.&lt;/p&gt;
 &lt;p&gt;간단히 HTTPS에 대해서 알아본 뒤, 무료로 도메인을 구매하는 법, 구매한 도메인을 Route 53에 등록하는법, AWS EB에 HTTPS 프로토콜을 적용하는 방법을 순차적으로 다루겠습니다.&lt;/p&gt;
 &lt;h2 id=&quot;https란&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#https%EB%9E%80&quot; aria-label=&quot;https란 permalink&quot; class=&quot;anchor-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;HTTPS란?&lt;/h2&gt;
 &lt;p&gt;기존의 HTTP는 전송하는 데이터를 암호화하지 않고 평문으로 통신을 하기 때문에 도청, 변조 등의 보안에 매우 취약한 프로토콜입니다.&lt;br&gt;
