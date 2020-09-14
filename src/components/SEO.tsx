@@ -48,11 +48,11 @@ const SEO = ({ description, lang, meta, title }: Props) => {
               },
               {
                 name: `google-site-verification`,
-                content: process.env.GOOGLE_SITE_VERIFICATION,
+                content: "OxCmDAbFt_oP2EzYabwJiA4KNndMwAcKMQdvpa8vL6w",
               },
               {
                 name: `naver-site-verification`,
-                content: process.env.NAVER_SITE_VERIFICATION,
+                content: "07c520f56835b243f94776be22c4cbcb671bbfe5",
               },
             ].concat(meta)}
           />

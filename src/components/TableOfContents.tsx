@@ -43,6 +43,7 @@ const TableHeader = styled.h1`
 const TableContents = styled.div`
   margin: 0 10px;
   font-size: 14px;
+  overflow: hidden;
   transition: all 0.125s ease-in 0s;
   
   a {

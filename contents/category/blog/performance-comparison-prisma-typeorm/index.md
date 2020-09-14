@@ -142,3 +142,13 @@ createConnection().then(async connection => {
 `Prisma`가 `Optimize`가 잘 안되어 있는 건지..?
 
 확실치 않지만 아무래도 베타 버전이기에 사용을 고민하는 개발자분이 있다면 깊게 고민하시고 기술을 선택하셨으면 합니다 !
+
+#### UPDATE
+
+현재는 베타 버전에서 Prisma 2.0 알파 버전으로 업데이트 됨에 따라 베타 버전보다 더 안정적인 모습을 보여줄 수 있을 거라 생각합니다.
+
+**버전 종류**
+- https://www.npmjs.com/package/prisma2/v/2.0.0-alpha.719?activeTab=versions
+
+**버전 릴리스 업데이트 내용**
+- https://github.com/prisma/prisma/releases
