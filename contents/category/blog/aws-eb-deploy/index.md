@@ -6,22 +6,24 @@ description: ''
 emoji: '🚀'
 ---
 
-## 개요 
+## 개요
 
 저번 포스팅에서는 [AWS Elastic Beanstalk에서 HTTPS를 적용하는 방법](https://wwlee94.github.io/category/blog/aws-eb-https/)에 대해서 알아보았는데요.  
 AWS EB로 서버를 배포하는 방법도 공유하면 좋을 것 같아서 준비했습니다 😆
 
-AWS EB로 서버를 배포하는 방법은 2가지가 있습니다. 
+---
 
-첫번째 방법은 직접 [AWS Elastic Beanstalk Console](https://aws.amazon.com/ko/elasticbeanstalk/)로 접근해서 `GUI`로 어플리케이션과 환경을 생성해서 배포 파일을 업로드 하는 방법이 있습니다.
+AWS EB로 서버를 배포하는 방법은 2가지가 있습니다.
 
-두번째 방법은 [EB CLI](https://docs.aws.amazon.com/ko_kr/elasticbeanstalk/latest/dg/eb-cli3-install-advanced.html)를 사용해 터미널 커맨드로 어플리케이션과 환경을 생성한 뒤 배포하는 방법이 있습니다.
+- 첫번째 방법은 직접 [AWS Elastic Beanstalk Console](https://aws.amazon.com/ko/elasticbeanstalk/)로 접근해서 `GUI`로 어플리케이션과 환경을 생성해서 배포 파일을 업로드 하는 방법이 있습니다.
 
-가장 먼저 `AWS EB에 대해 알아보고` `AWS Console`을 이용해서 배포하는 방법, `AWS CLI`을 이용한 방법에 대해서 알아보겠습니다.
+- 두번째 방법은 [EB CLI](https://docs.aws.amazon.com/ko_kr/elasticbeanstalk/latest/dg/eb-cli3-install-advanced.html)를 사용해 터미널 커맨드로 어플리케이션과 환경을 생성한 뒤 배포하는 방법이 있습니다.
+
+가장 먼저 `AWS EB`에 대해 알아본 뒤에 `AWS Console`을 이용해서 배포하는 방법, `AWS CLI`을 이용한 방법에 대해서 알아보겠습니다.
 
 ## AWS Elastic Beanstalk 란?
 
-`AWS Elastic Beanstalk`는 AWS에 애플리케이션을 배포하는 가장 빠르면서 간편한 방법이며 AWS 상에 코드을 업로드하기만 하면 용량 프로비저닝, 로드 밸런싱, Auto Scaling, 애플리케이션 상태 모니터링에 대한 정보를 자동으로 처리해주는 서비스입니다. 
+`AWS Elastic Beanstalk`는 AWS에 애플리케이션을 배포하는 가장 빠르면서 간편한 방법이며 AWS 상에 코드을 업로드하기만 하면 용량 프로비저닝, 로드 밸런싱, Auto Scaling, 애플리케이션 상태 모니터링에 대한 정보를 자동으로 처리해주는 서비스입니다.
 
 해당 애플리케이션 운영에 필요한 AWS 리소스 정보를 통합해서 볼 수 있으며 각 개별 리소스에 자유롭게 접근이 가능합니다.  
 .NET, JAVA, Node.js, PHP, Python, Ruby 등 다양한 애플리케이션을 지원합니다.
@@ -45,7 +47,8 @@ AWS EB로 서버를 배포하는 방법은 2가지가 있습니다.
 
 ![첫번째 방법 - 2](./images/aws-console-2.png)
 
-이제 어플리케이션이 생성되었습니다 ! 
+이제 어플리케이션이 생성되었습니다 !
+
 > 참 간단 하쥬 ..?
 
 #### 2) 환경 생성하기
@@ -70,7 +73,7 @@ AWS EB로 서버를 배포하는 방법은 2가지가 있습니다.
 
 ![첫번째 방법 - 6](./images/aws-console-6.png)
 
------ 
+---
 
 **[선택] 추가 옵션 구성**
 
@@ -82,7 +85,7 @@ AWS EB로 서버를 배포하는 방법은 2가지가 있습니다.
 
 ![첫번째 방법 - 7](./images/aws-console-7.png)
 
------
+---
 
 바로 배포 결과를 볼 수 있도록 우선 `샘플 애플리케이션`을 선택한 뒤 `환경 생성` 버튼을 눌러주세요.
 
@@ -126,7 +129,7 @@ AWS EB로 서버를 배포하는 방법은 2가지가 있습니다.
 
 #### 1) EB CLI 설치하기
 
-`EB CLI`를 로컬 환경에서 설치하려면 [EB CLI 프로그램 설치](https://docs.aws.amazon.com/ko_kr/elasticbeanstalk/latest/dg/eb-cli3-install-advanced.html)가 필요합니다.  
+`EB CLI`를 로컬 환경에서 설치하려면 [EB CLI 프로그램 설치](https://docs.aws.amazon.com/ko_kr/elasticbeanstalk/latest/dg/eb-cli3-install-advanced.html)가 필요합니다.
 
 설치할때는 `pip`를 이용하는게 정신건강에 이롭습니다..
 
@@ -138,7 +141,7 @@ AWS EB로 서버를 배포하는 방법은 2가지가 있습니다.
 
 여기서 초기화는 AWS EB에 `새로운 어플리케이션`을 생성하는 것과 동일한 작업입니다.
 
-**[권한] `aws-access-key` 와 `aws-secret-key`를 입력합니다.**
+**[권한] 'aws-access-key' 와 'aws-secret-key'를 입력합니다.**
 
 저는 이미 입력이 되어있기 때문에 권한을 물어보지 않습니다만 처음 실행하면 다음과 같이 `IAM`에서 발급받은 키를 물어봅니다.
 
@@ -158,7 +161,7 @@ AWS EB로 서버를 배포하는 방법은 2가지가 있습니다.
 
 `eb create` 커맨드를 입력해 새로운 환경을 생성합니다.
 
-`AWS ALB`의 로드밸런싱은 종류가 3가지가 있는데 [해당 사이트](https://jins-dev.tistory.com/entry/AWS-%EC%9D%98-%EB%A1%9C%EB%93%9C%EB%B0%B8%EB%9F%B0%EC%84%9CLoad-Balancer-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EA%B8%B0-ELB-ALB)를 참고 바랍니다. 
+`AWS ALB`의 로드밸런싱은 종류가 3가지가 있는데 [해당 사이트](https://jins-dev.tistory.com/entry/AWS-%EC%9D%98-%EB%A1%9C%EB%93%9C%EB%B0%B8%EB%9F%B0%EC%84%9CLoad-Balancer-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EA%B8%B0-ELB-ALB)를 참고 바랍니다.
 
 ![두번째 방법 - 5](./images/aws-eb-cli-5.png)
 
