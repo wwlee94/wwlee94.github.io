@@ -1,6 +1,6 @@
 ---
 title: '[프로그래머스] DFS & BFS - 타겟 넘버 / Python'
-date: '2020-07-22'
+date: '2020-08-25'
 category: 'algorithm'
 description: ''
 emoji: '🔢'
