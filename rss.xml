@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Your Site's RSS Feed]]></title><description><![CDATA[스페셜리스트보다 제너럴리스트가 되고싶은
     백엔드 개발자의 기술 블로그입니다 :)
-    📚공부한 내용을 기록하는 블로그]]></description><link>https://wwlee94.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Thu, 17 Sep 2020 08:18:29 GMT</lastBuildDate><item><title><![CDATA[[AWS EB] AWS Elastic Beanstalk로 서버 배포 하기]]></title><description><![CDATA[개요 저번 포스팅에서는 AWS Elastic Beanstalk에서 HTTPS를 적용하는 방법에 대해서 알아보았는데요. AWS EB로 서버를 배포하는 방법도 공유하면 좋을 것 같아서 준비했습니다 😆 AWS EB로 서버를 배포하는 방법은…]]></description><link>https://wwlee94.github.io/category/blog/aws-eb-deploy/</link><guid isPermaLink="false">https://wwlee94.github.io/category/blog/aws-eb-deploy/</guid><pubDate>Wed, 02 Sep 2020 00:00:00 GMT</pubDate><content:encoded>&lt;h2 id=&quot;개요&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#%EA%B0%9C%EC%9A%94&quot; aria-label=&quot;개요 permalink&quot; class=&quot;anchor-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;개요&lt;/h2&gt;
+    📚공부한 내용을 기록하는 블로그]]></description><link>https://wwlee94.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Thu, 17 Sep 2020 08:57:55 GMT</lastBuildDate><item><title><![CDATA[[AWS EB] AWS Elastic Beanstalk로 서버 배포 하기]]></title><description><![CDATA[개요 저번 포스팅에서는 AWS Elastic Beanstalk에서 HTTPS를 적용하는 방법에 대해서 알아보았는데요. AWS EB로 서버를 배포하는 방법도 공유하면 좋을 것 같아서 준비했습니다 😆 AWS EB로 서버를 배포하는 방법은…]]></description><link>https://wwlee94.github.io/category/blog/aws-eb-deploy/</link><guid isPermaLink="false">https://wwlee94.github.io/category/blog/aws-eb-deploy/</guid><pubDate>Wed, 02 Sep 2020 00:00:00 GMT</pubDate><content:encoded>&lt;h2 id=&quot;개요&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#%EA%B0%9C%EC%9A%94&quot; aria-label=&quot;개요 permalink&quot; class=&quot;anchor-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;개요&lt;/h2&gt;
 &lt;p&gt;저번 포스팅에서는 &lt;a href=&quot;https://wwlee94.github.io/category/blog/aws-eb-https/&quot;&gt;AWS Elastic Beanstalk에서 HTTPS를 적용하는 방법&lt;/a&gt;에 대해서 알아보았는데요.&lt;br&gt;
 AWS EB로 서버를 배포하는 방법도 공유하면 좋을 것 같아서 준비했습니다 😆&lt;/p&gt;
-&lt;p&gt;AWS EB로 서버를 배포하는 방법은 2가지가 있습니다. &lt;/p&gt;
-&lt;p&gt;첫번째 방법은 직접 &lt;a href=&quot;https://aws.amazon.com/ko/elasticbeanstalk/&quot;&gt;AWS Elastic Beanstalk Console&lt;/a&gt;로 접근해서 &lt;code class=&quot;language-text&quot;&gt;GUI&lt;/code&gt;로 어플리케이션과 환경을 생성해서 배포 파일을 업로드 하는 방법이 있습니다.&lt;/p&gt;
-&lt;p&gt;두번째 방법은 &lt;a href=&quot;https://docs.aws.amazon.com/ko_kr/elasticbeanstalk/latest/dg/eb-cli3-install-advanced.html&quot;&gt;EB CLI&lt;/a&gt;를 사용해 터미널 커맨드로 어플리케이션과 환경을 생성한 뒤 배포하는 방법이 있습니다.&lt;/p&gt;
-&lt;p&gt;가장 먼저 &lt;code class=&quot;language-text&quot;&gt;AWS EB에 대해 알아보고&lt;/code&gt; &lt;code class=&quot;language-text&quot;&gt;AWS Console&lt;/code&gt;을 이용해서 배포하는 방법, &lt;code class=&quot;language-text&quot;&gt;AWS CLI&lt;/code&gt;을 이용한 방법에 대해서 알아보겠습니다.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;AWS EB로 서버를 배포하는 방법은 2가지가 있습니다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;첫번째 방법은 직접 &lt;a href=&quot;https://aws.amazon.com/ko/elasticbeanstalk/&quot;&gt;AWS Elastic Beanstalk Console&lt;/a&gt;로 접근해서 &lt;code class=&quot;language-text&quot;&gt;GUI&lt;/code&gt;로 어플리케이션과 환경을 생성해서 배포 파일을 업로드 하는 방법이 있습니다.&lt;/li&gt;
+&lt;li&gt;두번째 방법은 &lt;a href=&quot;https://docs.aws.amazon.com/ko_kr/elasticbeanstalk/latest/dg/eb-cli3-install-advanced.html&quot;&gt;EB CLI&lt;/a&gt;를 사용해 터미널 커맨드로 어플리케이션과 환경을 생성한 뒤 배포하는 방법이 있습니다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;가장 먼저 &lt;code class=&quot;language-text&quot;&gt;AWS EB&lt;/code&gt;에 대해 알아본 뒤에 &lt;code class=&quot;language-text&quot;&gt;AWS Console&lt;/code&gt;을 이용해서 배포하는 방법, &lt;code class=&quot;language-text&quot;&gt;AWS CLI&lt;/code&gt;을 이용한 방법에 대해서 알아보겠습니다.&lt;/p&gt;
 &lt;h2 id=&quot;aws-elastic-beanstalk-란&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#aws-elastic-beanstalk-%EB%9E%80&quot; aria-label=&quot;aws elastic beanstalk 란 permalink&quot; class=&quot;anchor-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;AWS Elastic Beanstalk 란?&lt;/h2&gt;
-&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;AWS Elastic Beanstalk&lt;/code&gt;는 AWS에 애플리케이션을 배포하는 가장 빠르면서 간편한 방법이며 AWS 상에 코드을 업로드하기만 하면 용량 프로비저닝, 로드 밸런싱, Auto Scaling, 애플리케이션 상태 모니터링에 대한 정보를 자동으로 처리해주는 서비스입니다. &lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;AWS Elastic Beanstalk&lt;/code&gt;는 AWS에 애플리케이션을 배포하는 가장 빠르면서 간편한 방법이며 AWS 상에 코드을 업로드하기만 하면 용량 프로비저닝, 로드 밸런싱, Auto Scaling, 애플리케이션 상태 모니터링에 대한 정보를 자동으로 처리해주는 서비스입니다.&lt;/p&gt;
 &lt;p&gt;해당 애플리케이션 운영에 필요한 AWS 리소스 정보를 통합해서 볼 수 있으며 각 개별 리소스에 자유롭게 접근이 가능합니다.&lt;br&gt;
 .NET, JAVA, Node.js, PHP, Python, Ruby 등 다양한 애플리케이션을 지원합니다.&lt;/p&gt;
 &lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;AWS Elastic Beanstalk&lt;/code&gt;에 대한 직접적인 추가 비용은 없습니다.&lt;br&gt;
@@ -83,7 +86,7 @@ AWS EB로 서버를 배포하는 방법도 공유하면 좋을 것 같아서 준
       /&gt;
   &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;이제 어플리케이션이 생성되었습니다 ! &lt;/p&gt;
+&lt;p&gt;이제 어플리케이션이 생성되었습니다 !&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;참 간단 하쥬 ..?&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -402,7 +405,7 @@ AWS EB로 서버를 배포하는 방법도 공유하면 좋을 것 같아서 준
     &gt;
       &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/static/dbbee1647573c90b38763ec2543bde5e/5c744/aws-console-12.png&quot;
+    href=&quot;/static/3cdd7c2f19e2afa33a77d8d75ad21c7b/1cfc2/aws-console-12.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -415,12 +418,11 @@ AWS EB로 서버를 배포하는 방법도 공유하면 좋을 것 같아서 준
         class=&quot;gatsby-resp-image-image&quot;
         alt=&quot;첫번째 방법 - 12&quot;
         title=&quot;첫번째 방법 - 12&quot;
-        src=&quot;/static/dbbee1647573c90b38763ec2543bde5e/1d69c/aws-console-12.png&quot;
-        srcset=&quot;/static/dbbee1647573c90b38763ec2543bde5e/4dcb9/aws-console-12.png 188w,
-/static/dbbee1647573c90b38763ec2543bde5e/5ff7e/aws-console-12.png 375w,
-/static/dbbee1647573c90b38763ec2543bde5e/1d69c/aws-console-12.png 750w,
-/static/dbbee1647573c90b38763ec2543bde5e/78797/aws-console-12.png 1125w,
-/static/dbbee1647573c90b38763ec2543bde5e/5c744/aws-console-12.png 1206w&quot;
+        src=&quot;/static/3cdd7c2f19e2afa33a77d8d75ad21c7b/1d69c/aws-console-12.png&quot;
+        srcset=&quot;/static/3cdd7c2f19e2afa33a77d8d75ad21c7b/4dcb9/aws-console-12.png 188w,
+/static/3cdd7c2f19e2afa33a77d8d75ad21c7b/5ff7e/aws-console-12.png 375w,
+/static/3cdd7c2f19e2afa33a77d8d75ad21c7b/1d69c/aws-console-12.png 750w,
+/static/3cdd7c2f19e2afa33a77d8d75ad21c7b/1cfc2/aws-console-12.png 900w&quot;
         sizes=&quot;(max-width: 750px) 100vw, 750px&quot;
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
@@ -466,7 +468,7 @@ AWS EB로 서버를 배포하는 방법도 공유하면 좋을 것 같아서 준
 &lt;p&gt;위의 Secret 정보를 저장해두거나 &lt;code class=&quot;language-text&quot;&gt;.csv&lt;/code&gt; 파일로 저장해서 필요할 때 확인 할 수 있습니다.&lt;/p&gt;
 &lt;p&gt;이번 &lt;code class=&quot;language-text&quot;&gt;EB CLI&lt;/code&gt; 방법은 &lt;code class=&quot;language-text&quot;&gt;IAM&lt;/code&gt;에서 발급받은 &lt;code class=&quot;language-text&quot;&gt;aws-access-key&lt;/code&gt; 와 &lt;code class=&quot;language-text&quot;&gt;aws-secret-key&lt;/code&gt;를 가지고 있음을 전제로합니다.&lt;/p&gt;
 &lt;h4 id=&quot;1-eb-cli-설치하기&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#1-eb-cli-%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0&quot; aria-label=&quot;1 eb cli 설치하기 permalink&quot; class=&quot;anchor-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;1) EB CLI 설치하기&lt;/h4&gt;
-&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;EB CLI&lt;/code&gt;를 로컬 환경에서 설치하려면 &lt;a href=&quot;https://docs.aws.amazon.com/ko_kr/elasticbeanstalk/latest/dg/eb-cli3-install-advanced.html&quot;&gt;EB CLI 프로그램 설치&lt;/a&gt;가 필요합니다.  &lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;EB CLI&lt;/code&gt;를 로컬 환경에서 설치하려면 &lt;a href=&quot;https://docs.aws.amazon.com/ko_kr/elasticbeanstalk/latest/dg/eb-cli3-install-advanced.html&quot;&gt;EB CLI 프로그램 설치&lt;/a&gt;가 필요합니다.&lt;/p&gt;
 &lt;p&gt;설치할때는 &lt;code class=&quot;language-text&quot;&gt;pip&lt;/code&gt;를 이용하는게 정신건강에 이롭습니다..&lt;/p&gt;
 &lt;p&gt;&lt;span
       class=&quot;gatsby-resp-image-wrapper&quot;
@@ -503,7 +505,7 @@ AWS EB로 서버를 배포하는 방법도 공유하면 좋을 것 같아서 준
 &lt;h4 id=&quot;2-어플리케이션-생성하기&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#2-%EC%96%B4%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EC%83%9D%EC%84%B1%ED%95%98%EA%B8%B0&quot; aria-label=&quot;2 어플리케이션 생성하기 permalink&quot; class=&quot;anchor-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;2) 어플리케이션 생성하기&lt;/h4&gt;
 &lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;eb init&lt;/code&gt; 커맨드를 입력해 EB 초기화를 진행합니다.&lt;/p&gt;
 &lt;p&gt;여기서 초기화는 AWS EB에 &lt;code class=&quot;language-text&quot;&gt;새로운 어플리케이션&lt;/code&gt;을 생성하는 것과 동일한 작업입니다.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;[권한] &lt;code class=&quot;language-text&quot;&gt;aws-access-key&lt;/code&gt; 와 &lt;code class=&quot;language-text&quot;&gt;aws-secret-key&lt;/code&gt;를 입력합니다.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;[권한] ‘aws-access-key’ 와 ‘aws-secret-key’를 입력합니다.&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;저는 이미 입력이 되어있기 때문에 권한을 물어보지 않습니다만 처음 실행하면 다음과 같이 &lt;code class=&quot;language-text&quot;&gt;IAM&lt;/code&gt;에서 발급받은 키를 물어봅니다.&lt;/p&gt;
 &lt;p&gt;&lt;span
       class=&quot;gatsby-resp-image-wrapper&quot;
@@ -606,7 +608,7 @@ AWS EB로 서버를 배포하는 방법도 공유하면 좋을 것 같아서 준
     &lt;/span&gt;&lt;/p&gt;
 &lt;h4 id=&quot;3-환경-생성하기&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#3-%ED%99%98%EA%B2%BD-%EC%83%9D%EC%84%B1%ED%95%98%EA%B8%B0&quot; aria-label=&quot;3 환경 생성하기 permalink&quot; class=&quot;anchor-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;3) 환경 생성하기&lt;/h4&gt;
 &lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;eb create&lt;/code&gt; 커맨드를 입력해 새로운 환경을 생성합니다.&lt;/p&gt;
-&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;AWS ALB&lt;/code&gt;의 로드밸런싱은 종류가 3가지가 있는데 &lt;a href=&quot;https://jins-dev.tistory.com/entry/AWS-%EC%9D%98-%EB%A1%9C%EB%93%9C%EB%B0%B8%EB%9F%B0%EC%84%9CLoad-Balancer-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EA%B8%B0-ELB-ALB&quot;&gt;해당 사이트&lt;/a&gt;를 참고 바랍니다. &lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;AWS ALB&lt;/code&gt;의 로드밸런싱은 종류가 3가지가 있는데 &lt;a href=&quot;https://jins-dev.tistory.com/entry/AWS-%EC%9D%98-%EB%A1%9C%EB%93%9C%EB%B0%B8%EB%9F%B0%EC%84%9CLoad-Balancer-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EA%B8%B0-ELB-ALB&quot;&gt;해당 사이트&lt;/a&gt;를 참고 바랍니다.&lt;/p&gt;
 &lt;p&gt;&lt;span
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; &quot;
