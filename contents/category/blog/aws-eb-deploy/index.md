@@ -198,13 +198,13 @@ global:
   repository: null
   sc: null
   workspace_type: Application
-#1 업로드할 파일 경로 설정 가능
+# *업로드할 파일 경로 설정 가능*
 deploy:
   artifact: build/libs/rubycon-team2-0.0.1-SNAPSHOT.jar
 ```
 
-## 마무리
+## 마무리 
 
-`AWS EB`로 서버를 배포하는 방법은 전혀 어렵지 않습니다.
+'AWS EB'로 서버를 배포하는 방법은 전혀 어렵지 않습니다.
 
-`AWS EB`를 이용해서 원하는 서버를 손쉽게 배포해보세요!
+'AWS EB'를 이용해서 서버를 손쉽게 배포해보세요!
