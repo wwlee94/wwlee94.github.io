@@ -15,6 +15,7 @@ module.exports = {
       adClient: process.env.GOOGLE_AD_CLIENT || 'none',
       adSlot: process.env.GOOGLE_AD_SLOT || 'none',
     },
+    // Blue : #2EA2DB
     categories: [
       {
         name: `블로그`,
@@ -31,11 +32,11 @@ module.exports = {
         link: `/category/algorithm`,
       },
       {
-        name: `스프링`,
-        slug: `spring`,
+        name: `스터디`,
+        slug: `study`,
         color: `#C0D545`,
-        icon: `springIcon`,
-        link: `/category/spring`,
+        icon: `studyIcon`,
+        link: `/category/study`,
       },
     ],
   },

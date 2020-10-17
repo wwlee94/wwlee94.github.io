@@ -1,6 +1,6 @@
 ---
-title: '[Spring JPA] 1:N 관계 (OneToMany) save시 update 쿼리가 추가로 발생하는 이슈'
-date: '2020-10-12'
+title: '[Spring JPA] 1:N 관계 엔티티 save시 update 쿼리가 추가로 발생하는 이슈'
+date: '2020-09-25'
 category: 'blog'
 description: ''
 emoji: '💭'
@@ -8,7 +8,7 @@ emoji: '💭'
 
 ## 개요
 
-프로젝트를 진행하던 도중 `1:N` 관계를 가지는 엔티티를 Save 할 때 2개의 테이블에 데이터는 잘 생성되었으나 Save 쿼리문 뿐 아니라 Update 쿼리문이 추가로 발생되는 이슈를 경험해서 해결 방법을 공유하고자 합니다.
+`루비콘 2기` 'Party-ing' 프로젝트를 진행하던 도중 `1:N` 관계를 가지는 엔티티를 Save 할 때 2개의 테이블에 데이터는 잘 생성되었으나 Save 쿼리문 뿐 아니라 Update 쿼리문이 추가로 발생되는 이슈를 경험해서 해결 방법을 공유하고자 합니다.
 
 ## 현재 이슈 발생 상황
 
@@ -226,6 +226,6 @@ public void review(Long reviewerId, Long targetId, ReviewRequest reviewDto) {
 
 `1:N 단방향` 매핑은 설정도 간편하고 직관적이지만, Update가 오버헤드로 작용합니다.
 
-`@OneToMany`만 붙히는 `1:N 단방향` 조인 테이블 방식과 `@JoinColum`만 붙히는 조인 컬럼 방식 모두 피해야합니다.
+`@OneToMany`만 붙히는 `1:N 단방향` 조인 테이블 방식과 `@JoinColum`만 붙히는 `1:N 단방향` 조인 컬럼 방식 모두 피해야합니다.
 
 따라서, 1:N에서 N이 큰 상황 또는 모든 상황에서 오버헤드가 없는 `1:N 양방향` 매핑을 사용하는게 성능에 좋을 것 같습니다 !

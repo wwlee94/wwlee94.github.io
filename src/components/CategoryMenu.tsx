@@ -120,6 +120,8 @@ function selectCategoryIcon(name: string) {
       return CategoryIcon.blogIcon;
     case 'springIcon':
       return CategoryIcon.springIcon;
+    case 'studyIcon':
+      return CategoryIcon.studyIcon;
   }
 }
 
