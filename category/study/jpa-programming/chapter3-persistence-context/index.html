@@ -215,7 +215,211 @@ member<span class="token punctuation">.</span><span class="token function">setUs
 <li>지연 로딩</li>
 </ul>
 </li>
-</ol></div></div><aside><div class="RelatedPosts__Wrapper-sc-1nrzwfn-0 fFDafD"><div class="RelatedPosts__PostCardWrapper-sc-1nrzwfn-1 gvYRzK"><a class="post-card-link" href="/category/study/jpa-programming/chapter2-jpa-start/"><p class="RelatedPosts__PostCardEmoji-sc-1nrzwfn-2 hMlNHl"><img class="emoji" draggable="false" alt="🚥" src="https://twemoji.maxcdn.com/v/12.1.6/svg/1f6a5.svg"/></p><div class="RelatedPosts__PostCardContent-sc-1nrzwfn-3 jNfPFJ"><h5>[JPA 프로그래밍] 2. JPA 시작</h5><time>2020.10.12</time></div></a></div><div class="RelatedPosts__PostCardWrapper-sc-1nrzwfn-1 gvYRzK"><a class="post-card-link" href="/category/study/jpa-programming/chapter1-jpa-introduction/"><p class="RelatedPosts__PostCardEmoji-sc-1nrzwfn-2 hMlNHl"><img class="emoji" draggable="false" alt="🙌🏻" src="https://twemoji.maxcdn.com/v/12.1.6/svg/1f64c-1f3fb.svg"/></p><div class="RelatedPosts__PostCardContent-sc-1nrzwfn-3 jNfPFJ"><h5>[JPA 프로그래밍] 1. JPA 소개</h5><time>2020.10.05</time></div></a></div><div class="RelatedPosts__PostCardWrapper-sc-1nrzwfn-1 gvYRzK"><a class="post-card-link" href="/category/study/toby-spring/spring-core-technology/"><p class="RelatedPosts__PostCardEmoji-sc-1nrzwfn-2 hMlNHl"><img class="emoji" draggable="false" alt="🌟" src="https://twemoji.maxcdn.com/v/12.1.6/svg/1f31f.svg"/></p><div class="RelatedPosts__PostCardContent-sc-1nrzwfn-3 jNfPFJ"><h5>[토비의 스프링] 7. 스프링 핵심 기술의 응용</h5><time>2020.07.24</time></div></a></div><div class="RelatedPosts__PostCardWrapper-sc-1nrzwfn-1 gvYRzK"><a class="post-card-link" href="/category/study/toby-spring/aop/transaction-property/"><p class="RelatedPosts__PostCardEmoji-sc-1nrzwfn-2 hMlNHl"><img class="emoji" draggable="false" alt="🧩" src="https://twemoji.maxcdn.com/v/12.1.6/svg/1f9e9.svg"/></p><div class="RelatedPosts__PostCardContent-sc-1nrzwfn-3 jNfPFJ"><h5>[토비의 스프링] 6-3. AOP - 트랜잭션 속성</h5><time>2020.07.20</time></div></a></div></div><div></div></aside></section></div><div class="TableOfContents__TableIndex-sc-1xzats2-0 hAYtIK"><div class="TableOfContents__TableWrapper-sc-1xzats2-1 gndSEd table-of-contents"><h1 class="TableOfContents__TableHeader-sc-1xzats2-2 fYkEUy">🔖 Catalog</h1><div class="TableOfContents__TableContents-sc-1xzats2-3 gBhcRP"><ul>
+</ol>
+<h4 id="1-엔티티-조회" style="position:relative;"><a href="#1-%EC%97%94%ED%8B%B0%ED%8B%B0-%EC%A1%B0%ED%9A%8C" aria-label="1 엔티티 조회 permalink" class="anchor-header before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>1. 엔티티 조회</h4>
+<ul>
+<li>
+<p>영속성 컨텍스트는 내부에 캐시를 가지고 있음</p>
+<ul>
+<li><code class="language-text">1차 캐시</code></li>
+</ul>
+</li>
+<li>영속 상태의 엔티티는 모두 이곳에 저장 !</li>
+</ul>
+<p><strong>엔티티 조회</strong></p>
+<div class="gatsby-code-title">Java</div>
+<div class="gatsby-highlight" data-language="java"><pre style="counter-reset: linenumber NaN" class="language-java line-numbers"><code class="language-java"><span class="token class-name">Member</span> member <span class="token operator">=</span> em<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token class-name">Member</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> <span class="token number">100L</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code><span aria-hidden="true" class="line-numbers-rows" style="white-space: normal; width: auto; left: 0;"><span></span></span></pre></div>
+<p><code class="language-text">em.find()</code> 호출되면 <code class="language-text">1차 캐시</code>에서 엔티티 조회 ! -> 엔티티가 1차 캐시에 없으면 <code class="language-text">데이터베이스</code> 조회</p>
+<p><strong>1차 캐시에서 엔티티 조회</strong></p>
+<div class="gatsby-code-title">Java</div>
+<div class="gatsby-highlight" data-language="java"><pre style="counter-reset: linenumber NaN" class="language-java line-numbers"><code class="language-java"><span class="token class-name">Member</span> member <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Member</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+member<span class="token punctuation">.</span><span class="token function">setId</span><span class="token punctuation">(</span><span class="token number">100L</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+member<span class="token punctuation">.</span><span class="token function">setUsername</span><span class="token punctuation">(</span><span class="token string">"회원1"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 1차 캐시에 저장됨</span>
+em<span class="token punctuation">.</span><span class="token function">persist</span><span class="token punctuation">(</span>member<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 1차 캐시에서 조회</span>
+<span class="token class-name">Member</span> findMember <span class="token operator">=</span> em<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token class-name">Member</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> <span class="token number">100L</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code><span aria-hidden="true" class="line-numbers-rows" style="white-space: normal; width: auto; left: 0;"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre></div>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/0f7fe184bba1ab6f5649ea355d383e53/bce1e/JPA_3_1.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 65.42553191489361%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAYAAACpUE5eAAAACXBIWXMAABYlAAAWJQFJUiTwAAAC0UlEQVQ4yy1T2Y7TQBD0ByGEhARiEYgNm9OOj8R34ttOvLlI4j20gT1Ybq0EPPC/Rc3AQ2vG3Z6aquoepXViod210ek56A996KMYIzeDF1Zw/ILfEUw7gRvOEUSn8KP63zqtEcYLriJfI6u2SIoNFAHUG3hQ9RBDcwpjHKOsG5TzPaJ0jcvDJzQXt7i7f8Ddxwfcf/4p91++/sL17Xcc3n/G+eUd5otzHK6/QemrPgYCzIpg2RnZFchnO8nI9mssNu8JfobV8hLb9RX2uxvsttfYvrtCXe+xWp2jJDsnqLBtbqB0+y4Gw4ARQjOEvBzFbE+5QvKMcoSshVydYCYvFOvYqyh/wYv5H0Os6+2BkvuOBNPNmCwTSs7oRwP7/+FQHApqgswJUnBfyVxW7REXW+ml45ewWVuRtdJTA1gEsXmj6eQYjghIhgJQH6XMFbDckuClrB2uv+PLt9/48fAHxbyB5ZSSseWkmJ02UNpdD5qZYuRUkp1hFwQ8I0gF1UwwYBg2626KKFshLVaIswVt2SAr1/AnJZmncjKK+Q7K62MD7X4A1UjpYQKNLMJkg+E4R0+P0NdTCdhRx4jzU3QHI7zt6uhpNmWvKDdBu2eQJZtZvYOiah48NiCc1DLGXomU/giJokF+vME03/GSFaJ8gwlnT3jZXHzEzc0PNGe3mCYLWpaT/ZqAqgvXzTHlmLhOBpO+pSXHwCulr1HeUN45Ys5kVZ/JCchY3zV3+HD1FQ1HJWBjhtaUg15DefaijdctE8ftMaW7OObL8djJoRnJZoXREgUZ+xNhfCbztifYZ/Q5lznxknqqRxI5lDctHcvTPfabSyTpUhbG7FicLhhLJGyEeJKtjoWT7ogeuv+eKBkZfJaaEeKkM8LzFx1ofCDKo8dHePmqj9ZbA0cve3jy9I3c6+aEbCYweFAzQ6gEETE0JqxNyT6RNfGfyA80H8Gkwl91KR2bl+9frQAAAABJRU5ErkJggg=='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="1차 캐시에서 조회"
+        title="1차 캐시에서 조회"
+        src="/static/0f7fe184bba1ab6f5649ea355d383e53/1d69c/JPA_3_1.png"
+        srcset="/static/0f7fe184bba1ab6f5649ea355d383e53/4dcb9/JPA_3_1.png 188w,
+/static/0f7fe184bba1ab6f5649ea355d383e53/5ff7e/JPA_3_1.png 375w,
+/static/0f7fe184bba1ab6f5649ea355d383e53/1d69c/JPA_3_1.png 750w,
+/static/0f7fe184bba1ab6f5649ea355d383e53/78797/JPA_3_1.png 1125w,
+/static/0f7fe184bba1ab6f5649ea355d383e53/aa440/JPA_3_1.png 1500w,
+/static/0f7fe184bba1ab6f5649ea355d383e53/bce1e/JPA_3_1.png 1696w"
+        sizes="(max-width: 750px) 100vw, 750px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+      />
+  </a>
+    </span></p>
+<p><strong>데이터베이스에서 엔티티 조회</strong></p>
+<ul>
+<li>엔티티가 1차 캐시에 없으면 엔티티 매니저는 데이터베이스를 조회해서 엔티티를 생성함</li>
+<li>1차 캐시에 저장한 후에 영속 상태의 엔티티를 반환함</li>
+</ul>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/c652a5e3badaeab85111510cf0342d92/c6720/JPA_3_2.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 64.36170212765958%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAYAAACpUE5eAAAACXBIWXMAABYlAAAWJQFJUiTwAAAC50lEQVQ4yzVSa1PaUBTMT+n0MX1ba9U6iCgIBgIk5MEjIQmvkBCQojxEbW07rdaZfmj7j7eb2+mHMyfJvdmzu2elXF5HQbYgKw0Uy03o9R56wQz94ZnoXm+C3nCGcHyB0ekloskKw3iJiO91ewjbi+H3p2i2I9SsLqQErFRpoaK1oRo+Gk6IYDTHYv0Nnz7/xM3HH7i65POne9x9/4W72998vsP1x1uChGi5Eboc7HYmMBp9SAlDpWpDUR2Cemg6I3T6H1Aze2i1x2j7E1Euy3HJpjuF3R4hJEvbGwnQ/92oD/4BFstkqLoEdWHZITqDM6hml2wjOARqOjHlhYJBvTXkt1PE02uyG8FqBYJl3Q5gNgMCnhio1jyYjQCa1eeFEL4A7ENjWXaE9fUdbu//4Hz5hSwCsokxCBdioNUaECi52/knOZs3yLBNQwN62EWdkv1gDtXqEdRHk9O93piLmCOIzgky4OI6QrJFtqrhEcxHKbGNJR3mNBSKTVRqBNC7MMmw4U6gcEknikE2A2RPNORknQw8+hsT0BMbV/UOLRjQkiH/T+7XuWVK7jEas+klfH/MwwiD0RINO2E2Qzy7YWwWQno/OMNqccMN32O++i4kh/ECQ6bCoRLD6kBKpUtQGJsWTa+ojE6NMhkdTfe55ZgRWrOPUObCgnCO9cVXrBip5fqWWT0n2y4jM8ZydQOX25bevjvC1k4OuykZ6cMq5Vsi4LLSZEROMZ1dCe9sj8wZ8PnZNWKGO5osCZQsZ4YafTQZ6qrmQNp5n0el2oKuuygRpCCbMGm6wTop1ZE+qmAvLSOVLuK9GFpBJlslYwe5go4Sh+/uFVh5bO9mIb3e3IeimKhpNi+WxWGZFsgJWEYhQBkHBE16hj1zVBWVnG/vHiNR+G4ny36A15spSA8fb+DBow08eb6Fpy+28WojhdR+UVQCcJRTkT3WkM1rOCajvGyIOuCAN1sZAh1i4+0+Xr3Zw7OX2/gLHUEOGzrXiDUAAAAASUVORK5CYII='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="데이터베이스에서 조회"
+        title="데이터베이스에서 조회"
+        src="/static/c652a5e3badaeab85111510cf0342d92/1d69c/JPA_3_2.png"
+        srcset="/static/c652a5e3badaeab85111510cf0342d92/4dcb9/JPA_3_2.png 188w,
+/static/c652a5e3badaeab85111510cf0342d92/5ff7e/JPA_3_2.png 375w,
+/static/c652a5e3badaeab85111510cf0342d92/1d69c/JPA_3_2.png 750w,
+/static/c652a5e3badaeab85111510cf0342d92/78797/JPA_3_2.png 1125w,
+/static/c652a5e3badaeab85111510cf0342d92/aa440/JPA_3_2.png 1500w,
+/static/c652a5e3badaeab85111510cf0342d92/c6720/JPA_3_2.png 1922w"
+        sizes="(max-width: 750px) 100vw, 750px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+      />
+  </a>
+    </span></p>
+<h4 id="2-엔티티-등록" style="position:relative;"><a href="#2-%EC%97%94%ED%8B%B0%ED%8B%B0-%EB%93%B1%EB%A1%9D" aria-label="2 엔티티 등록 permalink" class="anchor-header before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>2. 엔티티 등록</h4>
+<div class="gatsby-code-title">Java</div>
+<div class="gatsby-highlight" data-language="java"><pre style="counter-reset: linenumber NaN" class="language-java line-numbers"><code class="language-java"><span class="token class-name">EntityManager</span> em <span class="token operator">=</span> emf<span class="token punctuation">.</span><span class="token function">createEntityManager</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">EntityTransaction</span> transaction <span class="token operator">=</span> em<span class="token punctuation">.</span><span class="token function">getTransaction</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+transaction<span class="token punctuation">.</span><span class="token function">begin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">// 트랜잭션 시작</span>
+
+em<span class="token punctuation">.</span><span class="token function">persist</span><span class="token punctuation">(</span>memberA<span class="token punctuation">)</span><span class="token punctuation">;</span>
+em<span class="token punctuation">.</span><span class="token function">persist</span><span class="token punctuation">(</span>memberB<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// 여기까지 INSERT SQL을 데이터베이스에 보내지 않는다.</span>
+
+transaction<span class="token punctuation">.</span><span class="token function">commit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">// 트랜잭션 커밋</span></code><span aria-hidden="true" class="line-numbers-rows" style="white-space: normal; width: auto; left: 0;"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre></div>
+<ul>
+<li>엔티티 매니저는 트랜잭션을 커밋하기 직전까지 데이터베이스의 엔티티를 저장하지 않음</li>
+<li>내부 쿼리 저장소에 INSERT SQL을 차곡차곡 모음</li>
+<li>트랜잭션 커밋할 때 모아둔 SQL 쿼리를 데이터베이스에 보냄</li>
+<li>트랜잭션을 지원하는 <code class="language-text">쓰기 지연</code></li>
+</ul>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/df8faa1a39b4d2477bc0a495b71ad191/1d7f7/JPA_3_3.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 67.5531914893617%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOCAYAAAAvxDzwAAAACXBIWXMAABYlAAAWJQFJUiTwAAADM0lEQVQ4yy1T23LaVhTVv7STjhsnjo1xwAZsDNiIOxIIIQl0QeIibo7B2Maxk0nHaTvT97bT6Rf0R9q+9JNWl07ysEf7HJ29ztp7rSPlLxSUqwaqdQs1pYdm24Ha8dDUXDRatthr6T6Mfiii585gewv0vTksO/y6P2HNgGf7kJSWgxYBom/HCLC+/Yj3Tz/i+Ydf8P7hM25unnB/9wmPjz/hw4efMV1sBVjPmWIUrmEPFnD8JWuHaKgOpEqN7BoWihUdtWYfZn+KPln07BmG4w2W149Ybz7hbvvM+IwV81G4gRtcYTLbCHZRtLsBAV1I5WoXlbqJEtsuVU2U63226qFUs+ANrwm+hDtYYvlui/FkhcXynvFAZldYvHtAxxwxhuxyAFULIEXsGorNcAS7wWgFl0CWM8d4esvDYyj2NTR3Bd1bwwxuYY22MNlBOL+DRmaK5onZtzo+JLnShVwxUWk4/OGjbU7gjW9gugt0rJCCsJXbP6D+9h+s3//B+M+/of/6L4znvzAn2wgsEk7+2qlkezMyo1K9LzPzJxu0jQkuqz2Umw40M6SacziTLexgJS4Lr57QG90JlRW6oa72Oa4uzukYSaeyKjctIcIaPltu6UMUZIqkeGS8QFXxqe49tg/PwgFesIZhTcWI6qot3KF1BwTVIUU+zGSryBVaKJZ1dDgThz7TjRFVGwh/RYd100fXCggW+XAGzfDh+guS8aj6CuHsBnK5AymbqyOVKSN1WkG2QJNzphXeFM1WaXso1zTaieuqinRWpr1aBI5MrItLciRUa5j0sY3zfANS8uQSh0fnODjM4ihRYJ7DQTyLeCKP0/MaQflamhStbiDLAo/slvMNTGuEerOH5EkR8bd5HCXzok6Kxc+w+zqJl6+S2NtPYe9Nht8M9mNnAjx30aSlLMHiOC3DMAMs2F6da7msCRL7h6w5OMHuXpKAXETJ96+OuHlMsDRivClinTi+QOFSRanSERHNuxm9bUaJYMVSm52dsj6Bnd04XuwcQNrZiSEWS5FRipTTbDWLt6QfgaUyMtKnnG+mJPLM2Zf8hHGcKpLxBV6+ThAohm+/e4NvXuzhf/TPNLTaT8uZAAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="엔티티 등록"
+        title="엔티티 등록"
+        src="/static/df8faa1a39b4d2477bc0a495b71ad191/1d69c/JPA_3_3.png"
+        srcset="/static/df8faa1a39b4d2477bc0a495b71ad191/4dcb9/JPA_3_3.png 188w,
+/static/df8faa1a39b4d2477bc0a495b71ad191/5ff7e/JPA_3_3.png 375w,
+/static/df8faa1a39b4d2477bc0a495b71ad191/1d69c/JPA_3_3.png 750w,
+/static/df8faa1a39b4d2477bc0a495b71ad191/78797/JPA_3_3.png 1125w,
+/static/df8faa1a39b4d2477bc0a495b71ad191/aa440/JPA_3_3.png 1500w,
+/static/df8faa1a39b4d2477bc0a495b71ad191/1d7f7/JPA_3_3.png 2038w"
+        sizes="(max-width: 750px) 100vw, 750px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+      />
+  </a>
+    </span></p>
+<p><strong>트랜잭션 커밋시 플러시, 동기화 동작</strong></p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 750px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/3c68e6ae05da7023236cda1cba9090d4/26162/JPA_3_4.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 68.08510638297872%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOCAYAAAAvxDzwAAAACXBIWXMAABYlAAAWJQFJUiTwAAADNElEQVQ4yx1T2W7jRhDkt2ycNXzLlo/VfdmyTV2kRImUeIrUQV2WtHa8SdZeRw6CRU4gTwGCAPmNPOUlH1ap4UNjiOnp6qquppQvNnBZbkGuGqgpFpSWi2a7D0XzUG/aqKkWWnoAw5owQpjuFLY3j741I0DPmTImfOOj0XQgla6akGtdmLzs2SG++voVHz99xub1Fzx9+hEPjy88P+P55Sdsvv8Vi9VHTBYf4AV3BBzA7s/hDVbo9EYRCUkwrKs2L4aoNiz0h2vMWDCbPGK1esZy+S0e7l+wXj/hnqfj3cHpL+AGi6imS6aCZbs7pLo+pFyhTiATne6ITE1Y3oLJEMH4HvePG6wE2MN3lDqLpNnMB6OHKC8Y6uYIujWGpg/Q6gwhFS5Vandhu3Oo7YCFczSZVDsBC4YEH6NtjNBg9649jQC9YE2pdwTwCeSj2fGgUq4AlTL5OplZnOGCJnhwB2vo9gxKZ4AaQaoM0cjgnResoPfGnPUErr9Ei6o0MTsCy41eZKDU1FyYUecl3R1EhYYzR8eie+4CJu9tfw1n8J5NpxFrn037s2fYv/2D8I9/MfrzPyjOEoViDZIsd6DSbktI1Xwa5LKbQ8d8uk1nf/gd07snVNU+GbgR23D2DabrDUavf2O4+Qv1xc9ok8RlWYF0nigjR6cVyi1etWhQD5W6Dr3r06iALgqJQ7J3mOtGc3I5w8nsA8bBFFbPx2Q0g274yJcIGD8rIp2rEKQHYdC1rKFUrnEFTGQLFX43aIwLw+zjpqKhyuUXCz0Yr+FxBw26LNaurphIZyuQdvcTOD0voVBq4OziEmKNbisdyncIoKNCxq4bwnVCVPgDiHfir7plLpG64fsaMiSUycnEKUL6cjuOw1gKycw19g4TuEhcIZuv4pazFY9LZRVhSImT95xRE++S19F9OivjhOpOTguIxbM4iCWxf5SA9GbrENs7p0hly4if56JONbLS2h6Z6JDJpCtmyahGY1FwI7eRTN8QJI3YSYZnAjv7Z3i7Eyfgmz18sXWAvYNzdkrhmN2O4zlGPmL7LlnGKUch5IjvROo6iqPjDGsusMvY3o1jazuGrbdH+B9mdzC99xTq2AAAAABJRU5ErkJggg=='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="트랜잭션 커밋시"
+        title="트랜잭션 커밋시"
+        src="/static/3c68e6ae05da7023236cda1cba9090d4/1d69c/JPA_3_4.png"
+        srcset="/static/3c68e6ae05da7023236cda1cba9090d4/4dcb9/JPA_3_4.png 188w,
+/static/3c68e6ae05da7023236cda1cba9090d4/5ff7e/JPA_3_4.png 375w,
+/static/3c68e6ae05da7023236cda1cba9090d4/1d69c/JPA_3_4.png 750w,
+/static/3c68e6ae05da7023236cda1cba9090d4/78797/JPA_3_4.png 1125w,
+/static/3c68e6ae05da7023236cda1cba9090d4/aa440/JPA_3_4.png 1500w,
+/static/3c68e6ae05da7023236cda1cba9090d4/26162/JPA_3_4.png 2020w"
+        sizes="(max-width: 750px) 100vw, 750px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+      />
+  </a>
+    </span></p>
+<h4 id="3-엔티티-수정" style="position:relative;"><a href="#3-%EC%97%94%ED%8B%B0%ED%8B%B0-%EC%88%98%EC%A0%95" aria-label="3 엔티티 수정 permalink" class="anchor-header before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>3. 엔티티 수정</h4>
+<ul>
+<li>JPA는 엔티티를 수정할 때는 단순히 엔티티를 조회해서 원하는 데이터를 변경하면 OK</li>
+<li><code class="language-text">update()</code>라는 메소드는 존재하지 않음</li>
+<li>
+<p><code class="language-text">변경 감지</code> 기능을 사용해서 데이타베이스에 자동 반영</p>
+<ul>
+<li>플러시 시점에 스냅샷과 엔티티를 비교해서 <code class="language-text">변경 감지</code>함</li>
+</ul>
+</li>
+</ul>
+<p><strong>업데이트 기본 전략</strong></p>
+<p>JPA의 업데이트 기본 전략은 모든 필드를 업데이트함 !</p>
+<ul>
+<li>모든 필드를 사용하면 수정 쿼리가 항상 같음.</li>
+<li>동일한 쿼리를 보내면 데이터베이스는 이전에 파싱된 쿼리는 재사용.</li>
+</ul>
+<h4 id="4-엔티티-삭제" style="position:relative;"><a href="#4-%EC%97%94%ED%8B%B0%ED%8B%B0-%EC%82%AD%EC%A0%9C" aria-label="4 엔티티 삭제 permalink" class="anchor-header before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>4. 엔티티 삭제</h4>
+<p>엔티티를 삭제하려면 먼저 삭제 대상 엔티티를 조회해야 한다.</p>
+<div class="gatsby-code-title">Java</div>
+<div class="gatsby-highlight" data-language="java"><pre style="counter-reset: linenumber NaN" class="language-java line-numbers"><code class="language-java"><span class="token class-name">Member</span> memberA <span class="token operator">=</span> em<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token class-name">Member</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> <span class="token number">100L</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// 삭제 대상 엔티티 조회</span>
+em<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span>memberA<span class="token punctuation">)</span><span class="token punctuation">;</span>     <span class="token comment">// 엔티티 삭제</span></code><span aria-hidden="true" class="line-numbers-rows" style="white-space: normal; width: auto; left: 0;"><span></span><span></span></span></pre></div>
+<ul>
+<li>엔티티를 즉시 삭제하는 것이 아님</li>
+<li>삭제 쿼리를 <code class="language-text">쓰기 지연</code> SQL 저장소에 등록</li>
+<li><code class="language-text">em.remove(memberA)</code>를 호출하는 순간 영속성 컨텍스트에서 제거</li>
+</ul></div></div><aside><div class="RelatedPosts__Wrapper-sc-1nrzwfn-0 fFDafD"><div class="RelatedPosts__PostCardWrapper-sc-1nrzwfn-1 gvYRzK"><a class="post-card-link" href="/category/study/jpa-programming/chapter2-jpa-start/"><p class="RelatedPosts__PostCardEmoji-sc-1nrzwfn-2 hMlNHl"><img class="emoji" draggable="false" alt="🚥" src="https://twemoji.maxcdn.com/v/12.1.6/svg/1f6a5.svg"/></p><div class="RelatedPosts__PostCardContent-sc-1nrzwfn-3 jNfPFJ"><h5>[JPA 프로그래밍] 2. JPA 시작</h5><time>2020.10.12</time></div></a></div><div class="RelatedPosts__PostCardWrapper-sc-1nrzwfn-1 gvYRzK"><a class="post-card-link" href="/category/study/jpa-programming/chapter1-jpa-introduction/"><p class="RelatedPosts__PostCardEmoji-sc-1nrzwfn-2 hMlNHl"><img class="emoji" draggable="false" alt="🙌🏻" src="https://twemoji.maxcdn.com/v/12.1.6/svg/1f64c-1f3fb.svg"/></p><div class="RelatedPosts__PostCardContent-sc-1nrzwfn-3 jNfPFJ"><h5>[JPA 프로그래밍] 1. JPA 소개</h5><time>2020.10.05</time></div></a></div><div class="RelatedPosts__PostCardWrapper-sc-1nrzwfn-1 gvYRzK"><a class="post-card-link" href="/category/study/toby-spring/spring-core-technology/"><p class="RelatedPosts__PostCardEmoji-sc-1nrzwfn-2 hMlNHl"><img class="emoji" draggable="false" alt="🌟" src="https://twemoji.maxcdn.com/v/12.1.6/svg/1f31f.svg"/></p><div class="RelatedPosts__PostCardContent-sc-1nrzwfn-3 jNfPFJ"><h5>[토비의 스프링] 7. 스프링 핵심 기술의 응용</h5><time>2020.07.24</time></div></a></div><div class="RelatedPosts__PostCardWrapper-sc-1nrzwfn-1 gvYRzK"><a class="post-card-link" href="/category/study/toby-spring/aop/transaction-property/"><p class="RelatedPosts__PostCardEmoji-sc-1nrzwfn-2 hMlNHl"><img class="emoji" draggable="false" alt="🧩" src="https://twemoji.maxcdn.com/v/12.1.6/svg/1f9e9.svg"/></p><div class="RelatedPosts__PostCardContent-sc-1nrzwfn-3 jNfPFJ"><h5>[토비의 스프링] 6-3. AOP - 트랜잭션 속성</h5><time>2020.07.20</time></div></a></div></div><div></div></aside></section></div><div class="TableOfContents__TableIndex-sc-1xzats2-0 hAYtIK"><div class="TableOfContents__TableWrapper-sc-1xzats2-1 gndSEd table-of-contents"><h1 class="TableOfContents__TableHeader-sc-1xzats2-2 fYkEUy">🔖 Catalog</h1><div class="TableOfContents__TableContents-sc-1xzats2-3 gBhcRP"><ul>
 <li><a href="/category/study/jpa-programming/chapter3-persistence-context/#1-%EC%98%81%EC%86%8D%EC%84%B1-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8%EB%9E%80">1. 영속성 컨텍스트란?</a></li>
 <li>
 <p><a href="/category/study/jpa-programming/chapter3-persistence-context/#2-%EC%97%94%ED%8B%B0%ED%8B%B0%EC%9D%98-%EC%83%9D%EB%AA%85%EC%A3%BC%EA%B8%B0">2. 엔티티의 생명주기</a></p>
@@ -230,7 +434,19 @@ member<span class="token punctuation">.</span><span class="token function">setUs
 </li>
 </ul>
 </li>
-<li><a href="/category/study/jpa-programming/chapter3-persistence-context/#3-%EC%98%81%EC%86%8D%EC%84%B1-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8%EC%9D%98-%ED%8A%B9%EC%A7%95">3. 영속성 컨텍스트의 특징</a></li>
+<li>
+<p><a href="/category/study/jpa-programming/chapter3-persistence-context/#3-%EC%98%81%EC%86%8D%EC%84%B1-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8%EC%9D%98-%ED%8A%B9%EC%A7%95">3. 영속성 컨텍스트의 특징</a></p>
+<ul>
+<li>
+<ul>
+<li><a href="/category/study/jpa-programming/chapter3-persistence-context/#1-%EC%97%94%ED%8B%B0%ED%8B%B0-%EC%A1%B0%ED%9A%8C">1. 엔티티 조회</a></li>
+<li><a href="/category/study/jpa-programming/chapter3-persistence-context/#2-%EC%97%94%ED%8B%B0%ED%8B%B0-%EB%93%B1%EB%A1%9D">2. 엔티티 등록</a></li>
+<li><a href="/category/study/jpa-programming/chapter3-persistence-context/#3-%EC%97%94%ED%8B%B0%ED%8B%B0-%EC%88%98%EC%A0%95">3. 엔티티 수정</a></li>
+<li><a href="/category/study/jpa-programming/chapter3-persistence-context/#4-%EC%97%94%ED%8B%B0%ED%8B%B0-%EC%82%AD%EC%A0%9C">4. 엔티티 삭제</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul></div></div></div></div></main></div></div><footer class="Footer__FooterContent-zn4blm-0 qFAAr"><div class="ContentWrapper__IndexContent-sc-11a8f56-0 eYfJyt"><div class="Footer__FooterInner-zn4blm-1 gQCnFr"><div>© <!-- -->2020<!-- -->, Blausee. All rights reserved.</div></div></div></footer></div></div><div id="gatsby-announcer" style="position:absolute;top:0;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border:0" aria-live="assertive" aria-atomic="true"></div></div><script>
   
   
