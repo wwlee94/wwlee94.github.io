@@ -114,6 +114,8 @@ EntityManagerFactory emf = Persistence.createEntityManagerFactory("jpabook");
 
 `엔티티 매니저`는 데이터베이스 커넥션과 밀접한 관계가 있으므로 스레드간에 `공유하거나 재사용하면 안됩니다.`
 
+엔티티 매니저는 데이터베이스 연결이 꼭 필요한 시점까지 커넥션을 얻지 않고 트랜잭션을 시작할 때 커넥션을 획득합니다.
+
 ```java:title=Java
 EntityManager em = emf.createEntityManager();
 ```
