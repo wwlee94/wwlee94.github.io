@@ -144,6 +144,13 @@ const BlogPostTemplate = ({ ...props }: Props) => {
           !isLast && (aboveHeaderUrl = elem.href);
         }
       }
+      // if (aboveHeaderUrl !== undefined){
+      //   const url = aboveHeaderUrl.split(location.origin)[1];
+      //   let element = document.querySelector(`a[href='${url}']`);
+      //   if(element){
+             
+      //   }
+      // }
     };
     window.addEventListener('scroll', handleScroll);
     return () => {

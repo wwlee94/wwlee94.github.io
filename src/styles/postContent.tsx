@@ -25,6 +25,17 @@ const postContentStyle = css`
     margin: 45px 0 12px;
     padding: 5px 0 5px 17px;
     font-size: 1.55em;
+    &:before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      content: "";
+      display: inline-block;
+      width: 5px;
+      height: 100%;
+      border-radius: 5px;
+      background: linear-gradient(0deg,#ffa649 0% ,#ffa649 50%,#f7645b 50%,#f7645b 100%);
+    }
   }
   h2 {
     position: relative;
