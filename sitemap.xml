@@ -3,6 +3,8 @@
 <url> <loc>https://wwlee94.github.io/category/study/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://wwlee94.github.io/category/blog/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://wwlee94.github.io/category/algorithm/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://wwlee94.github.io/category/study/jpa-programming/chapter7-persistence-context-and-jpql/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://wwlee94.github.io/category/study/jpa-programming/chapter6-object-oriented-query-language/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://wwlee94.github.io/category/study/jpa-programming/chapter5-relationship-mapping/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://wwlee94.github.io/category/study/jpa-programming/chapter4-entity-mapping/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://wwlee94.github.io/category/study/jpa-programming/chapter3-persistence-context/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
