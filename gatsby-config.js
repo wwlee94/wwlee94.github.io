@@ -2,9 +2,8 @@ module.exports = {
   siteMetadata: {
     title: `Blausee 기술 블로그`,
     author: `wwlee94`,
-    description: `스페셜리스트보다 제너럴리스트가 되고싶은
-    백엔드 개발자의 기술 블로그입니다 :)
-    📚공부한 내용을 기록하는 블로그`,
+    description: `📚'기억보다 기록을' 목표로 
+    공부한 내용을 정리하는 블로그 ✔︎`,
     siteUrl: `https://wwlee94.github.io`,
     email: `wwlee94@naver.com`,
     social: {

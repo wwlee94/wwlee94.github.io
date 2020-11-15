@@ -140,3 +140,9 @@ Product product2 =
 ```
 
 > 결국 앞의 수정 -> 조회 예제와 다를바 없이 무결성에 문제가 되는 예제지만 성능 최적화를 위해 감수하는 것 -?
+
+## 참고
+
+Tip) 하이버네이트 배치 쿼리 설정
+
+- https://woowabros.github.io/experience/2020/09/23/hibernate-batch.html
