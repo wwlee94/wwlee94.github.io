@@ -326,7 +326,7 @@ void function() {
 </ul>
 <p>이미지를 봤을 때는 운영 환경의 결과가 맞고 테스트 환경이 틀린 결과로 보이지만</p>
 <p>여기에는 2가지 문제점이 존재합니다.</p>
-<h4 id="2가지-문제점에-대하여" style="position:relative;"><a href="#2%EA%B0%80%EC%A7%80-%EB%AC%B8%EC%A0%9C%EC%A0%90%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC" aria-label="2가지 문제점에 대하여 permalink" class="anchor-header before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>2가지 문제점에 대하여</h4>
+<h2 id="2가지-문제점에-대하여" style="position:relative;"><a href="#2%EA%B0%80%EC%A7%80-%EB%AC%B8%EC%A0%9C%EC%A0%90%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC" aria-label="2가지 문제점에 대하여 permalink" class="anchor-header before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>2가지 문제점에 대하여</h2>
 <ul>
 <li>정말로 하나의 트랜잭션이 동작했을까?</li>
 <li>JPQL로 Update를 진행하고 난 뒤 Select로 가져온 데이터는 Update가 반영된 데이터가 가져와졌을까?</li>
@@ -352,6 +352,11 @@ void function() {
 </ul>
 <p>그렇다면, JPQL을 실행한 이후 영속성 컨텍스트의 데이터를 동기화 시킬 방법이 있을까?</p>
 <h5 id="해결-방법" style="position:relative;"><a href="#%ED%95%B4%EA%B2%B0-%EB%B0%A9%EB%B2%95" aria-label="해결 방법 permalink" class="anchor-header before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>해결 방법</h5>
+<p>아래의 코드처럼 <code class="language-text">@Modifying</code>의 <code class="language-text">clearAutomatically</code> 옵션을 적용시키면 쿼리 실행 이후 영속성 컨텍스트를 초기화 시켜준다고 합니다.</p>
+<p>영속성 컨텍스트가 초기화 된다는 말은 이후 엔티티를 select시 바로 DB를 조회한다는 말과 동일합니다.</p>
+<blockquote>
+<p>1차 캐시에 데이터가 없을 것이므로</p>
+</blockquote>
 <div class="gatsby-code-title">Java</div>
 <div class="gatsby-highlight" data-language="java"><pre style="counter-reset: linenumber NaN" class="language-java line-numbers"><code class="language-java"><span class="token annotation punctuation">@Repository</span>
 <span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">PostRepository</span> <span class="token keyword">extends</span> <span class="token class-name">JpaRepository</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Post</span><span class="token punctuation">,</span> <span class="token class-name">Long</span><span class="token punctuation">></span></span> <span class="token punctuation">{</span>
@@ -513,7 +518,15 @@ void function() {
 <ul>
 <li><a href="/category/blog/spring-transactional-precautions/#%ED%85%8C%EC%8A%A4%ED%8A%B8-%ED%99%98%EA%B2%BD">테스트 환경</a></li>
 <li><a href="/category/blog/spring-transactional-precautions/#%EC%9A%B4%EC%98%81-%ED%99%98%EA%B2%BD">운영 환경</a></li>
-<li><a href="/category/blog/spring-transactional-precautions/#2%EA%B0%80%EC%A7%80-%EB%AC%B8%EC%A0%9C%EC%A0%90%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC">2가지 문제점에 대하여</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="/category/blog/spring-transactional-precautions/#2%EA%B0%80%EC%A7%80-%EB%AC%B8%EC%A0%9C%EC%A0%90%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC">2가지 문제점에 대하여</a></p>
+<ul>
+<li>
+<ul>
 <li>
 <p><a href="/category/blog/spring-transactional-precautions/#%EC%B2%AB%EB%B2%88%EC%A7%B8-%EB%AC%B8%EC%A0%9C%EC%A0%90">첫번째 문제점</a></p>
 <ul>
