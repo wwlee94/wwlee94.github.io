@@ -61,7 +61,9 @@ Gradle 4.6 버전 이후로 `Annotation Processor`를 제공
 
 `Annotation processor` 는 애노테이션이 선언된 클래스처리를 별도의 프로세서에서 처리하여 성능 향상이 가능하다.
 
-> 설정도 매우 간편!
+4.6 이전은 `querydsl-apt` 외에 `Lombok` 등 `Annotation Processor` 를 사용하는 라이브러리가 추가될 때마다 `-processor` 에 클래스를 추가해줘야하는 번거로움이 있었지만 알아서 별다른 설정을 하지 않아도 Gradle에서 적절한 설정을 사용해줌.
+
+> 설정이 매우 간편!
 
 ```groovy:title=build.gradle
 dependencies {
@@ -77,6 +79,12 @@ dependencies {
 
 ## 3. 시작
 
+#### QueryDSL 사용방법
+
+1. 우선 JPAQuery 객체 생성
+2. EntityManager를 생성
+3. 사용할 쿼리 타입(Q)를 생성하는데 생성자에는 별칭을 줌
+
 ```java:title=Java
 public static void queryDSL() {
 
@@ -91,12 +99,6 @@ public static void queryDSL() {
             .list(qMember);
 }
 ```
-
-#### QueryDSL 사용방법
-
-1. 우선 JPAQuery 객체 생성
-2. EntityManager를 생성
-3. 사용할 쿼리 타입(Q)를 생성하는데 생성자에는 별칭을 줌
 
 #### JPQL과 QueryDSL 비교
 
@@ -459,7 +461,7 @@ List<Object[]> resultList = nativeQuery.getResultList();
 
 위의 2가지 방법은 값을 나열해서 조회하는 방식
 
-매핑이 복잡해지면 `@SqlResultSetMapping`을 사용해서 엔티티를 매핑할 수 있다.
+매핑이 복잡해지면 `@SqlResultSetMapping`을 사용해서 여러 엔티티와 값을 한번에 매핑할 수 있다.
 
 ## 2. Named 네이티브 SQL
 
