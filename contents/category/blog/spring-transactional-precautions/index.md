@@ -147,31 +147,33 @@ public class Runner implements ApplicationRunner {
 
 #### 테스트 환경
 
-![테스트 결과](./images/test_result.png)
+![테스트 결과](./images/test-result.png)
 
 #### 운영 환경
 
-![운영 결과](./images/production_result.png)
+![운영 결과](./images/production-result.png)
 
-## 문제점 2가지
+---
 
 이미지를 봤을 때는 운영 환경의 결과가 맞고 테스트 환경이 틀린 결과로 보이지만
 
 여기에는 2가지 문제점이 존재합니다.
 
-#### 첫번째 문제점
+#### 2가지 문제점에 대하여
 
 - 정말로 JPQL로 Update를 진행하고 난 뒤 Select로 가져온 데이터는 Update가 반영된 데이터가 가져와졌을까?
 
 **위의 질문에 운영 환경의 결과는 틀리고, 테스트 환경의 결과는 맞습니다.**
 
-그리고 JPQL의 쿼리는 항상 영속성 컨텍스트를 거치지 않고 바로 DB에 쿼리를 날립니다.
+JPQL의 쿼리는 항상 영속성 컨텍스트를 거치지 않고 바로 DB에 쿼리를 날립니다.
 
 현재는 운영 환경, 테스트 환경에 모두 `@Transactional`을 걸어둔 상태이므로 하나의 트랜잭션으로 동작해야합니다.
 
 하나의 트랜잭션이 정상적으로 동작했다면, JPQL은 DB 데이터는 변경했지만, 영속성 컨텍스트의 데이터는 변경시키지 않았으므로 Select시에 변경 되기 전의 데이터를 가져오는 것이 맞습니다.
 
 여기서, 'JPQL을 사용한 이후 조회할 때 DB와 영속성 컨텍스트간의 동기화가 이루어지지 않았다'는 첫번째 문제점을 발견할 수 있습니다.
+
+> 첫번째 문제점
 
 그리고 운영 환경에서는 하나의 트랜잭션이 아닌 별도의 트랜잭션이 동작했기 때문에 JPQL을 실행한 이후 조회된 데이터에는 JPQL이 반영된 결과가 나왔다는 것을 알 수 있습니다.
 
@@ -180,6 +182,10 @@ public class Runner implements ApplicationRunner {
 결국, '운영 환경에서의 `@Transactional`이 동작하지 않았다는 것'도 알 수 있습니다.
 
 > 두번째 문제점
+
+#### 첫번째 문제점
+
+- JPQL을 사용한 이후 조회할 때 DB와 영속성 컨텍스트간의 동기화가 이루어지지 않은 이슈
 
 그렇다면, JPQL을 실행한 이후 영속성 컨텍스트의 데이터를 동기화 시킬 방법이 있을까?
 
@@ -196,9 +202,13 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 }
 ```
 
+**✔︎ 첫번째 문제점 해결**
+
+![JPQL 동기화 해결](./images/jpql-solution.png)
+
 #### 두번째 문제점
 
-- 운영 환경에서 `@Transactional`이 동작하지 않았던 것
+- 운영 환경에서 `@Transactional`이 동작하지 않았던 이슈
 
 ##### 해결 방법
 
@@ -222,6 +232,20 @@ public class Runner implements ApplicationRunner {
   }
 }
 ```
+
+---
+
+**운영 환경에서도 정상 동작하는 트랜잭션**
+
+- `@Modifying`만 설정하고 위의 방법으로 트랜잭션을 걸었을 경우 트랜잭션이 잘 동작하니 초기 테스트 환경처럼 정상적으로 에러가 발생합니다.
+
+  ![트랜잭셔널 이슈](./images/transaction-error.png)
+
+**✔︎ 두번째 문제점 해결**
+
+- `@Modifying(clearAutomatically = true)`를 적용시키면 운영 환경 또한 잘 동작하는 것을 확인할 수 있습니다.
+
+  ![트랜잭셔널 해결](./images/transaction-solution.png)
 
 **참고**
 
