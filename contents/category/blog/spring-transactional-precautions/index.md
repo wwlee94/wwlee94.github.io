@@ -81,22 +81,22 @@ class SpringtestApplicationTests {
   @Transactional
   public void 테스트(){
 
-  Post post1 = Post.builder()
-      .title("세상을 바꾸는 IT 동아리")
-      .likeCount(5)
-      .build();
-  Post post2 = Post.builder()
-      .title("현직 멘토들이 가지고 있는 경험을 멘토들에게 공유해주는 멘토링")
-      .likeCount(10)
-      .build();
-  postRepository.saveAll(Arrays.asList(post1, post2));
+    Post post1 = Post.builder()
+        .title("세상을 바꾸는 IT 동아리")
+        .likeCount(5)
+        .build();
+    Post post2 = Post.builder()
+        .title("현직 멘토들이 가지고 있는 경험을 멘토들에게 공유해주는 멘토링")
+        .likeCount(10)
+        .build();
+    postRepository.saveAll(Arrays.asList(post1, post2));
 
-  postRepository.updateLikeCount(10, 1);
+    postRepository.updateLikeCount(10, 1);
 
-  Post post = postRepository.findById(1L).orElseThrow(null);
+    Post post = postRepository.findById(1L).orElseThrow(null);
 
-  log.info("post -> {}", post.toString());
-  assertThat(post.getLikeCount()).isEqualTo(15);
+    log.info("post -> {}", post.toString());
+    assertThat(post.getLikeCount()).isEqualTo(15);
   }
 }
 ```
@@ -155,15 +155,17 @@ public class Runner implements ApplicationRunner {
 
 ---
 
+- 위의 결과를 보았을 때, 무엇이 옳은 결과로 보이시나요?!
+
 이미지를 봤을 때는 운영 환경의 결과가 맞고 테스트 환경이 틀린 결과로 보이지만
 
 여기에는 2가지 문제점이 존재합니다.
 
-#### 2가지 문제점에 대하여
+## 2가지 문제점에 대하여
 
-- 정말로 JPQL로 Update를 진행하고 난 뒤 Select로 가져온 데이터는 Update가 반영된 데이터가 가져와졌을까?
+- 정말로 하나의 트랜잭션이 동작했을까?
 
-**위의 질문에 운영 환경의 결과는 틀리고, 테스트 환경의 결과는 맞습니다.**
+- JPQL로 Update를 진행하고 난 뒤 Select로 가져온 데이터는 Update가 반영된 데이터가 가져와졌을까?
 
 JPQL의 쿼리는 항상 영속성 컨텍스트를 거치지 않고 바로 DB에 쿼리를 날립니다.
 
@@ -190,6 +192,12 @@ JPQL의 쿼리는 항상 영속성 컨텍스트를 거치지 않고 바로 DB에
 그렇다면, JPQL을 실행한 이후 영속성 컨텍스트의 데이터를 동기화 시킬 방법이 있을까?
 
 ##### 해결 방법
+
+아래의 코드처럼 `@Modifying`의 `clearAutomatically` 옵션을 적용시키면 쿼리 실행 이후 영속성 컨텍스트를 초기화 시켜준다고 합니다.
+
+영속성 컨텍스트가 초기화 된다는 말은 이후 엔티티를 select시 바로 DB를 조회한다는 말과 동일합니다.
+
+> 1차 캐시에 데이터가 없을 것이므로
 
 ```java:title=Java
 @Repository
