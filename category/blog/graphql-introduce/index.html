@@ -162,7 +162,7 @@ void function() {
 <p>먼저 <code class="language-text">Facebook</code> 이 왜 기존 <code class="language-text">REST API</code> 를 대체하려 하는지와 <code class="language-text">REST API</code> 와 <code class="language-text">GraphQL</code> 의 차이점을 알아보자.</p>
 <h4 id="rest-api-를-대체하려고-한-이유" style="position:relative;"><a href="#rest-api-%EB%A5%BC-%EB%8C%80%EC%B2%B4%ED%95%98%EB%A0%A4%EA%B3%A0-%ED%95%9C-%EC%9D%B4%EC%9C%A0" aria-label="rest api 를 대체하려고 한 이유 permalink" class="anchor-header before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>REST API 를 대체하려고 한 이유</h4>
 <h5 id="rest-api-의-단점" style="position:relative;"><a href="#rest-api-%EC%9D%98-%EB%8B%A8%EC%A0%90" aria-label="rest api 의 단점 permalink" class="anchor-header before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>REST API 의 단점</h5>
-<p>기존의 REST API는 다음와 같은 단점을 가집니다.</p>
+<p>기존의 REST API는 다음와 같은 단점을 가짐.</p>
 <ol>
 <li>
 <p><code class="language-text">Over-fetching</code></p>
@@ -184,10 +184,10 @@ void function() {
 <p>기존의 <code class="language-text">REST API</code> 는 클라이언트의 각 요청에 따라 필요한 응답을 따로 서버 개발자에게 요구사항을 이야기하고 요구사항에 맞게 개발 후 응답을 보내주었다면 </p>
 <p><code class="language-text">GraphQL</code> 을 사용하면 클라이언트가 원하는 응답을 위한 요청 쿼리를 날리면 데이터를 받을 수 있다.<br>
 → 백엔드에서는 필요한 데이터를 내려주고, 저장하는 방식에만 집중하면 OK !</p>
-<p><code class="language-text">GraphQL</code> 은 뷔페 / <code class="language-text">REST API</code> 는 세트 메뉴와 같다.<br>
-뷔페는 먹고 싶은 것만 먹을 수 있지만,<br>
-세트 메뉴는 내가 필요하지 않은 것도 들어있다.</p>
+<div class="custom-block info"><div class="custom-block-heading">GraphQL 은 뷔페 / REST API 는 세트 메뉴와 같다.</div><div class="custom-block-body"><p>🍖 🍕 🍺 🍩 뷔페는 먹고 싶은 것만 먹을 수 있지만,<br>
+🍱 세트 메뉴는 내가 필요하지 않은 것도 들어있다.</p></div></div>
 <p>이러한 이유로 <code class="language-text">프론트엔드</code> 와 <code class="language-text">백엔드</code> 와의 필요없는 의사소통에 의한 개발 비용을 줄일 수있어 생산성이 향상된다.</p>
+<p>추가적으로 GraphQL의 <code class="language-text">End-Point</code>는 딱 하나!</p>
 <h5 id="두-번째-이유는-퍼포먼스적-성능-향상을-위함-" style="position:relative;"><a href="#%EB%91%90-%EB%B2%88%EC%A7%B8-%EC%9D%B4%EC%9C%A0%EB%8A%94-%ED%8D%BC%ED%8F%AC%EB%A8%BC%EC%8A%A4%EC%A0%81-%EC%84%B1%EB%8A%A5-%ED%96%A5%EC%83%81%EC%9D%84-%EC%9C%84%ED%95%A8-" aria-label="두 번째 이유는 퍼포먼스적 성능 향상을 위함  permalink" class="anchor-header before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>두 번째 이유는 퍼포먼스적 성능 향상을 위함 !</h5>
 <p>예를 들어, <code class="language-text">회원</code>, <code class="language-text">포스트</code>, <code class="language-text">팔로워</code> 정보를 서버로 요청하고 싶은 경우</p>
 <p><code class="language-text">REST API</code> 의 경우 원하는 데이터를 받기 위해 3번의 API 호출이 필요하다.</p>
