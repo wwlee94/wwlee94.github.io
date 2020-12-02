@@ -13,6 +13,21 @@ emoji: '📝'
 JPA가 공식 지원하는 JPA Criteria는 JPQL을 자바 코드로 작성하도록 도와주는 빌더 클래스 API이다.  
 `문법 오류`를 컴파일 단에서 잡아주고, `인텔리센스` 기능을 제공해주는 장점이 있지만 Criteria의 단점은 직관적이지 않고 복잡하다는 것..!
 
+**Criteria 예시**
+
+```java:title=Java
+//Criteria 사용준비
+CriteriaBuilder cb = em.getCriteriaBuilder();
+CriteriaQuery<Member> query = cb.createQuery(Member.class);
+
+//루트 클래스 (조회를 시작할 클래스)
+Root<Member> m = query.from(Member.class);
+
+//쿼리생성
+CriteriaQuery<Member> cq = query.select(m).where(cb.equal(m.get("username"), "회원");
+Member member = em.createQuery(cq).getMember();
+```
+
 > 어떤 JPQL이 생성될지 파악하기 쉽지 않다.
 
 이 단점을 보안해줄 오픈소스 프로젝트가 바로 `QueryDSL`이다.
@@ -81,8 +96,8 @@ dependencies {
 
 #### QueryDSL 사용방법
 
-1. 우선 JPAQuery 객체 생성
-2. EntityManager를 생성
+1. EntityManager를 생성
+2. JPAQuery 객체 생성
 3. 사용할 쿼리 타입(Q)를 생성하는데 생성자에는 별칭을 줌
 
 ```java:title=Java
@@ -179,11 +194,11 @@ QueryDSL의 where절에는 `and` 나 `or`를 사용할 수 있다.
 #### 기본 조건절
 
 ```java
-item.price.between(1000, 2000);     // 가격이 10000원~20000원 상품
+item.price.between(10000, 20000);     // 가격이 10000원~20000원 아이템
 
-item.name.contains("상품1");        // 상품1 이름을 포함하는 상품
+item.name.contains("상품1");        // "상품1" 이름을 포함하는 아이템
 
-item.name.startsWith("고급");       // like 검색
+item.name.startsWith("단어");       // "단어"로 시작하는 아이템
 ```
 
 IDE 인텔리센스 지원이 됨으로 쉽게 원하는 메소드를 찾을 수 있다.
@@ -494,3 +509,7 @@ JPA는 2.1부터 스토어드 프로시저를 지원한다.
 - 성능 측면
   - 최적화되고 캐시되어 사용됨
   - 네트워크 트래픽을 감소
+
+**참고**
+
+- https://hanhyx.tistory.com/19

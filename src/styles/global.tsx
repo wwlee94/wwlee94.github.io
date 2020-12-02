@@ -33,7 +33,7 @@ const globalStyle = createGlobalStyle`
     --bg: #f5f5f5;
     --textNormal: #21242d;
     --headerBackground: ${props => props.theme.colors.clearWhite};
-    --bioBackground: ${props => props.theme.colors.clearWhite};
+    --bioBackground: #f5f5f5;
     --bioColor: ${props => props.theme.colors.black};
     --bioHighlight: ${props => props.theme.colors.clearBlack};
     --categoryHeader: ${props => props.theme.colors.black};
@@ -42,6 +42,7 @@ const globalStyle = createGlobalStyle`
     --postCardColor: ${props => props.theme.colors.black};
     --postCardHighlight: ${props => props.theme.colors.transparentBlack};
     --postCardEmoji: ${props => props.theme.colors.clearWhite};
+    --postCardDivideLine: ${props => props.theme.colors.silver};
     --tableOfContentsFocusColor: rgb(33, 37, 41)
 
     background-color: var(--bg);
@@ -67,6 +68,7 @@ const globalStyle = createGlobalStyle`
     --postCardColor: ${props => props.theme.colors.clearWhite};
     --postCardHighlight: ${props => props.theme.colors.blackLight};
     --postCardEmoji: ${props => props.theme.colors.blackLight};
+    --postCardDivideLine: ${props => props.theme.colors.blackLight};
     --tableOfContentsFocusColor:  ${props => props.theme.colors.whitesmoke};
     
     background-color: var(--bg);

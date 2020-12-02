@@ -17,10 +17,13 @@ JPQL과 영속성 컨텍스트, JPQL의 플러시 모드에 대해 알아보자
 **Update, Delete 벌크 연산**
 
 ```java:title=Java
-String qlString = "update ~~"; // 또는 delete 쿼리
+String qlString = "UPDATE Product p " +
+    "SET p.price = p.price * 1.1 " +
+    "WHERE p.stockAmount < :stockAmount"; // 또는 delete 쿼리
 
 int resultCount = em.createQuery(qlString)
-                    .executeUpdate(); // 벌크 연산
+                  .setParameter("stockAmount", 10)
+                  .executeUpdate(); // 벌크 연산
 ```
 
 JPA 표준은 아니지만 하이버네이트는 `insert` 벌크 연산도 지원한다.
@@ -69,7 +72,7 @@ JPQL는 조회한 엔티티만 영속성 컨텍스트에서 관리함 !
 ```sql
 select m from Member m // 엔티티 조회
 select o.address from Order o // 임베디드 타입 조회 (관리 X)
-select m.id, m.username, from Member m // 단순 필드 조회 (관리 X)
+select m.id, m.username from Member m // 단순 필드 조회 (관리 X)
 ```
 
 #### JPQL로 조회한 엔티티와 영속성 컨텍스트
@@ -110,14 +113,13 @@ em.setFlushMode(FlushModeType.COMMIT) // 커밋시에만 플러시
 product.setPrice(2000);
 
 Product product2 =
-   em.createQuery("select p from Product p where p.price = 2000",
-      Product.class)
+   em.createQuery("select p from Product p where p.price = 2000", Product.class)
       .getSingleResult();
 ```
 
 `AUTO` 상태라면 쿼리 실행전 플러시 하기 때문에 Product 2000의 가격이 DB에 반영되어 select 가능
 
-`COMMIT` 상태라면 쿼리시에는 플러시하지 않으므로 DB에 반영이 안되고 `기존의 1000원 가격 Product`가 조회됨
+`COMMIT` 상태라면 쿼리시에는 플러시하지 않으므로 DB에 반영이 안되서 위의 Product 엔티티는 조회 안됨
 
 > 해결 방법 : 직접 em.flush() 호출 하거나 AUTO로 변경
 

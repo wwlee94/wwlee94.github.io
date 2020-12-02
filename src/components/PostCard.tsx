@@ -8,11 +8,11 @@ import CategoryLabel from './CategoryLabel';
 const PostCardWrapper = styled.div`
   .post-card-link {
     display: flex;
-    align-items: start;
+    align-items: center;
     padding: 1.4em 0;
     transition: all 0.3s ease-in-out 0s; /* 테마 변환 시 애니메이션 */
     color: var(--postCardColor);
-    border-top: solid 1px ${props => props.theme.colors.blackLight};
+    border-bottom: solid 1px var(--postCardDivideLine);
     &:hover {
       background: var(--postCardHighlight);
     }
@@ -48,14 +48,16 @@ const PostCardEmoji = styled.p`
 `;
 const PostCardContent = styled.div`
   width: calc(100% - 90px);
-  padding-left: 20px;
+  padding-left: 25px;
+  padding-top: 0.2em;
   h3 {
-    font-size: 1.5em;
+    font-size: 1.3em;
     font-weight: 700;
     line-height: 1.4;
   }
   time {
     display: block;
+    margin-top: 0.2em;
     margin-bottom: 0.2em;
     letter-spacing: 0.05em;
     font-size: 0.9em;
@@ -69,6 +71,7 @@ const PostCardContent = styled.div`
     }
     time {
       font-size: 12px;
+      margin-bottom: 0;
     }
   }
 `;

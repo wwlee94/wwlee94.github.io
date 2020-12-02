@@ -1,9 +1,9 @@
 ---
-title: '[Spring Redis] Spring Boot 2.3.2.RELEASE 버전 Redis 이슈'
+title: '[Spring] Spring Boot 2.3.2.RELEASE 버전 Redis 이슈'
 date: '2020-11-20'
 category: 'blog'
 description: ''
-emoji: '🚀'
+emoji: '❓'
 ---
 
 ## 발생한 이슈
