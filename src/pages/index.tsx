@@ -27,6 +27,7 @@ class BlogIndex extends React.Component<Props> {
         <SEO title="" />
         <Helmet>
           <link rel="canonical" href="https://wwlee94.github.io" />
+          <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css" />
         </Helmet>
         <HomeJsonLd />
         <MainWrapper category={Category({ location, categories })} posts={Posts({ posts })} bio={<Bio />} tableOfContents={null} />
