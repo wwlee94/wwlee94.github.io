@@ -419,7 +419,85 @@ em<span class="token punctuation">.</span><span class="token function">remove</s
 <li>엔티티를 즉시 삭제하는 것이 아님</li>
 <li>삭제 쿼리를 <code class="language-text">쓰기 지연</code> SQL 저장소에 등록</li>
 <li><code class="language-text">em.remove(memberA)</code>를 호출하는 순간 영속성 컨텍스트에서 제거</li>
-</ul></div></div><aside><div class="RelatedPosts__Wrapper-sc-1nrzwfn-0 fFDafD"><div class="RelatedPosts__PostCardWrapper-sc-1nrzwfn-1 gvYRzK"><a class="post-card-link" href="/category/study/jpa-programming/chapter7-persistence-context-and-jpql/"><p class="RelatedPosts__PostCardEmoji-sc-1nrzwfn-2 hMlNHl"><img class="emoji" draggable="false" alt="📦" src="https://twemoji.maxcdn.com/v/12.1.6/svg/1f4e6.svg"/></p><div class="RelatedPosts__PostCardContent-sc-1nrzwfn-3 jNfPFJ"><h5>[JPA 프로그래밍] 7. 영속성 컨텍스트와 JPQL</h5><time>2020.11.11</time></div></a></div><div class="RelatedPosts__PostCardWrapper-sc-1nrzwfn-1 gvYRzK"><a class="post-card-link" href="/category/study/jpa-programming/chapter6-object-oriented-query-language/"><p class="RelatedPosts__PostCardEmoji-sc-1nrzwfn-2 hMlNHl"><img class="emoji" draggable="false" alt="📝" src="https://twemoji.maxcdn.com/v/12.1.6/svg/1f4dd.svg"/></p><div class="RelatedPosts__PostCardContent-sc-1nrzwfn-3 jNfPFJ"><h5>[JPA 프로그래밍] 6. 객체지향 쿼리 언어</h5><time>2020.11.04</time></div></a></div><div class="RelatedPosts__PostCardWrapper-sc-1nrzwfn-1 gvYRzK"><a class="post-card-link" href="/category/study/jpa-programming/chapter5-relationship-mapping/"><p class="RelatedPosts__PostCardEmoji-sc-1nrzwfn-2 hMlNHl"><img class="emoji" draggable="false" alt="🤼‍♂️" src="https://twemoji.maxcdn.com/v/12.1.6/svg/1f93c-200d-2642-fe0f.svg"/></p><div class="RelatedPosts__PostCardContent-sc-1nrzwfn-3 jNfPFJ"><h5>[JPA 프로그래밍] 5. 연관 관계 매핑</h5><time>2020.10.27</time></div></a></div><div class="RelatedPosts__PostCardWrapper-sc-1nrzwfn-1 gvYRzK"><a class="post-card-link" href="/category/study/jpa-programming/chapter4-entity-mapping/"><p class="RelatedPosts__PostCardEmoji-sc-1nrzwfn-2 hMlNHl"><img class="emoji" draggable="false" alt="⛳️" src="https://twemoji.maxcdn.com/v/12.1.6/svg/26f3.svg"/></p><div class="RelatedPosts__PostCardContent-sc-1nrzwfn-3 jNfPFJ"><h5>[JPA 프로그래밍] 4. 엔티티 매핑</h5><time>2020.10.22</time></div></a></div></div><div></div></aside></section></div><div class="TableOfContents__TableIndex-sc-1xzats2-0 hAYtIK"><div class="TableOfContents__TableWrapper-sc-1xzats2-1 gndSEd table-of-contents"><h1 class="TableOfContents__TableHeader-sc-1xzats2-2 fYkEUy">🔖 Catalog</h1><div class="TableOfContents__TableContents-sc-1xzats2-3 gBhcRP"><ul>
+</ul>
+<h2 id="4-플러시" style="position:relative;"><a href="#4-%ED%94%8C%EB%9F%AC%EC%8B%9C" aria-label="4 플러시 permalink" class="anchor-header before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>4. 플러시</h2>
+<p>플러시는 영속성 컨텍스트의 변경내용을 데이터베이스에 반영하는 동작</p>
+<p>플러시 동작 절차는 아래와 같다.</p>
+<ol>
+<li>변경 감지가 동작하여 영속성 컨텍스트에 있는 모든 엔티티를 <code class="language-text">스냅샷과 비교</code> 하여 수정된 엔티티 검출 및 수정 쿼리를 <code class="language-text">쓰기 지연 저장소에 등록</code></li>
+<li>쓰기 지연 저장소의 쿼리를 DB에 전송</li>
+</ol>
+<p>플러시하는 방법은 3가지가 있음.</p>
+<ol>
+<li><code class="language-text">em.flush()</code> 를 직접 호출</li>
+<li><code class="language-text">트랜잭션 커밋 시</code> 플러시 자동 호출</li>
+<li>
+<p><code class="language-text">JPQL 쿼리 실행 시</code> 플러시가 자동 호출 </p>
+<ul>
+<li>식별자를 기준으로 조회하는 <code class="language-text">find()</code>의 경우에는 호출 X </li>
+</ul>
+</li>
+</ol>
+<h3 id="플러시-모드-옵션" style="position:relative;"><a href="#%ED%94%8C%EB%9F%AC%EC%8B%9C-%EB%AA%A8%EB%93%9C-%EC%98%B5%EC%85%98" aria-label="플러시 모드 옵션 permalink" class="anchor-header before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>플러시 모드 옵션</h3>
+<p>플러시는 2개의 옵션을 가지고 있음</p>
+<ul>
+<li><code class="language-text">FlushModeType.AUTO</code> : 커밋이나 쿼리를 실행할 때 플러시( default )</li>
+<li><code class="language-text">FlushModeType.COMMIT</code> : 커밋할 때만 플러시</li>
+</ul>
+<p>주의할점</p>
+<ul>
+<li>플러시는 영속성 컨텍스트와 DB간의 동기화 작업일 뿐, 영속성 컨텍스트가 관리하는 엔티티를 지우는것이 아님.</li>
+</ul>
+<h2 id="5-준영속" style="position:relative;"><a href="#5-%EC%A4%80%EC%98%81%EC%86%8D" aria-label="5 준영속 permalink" class="anchor-header before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>5. 준영속</h2>
+<p>준영속이란 영속상태의 엔티티가 영속성 컨텍스트에서 분리된것을 의미</p>
+<blockquote>
+<p>준영속 상태의 엔티티는 영속성 컨텍스트가 제공하지 않기 때문에 앞에서 본 기능들을 사용할 수 없다.</p>
+</blockquote>
+<p>준영속 상태로 만드는 방법은 3가지가 있음</p>
+<ol>
+<li>em.detach(entity): 특정 엔티티를 준영속 상태로 만드는 메서드</li>
+<li>em.clear(): 영속성 컨텍스트를 왼전히 초기화</li>
+<li>em.close(): 영속성 컨텍스트를 종료</li>
+</ol>
+<h3 id="엔티티를-준영속-상태로-전환-detach" style="position:relative;"><a href="#%EC%97%94%ED%8B%B0%ED%8B%B0%EB%A5%BC-%EC%A4%80%EC%98%81%EC%86%8D-%EC%83%81%ED%83%9C%EB%A1%9C-%EC%A0%84%ED%99%98-detach" aria-label="엔티티를 준영속 상태로 전환 detach permalink" class="anchor-header before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>엔티티를 준영속 상태로 전환: detach()</h3>
+<p><code class="language-text">detach()</code> 메서드는 더 이상 영속 컨텍스트가 관리하지 않는 상태로 만들기 때문에 아래와 같은 동작이 수행된다.</p>
+<ul>
+<li><code class="language-text">1차 캐시 제거</code></li>
+<li><code class="language-text">쓰기 지연 SQL 저장소에서 관련 SQL 제거</code></li>
+</ul>
+<h3 id="영속성-컨텍스트-초기화-clear" style="position:relative;"><a href="#%EC%98%81%EC%86%8D%EC%84%B1-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8-%EC%B4%88%EA%B8%B0%ED%99%94-clear" aria-label="영속성 컨텍스트 초기화 clear permalink" class="anchor-header before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>영속성 컨텍스트 초기화: clear()</h3>
+<p><code class="language-text">em.clear()</code> 는 영속성 컨텍스트를 초기화해서 해당 영속성 컨텍스트의 모든 엔티티를 준영속 상태로 만든다.</p>
+<h3 id="영속성-컨텍스트-종료-close" style="position:relative;"><a href="#%EC%98%81%EC%86%8D%EC%84%B1-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8-%EC%A2%85%EB%A3%8C-close" aria-label="영속성 컨텍스트 종료 close permalink" class="anchor-header before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>영속성 컨텍스트 종료: close()</h3>
+<p><code class="language-text">em.close()</code>는 엔티티매니저를 아예 종료함으로써 준영속으로 만드는 것</p>
+<h3 id="준영속-상태의-특징" style="position:relative;"><a href="#%EC%A4%80%EC%98%81%EC%86%8D-%EC%83%81%ED%83%9C%EC%9D%98-%ED%8A%B9%EC%A7%95" aria-label="준영속 상태의 특징 permalink" class="anchor-header before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>준영속 상태의 특징</h3>
+<p>준영속 상태의 특징은 아래와 같다.</p>
+<ul>
+<li>
+<p>거의 비영속 상태에 가깝다</p>
+<ul>
+<li>영속성 컨텍스트가 관리하지 않으므로 제공하는 기능을 누릴수 없기 때문</li>
+</ul>
+</li>
+<li>
+<p>식별자 값을 가지고 있다</p>
+<ul>
+<li>한번 영속 상태였던 적이 있기에 식별자 값을 가지고 있음</li>
+</ul>
+</li>
+<li>
+<p>지연 로딩을 할 수 없다</p>
+<ul>
+<li>지연 로딩 역시 영속성 컨텍스트를 통한 기능이기에 사용을 못함</li>
+</ul>
+</li>
+</ul>
+<h2 id="병합" style="position:relative;"><a href="#%EB%B3%91%ED%95%A9" aria-label="병합 permalink" class="anchor-header before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>병합</h2>
+<p>병합은 준영속 상태의 엔티티를 다시 영속 상태로 변경하는 것</p>
+<p><code class="language-text">persist</code>의 동작과 비슷하지만, <code class="language-text">merge</code>는 인자로 받는 엔티티가 비영속, 준영속을 따지지 않고 받음.</p>
+<p>단지, 1차 캐시에서 조회가 안되면 DB를 조회하여 캐싱한다고 보면 됨</p>
+<blockquote>
+<p>영속성 컨텍스트의 save or update 이라고 생각 !</p>
+</blockquote></div></div><aside><div class="RelatedPosts__Wrapper-sc-1nrzwfn-0 fFDafD"><div class="RelatedPosts__PostCardWrapper-sc-1nrzwfn-1 gvYRzK"><a class="post-card-link" href="/category/study/jpa-programming/chapter7-persistence-context-and-jpql/"><p class="RelatedPosts__PostCardEmoji-sc-1nrzwfn-2 hMlNHl"><img class="emoji" draggable="false" alt="📦" src="https://twemoji.maxcdn.com/v/12.1.6/svg/1f4e6.svg"/></p><div class="RelatedPosts__PostCardContent-sc-1nrzwfn-3 jNfPFJ"><h5>[JPA 프로그래밍] 7. 영속성 컨텍스트와 JPQL</h5><time>2020.11.11</time></div></a></div><div class="RelatedPosts__PostCardWrapper-sc-1nrzwfn-1 gvYRzK"><a class="post-card-link" href="/category/study/jpa-programming/chapter6-object-oriented-query-language/"><p class="RelatedPosts__PostCardEmoji-sc-1nrzwfn-2 hMlNHl"><img class="emoji" draggable="false" alt="📝" src="https://twemoji.maxcdn.com/v/12.1.6/svg/1f4dd.svg"/></p><div class="RelatedPosts__PostCardContent-sc-1nrzwfn-3 jNfPFJ"><h5>[JPA 프로그래밍] 6. 객체지향 쿼리 언어</h5><time>2020.11.04</time></div></a></div><div class="RelatedPosts__PostCardWrapper-sc-1nrzwfn-1 gvYRzK"><a class="post-card-link" href="/category/study/jpa-programming/chapter5-relationship-mapping/"><p class="RelatedPosts__PostCardEmoji-sc-1nrzwfn-2 hMlNHl"><img class="emoji" draggable="false" alt="🤼‍♂️" src="https://twemoji.maxcdn.com/v/12.1.6/svg/1f93c-200d-2642-fe0f.svg"/></p><div class="RelatedPosts__PostCardContent-sc-1nrzwfn-3 jNfPFJ"><h5>[JPA 프로그래밍] 5. 연관 관계 매핑</h5><time>2020.10.27</time></div></a></div><div class="RelatedPosts__PostCardWrapper-sc-1nrzwfn-1 gvYRzK"><a class="post-card-link" href="/category/study/jpa-programming/chapter4-entity-mapping/"><p class="RelatedPosts__PostCardEmoji-sc-1nrzwfn-2 hMlNHl"><img class="emoji" draggable="false" alt="⛳️" src="https://twemoji.maxcdn.com/v/12.1.6/svg/26f3.svg"/></p><div class="RelatedPosts__PostCardContent-sc-1nrzwfn-3 jNfPFJ"><h5>[JPA 프로그래밍] 4. 엔티티 매핑</h5><time>2020.10.22</time></div></a></div></div><div></div></aside></section></div><div class="TableOfContents__TableIndex-sc-1xzats2-0 hAYtIK"><div class="TableOfContents__TableWrapper-sc-1xzats2-1 gndSEd table-of-contents"><h1 class="TableOfContents__TableHeader-sc-1xzats2-2 fYkEUy">🔖 Catalog</h1><div class="TableOfContents__TableContents-sc-1xzats2-3 gBhcRP"><ul>
 <li><a href="/category/study/jpa-programming/chapter3-persistence-context/#1-%EC%98%81%EC%86%8D%EC%84%B1-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8%EB%9E%80">1. 영속성 컨텍스트란?</a></li>
 <li>
 <p><a href="/category/study/jpa-programming/chapter3-persistence-context/#2-%EC%97%94%ED%8B%B0%ED%8B%B0%EC%9D%98-%EC%83%9D%EB%AA%85%EC%A3%BC%EA%B8%B0">2. 엔티티의 생명주기</a></p>
@@ -447,6 +525,22 @@ em<span class="token punctuation">.</span><span class="token function">remove</s
 </li>
 </ul>
 </li>
+<li>
+<p><a href="/category/study/jpa-programming/chapter3-persistence-context/#4-%ED%94%8C%EB%9F%AC%EC%8B%9C">4. 플러시</a></p>
+<ul>
+<li><a href="/category/study/jpa-programming/chapter3-persistence-context/#%ED%94%8C%EB%9F%AC%EC%8B%9C-%EB%AA%A8%EB%93%9C-%EC%98%B5%EC%85%98">플러시 모드 옵션</a></li>
+</ul>
+</li>
+<li>
+<p><a href="/category/study/jpa-programming/chapter3-persistence-context/#5-%EC%A4%80%EC%98%81%EC%86%8D">5. 준영속</a></p>
+<ul>
+<li><a href="/category/study/jpa-programming/chapter3-persistence-context/#%EC%97%94%ED%8B%B0%ED%8B%B0%EB%A5%BC-%EC%A4%80%EC%98%81%EC%86%8D-%EC%83%81%ED%83%9C%EB%A1%9C-%EC%A0%84%ED%99%98-detach">엔티티를 준영속 상태로 전환: detach()</a></li>
+<li><a href="/category/study/jpa-programming/chapter3-persistence-context/#%EC%98%81%EC%86%8D%EC%84%B1-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8-%EC%B4%88%EA%B8%B0%ED%99%94-clear">영속성 컨텍스트 초기화: clear()</a></li>
+<li><a href="/category/study/jpa-programming/chapter3-persistence-context/#%EC%98%81%EC%86%8D%EC%84%B1-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8-%EC%A2%85%EB%A3%8C-close">영속성 컨텍스트 종료: close()</a></li>
+<li><a href="/category/study/jpa-programming/chapter3-persistence-context/#%EC%A4%80%EC%98%81%EC%86%8D-%EC%83%81%ED%83%9C%EC%9D%98-%ED%8A%B9%EC%A7%95">준영속 상태의 특징</a></li>
+</ul>
+</li>
+<li><a href="/category/study/jpa-programming/chapter3-persistence-context/#%EB%B3%91%ED%95%A9">병합</a></li>
 </ul></div></div></div></div></main></div></div><footer class="Footer__FooterContent-zn4blm-0 qFAAr"><div class="ContentWrapper__IndexContent-sc-11a8f56-0 eYfJyt"><div class="Footer__FooterInner-zn4blm-1 gQCnFr"><div>© <!-- -->2021<!-- -->, Blausee. All rights reserved.</div></div></div></footer></div></div><div id="gatsby-announcer" style="position:absolute;top:0;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border:0" aria-live="assertive" aria-atomic="true"></div></div><script>
   
   
