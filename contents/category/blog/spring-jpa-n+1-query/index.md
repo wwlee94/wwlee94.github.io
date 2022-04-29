@@ -192,8 +192,6 @@ public void FetchJoin_테스트() throws Exception{
 설정한 `Size`만큼 데이터를 미리 로딩합니다. (`where in`을 사용하여)  
 `JPA`의 페이징 API 기능처럼 개수가 고정된 데이터를 가져올 때 함께 사용할 때 유용하게 사용 가능할 듯합니다.
 
-하지만, 글로벌 패치 전략을 `EAGER`로 변경해야하는 단점이 존재합니다.
-
 ```java:title=Java
 @BatchSize(size = 5)
 @OneToMany(mappedBy = "album", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
