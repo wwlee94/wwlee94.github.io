@@ -482,7 +482,6 @@ void function() {
 <h4 id="2-batch-size-조절" style="position:relative;"><a href="#2-batch-size-%EC%A1%B0%EC%A0%88" aria-label="2 batch size 조절 permalink" class="anchor-header before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>2. Batch Size 조절</h4>
 <p>설정한 <code class="language-text">Size</code>만큼 데이터를 미리 로딩합니다. (<code class="language-text">where in</code>을 사용하여)<br>
 <code class="language-text">JPA</code>의 페이징 API 기능처럼 개수가 고정된 데이터를 가져올 때 함께 사용할 때 유용하게 사용 가능할 듯합니다.</p>
-<p>하지만, 글로벌 패치 전략을 <code class="language-text">EAGER</code>로 변경해야하는 단점이 존재합니다.</p>
 <div class="gatsby-code-title">Java</div>
 <div class="gatsby-highlight" data-language="java"><pre style="counter-reset: linenumber NaN" class="language-java line-numbers"><code class="language-java"><span class="token annotation punctuation">@BatchSize</span><span class="token punctuation">(</span>size <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">)</span>
 <span class="token annotation punctuation">@OneToMany</span><span class="token punctuation">(</span>mappedBy <span class="token operator">=</span> <span class="token string">"album"</span><span class="token punctuation">,</span> cascade <span class="token operator">=</span> <span class="token class-name">CascadeType</span><span class="token punctuation">.</span>ALL<span class="token punctuation">,</span> fetch <span class="token operator">=</span> <span class="token class-name">FetchType</span><span class="token punctuation">.</span>EAGER<span class="token punctuation">)</span>
@@ -569,7 +568,7 @@ void function() {
 </li>
 <li><a href="/category/blog/spring-jpa-n+1-query/#reference">Reference</a></li>
 <li><a href="/category/blog/spring-jpa-n+1-query/#%EB%A7%88%EB%AC%B4%EB%A6%AC">마무리</a></li>
-</ul></div></div></div></div></main></div></div><footer class="Footer__FooterContent-zn4blm-0 qFAAr"><div class="ContentWrapper__IndexContent-sc-11a8f56-0 eYfJyt"><div class="Footer__FooterInner-zn4blm-1 gQCnFr"><div>© <!-- -->2021<!-- -->, Blausee. All rights reserved.</div></div></div></footer></div></div><div id="gatsby-announcer" style="position:absolute;top:0;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border:0" aria-live="assertive" aria-atomic="true"></div></div><script>
+</ul></div></div></div></div></main></div></div><footer class="Footer__FooterContent-zn4blm-0 qFAAr"><div class="ContentWrapper__IndexContent-sc-11a8f56-0 eYfJyt"><div class="Footer__FooterInner-zn4blm-1 gQCnFr"><div>© <!-- -->2022<!-- -->, Blausee. All rights reserved.</div></div></div></footer></div></div><div id="gatsby-announcer" style="position:absolute;top:0;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border:0" aria-live="assertive" aria-atomic="true"></div></div><script>
   
   
   if(true) {
